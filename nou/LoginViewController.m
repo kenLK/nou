@@ -39,9 +39,13 @@
 */
 
 - (IBAction)login:(id)sender {
-    
+    if (true){
+        NSLog(@"123");
+    }
     NSLog(@"account>>>>%@<<<<",self.account.text);
-    
+    if (true){
+        NSLog(@"123");
+    }
     
 //    if ([self.account.text isEqual:@"130100325"] && [self.password.text isEqual:@"12345678"]) {
     if (true){
