@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 
+#import "ViewController.h"
+#import "FistViewController.h"
+#import "LoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +20,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Override point for customization after application launch.
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+//    UIViewController *cont=[[ViewController alloc]initWithNibName:@"ViewController" bundle:nil];
+//    UIViewController *cont = [[ViewController alloc] init];
+    
+    LoginViewController *loginView = [[LoginViewController alloc] init];
+
+    [self.window setRootViewController:loginView];
+    
+    [self.window makeKeyAndVisible];
+    
+    
+    //    [self.window setRootViewController:self.navController];
+    
+    //    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

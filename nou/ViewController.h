@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UITableViewController
+
+
+@property(nonatomic, retain) IBOutlet UIButton *clickMeButton;
+@property (strong, nonatomic) NSArray *detailChildArray;
+
+-(IBAction)clickMeAction:(id)sender;
 
 
 @end
