@@ -128,7 +128,7 @@
     //帳號清除欄位資訊按鈕
     UIButton *clearPasswordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     clearPasswordButton.frame = CGRectMake(yWidth*942, yHeight*644, yWidth*80, yHeight*80);
-    [clearPasswordButton addTarget:self action:@selector(clearPassword::) forControlEvents:UIControlEventTouchUpInside];
+    [clearPasswordButton addTarget:self action:@selector(clearPassword:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *clearPasswordImage = [UIImage imageWithContentsOfFile:
                                   [[NSBundle mainBundle] pathForResource:@"icon_clear" ofType:@"png"]];
     [clearPasswordButton setImage:clearPasswordImage forState:UIControlStateNormal];
