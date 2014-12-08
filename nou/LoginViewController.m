@@ -21,6 +21,7 @@
 @synthesize account,password,alert,alertProcess;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -56,6 +57,7 @@
     
     UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174)];
     [functionTitleLabel setText:@"國立空中大學"];
+    [functionTitleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*60]];
     functionTitleLabel.textColor = [UIColor whiteColor];
     [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:functionTitleLabel];
@@ -63,6 +65,7 @@
     //標題
     UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*78, yHeight*290, yWidth*1044, yHeight*142)];
     [titleLabel setText:@"行動化服務系統"];
+    [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*60]];
     titleLabel.backgroundColor = [self colorFromHexString:@"34aadc"];
     titleLabel.textColor = [UIColor whiteColor];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -91,7 +94,7 @@
     
     //帳號欄位
     account = [[UITextField alloc]initWithFrame:CGRectMake(yWidth*312, yHeight*504, yWidth*710, yHeight*100)];
-    account.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"請輸入帳號" attributes:@{NSForegroundColorAttributeName: [self colorFromHexString:@"000000"]}];
+    account.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"請輸入帳號" attributes:@{NSForegroundColorAttributeName: [self colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:yHeight*50]}];
     [self.view addSubview:account];
     
     //帳號清除欄位資訊按鈕
@@ -122,7 +125,7 @@
     
     //密碼欄位
     password = [[UITextField alloc]initWithFrame:CGRectMake(yWidth*312, yHeight*634, yWidth*710, yHeight*100)];
-    password.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"請輸入密碼" attributes:@{NSForegroundColorAttributeName: [self colorFromHexString:@"000000"]}];
+    password.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"請輸入密碼" attributes:@{NSForegroundColorAttributeName: [self colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:yHeight*50]}];
     [self.view addSubview:password];
     
     //帳號清除欄位資訊按鈕

@@ -36,6 +36,7 @@
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
+		B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */ = {isa = PBXBuildFile; fileRef = B3BF15091A3577AE0083AE91 /* msjh.ttc */; };
 		B3E3519E1A353F7300ECFBFC /* icon_account.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3519C1A353F7300ECFBFC /* icon_account.png */; };
 		B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3519D1A353F7300ECFBFC /* icon_password.png */; };
 		B3E351A11A35437500ECFBFC /* icon_clear_over.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E351A01A35437500ECFBFC /* icon_clear_over.png */; };
@@ -102,6 +103,7 @@
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
+		B3BF15091A3577AE0083AE91 /* msjh.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = msjh.ttc; sourceTree = "<group>"; };
 		B3E3519C1A353F7300ECFBFC /* icon_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_account.png; sourceTree = "<group>"; };
 		B3E3519D1A353F7300ECFBFC /* icon_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_password.png; sourceTree = "<group>"; };
 		B3E351A01A35437500ECFBFC /* icon_clear_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clear_over.png; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		3365C9C31A0152C3002D1F1E /* nou */ = {
 			isa = PBXGroup;
 			children = (
+				B3BF15091A3577AE0083AE91 /* msjh.ttc */,
 				3311D2641A076904004259CA /* images */,
 				3365CA111A0218B9002D1F1E /* RADataObject.h */,
 				3365CA121A0218B9002D1F1E /* RADataObject.m */,
@@ -324,6 +327,7 @@
 				B3E3519E1A353F7300ECFBFC /* icon_account.png in Resources */,
 				3311D2631A076899004259CA /* LoginViewController.xib in Resources */,
 				B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */,
+				B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */,
 				B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */,
 				336041A11A30687500BC2D4E /* alpha_white_bg.png in Resources */,
 				3365C9EE1A0159A6002D1F1E /* SecondViewController.xib in Resources */,
