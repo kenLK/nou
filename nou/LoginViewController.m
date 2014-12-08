@@ -26,6 +26,7 @@
     
     // Do any additional setup after loading the view from its nib.
     
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
     CGFloat screenWidth = screenRect.size.width;
@@ -224,6 +225,7 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:pAccount forKey:@"account"];
             [userDefaults setObject:pPassword forKey:@"password"];
+            [userDefaults setObject:pRegId forKey:@"regId"];
             [userDefaults synchronize];
 //            
             UIViewController *iconViewController = [[IconViewController alloc] init];
