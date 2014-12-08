@@ -8,12 +8,14 @@
 
 #import "LoginViewController.h"
 #import "FistViewController.h"
+#import "IconViewController.h"
 @interface LoginViewController ()
-
 
 @property (nonatomic, retain) UIAlertView *alert;
 @property (nonatomic, retain) UIAlertView *alertProcess;
+
 -(UIColor *) colorFromHexString:(NSString *)hexString;
+-(NSString *) md5:(NSString *) input;
 
 @end
 
@@ -171,21 +173,81 @@
 - (IBAction)login:(id)sender {
     
     NSLog(@"account>>>>%@<<<<",self.account.text);
-   
+    NSLog(@"password>>>>%@<<<<",self.password.text);
     
-//    if ([self.account.text isEqual:@"130100325"] && [self.password.text isEqual:@"12345678"]) {
-    if (true){
+    NSString *pAccount = self.account.text;
+    NSString *pPassword = self.password.text;
+    NSString *pRegId = @"";
     
-        UIViewController *cont = [[FistViewController alloc] init];
-        self.navigationController.title=@"test";
-        self.navController=[[UINavigationController alloc]initWithRootViewController:cont];
-        [self.view addSubview:self.navController.view];
-    }else{
-        UIAlertView *alertFailed = [[UIAlertView alloc] initWithTitle:@"登入失敗" message:@"登入失敗" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    //MD5
+    //NSLog(@"%@", [self md5:pPassword]);
+    pPassword = [self md5:self.password.text];
+    
+    //for test
+    pAccount = @"100100362";
+    pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";
+    pRegId = @"2014144830";
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    NSString *domainURL = [dict objectForKey:@"nou_url"];
+    NSLog(@"domain_url>>>>>%@",domainURL);
+    
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@login?account=%@&password=%@&regId=%@&type=IOS"
+                           , domainURL, pAccount, pPassword, pRegId];
+    
+    NSLog(@"urlString>>>>>%@",urlString);
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    NSURLResponse *response;
+    NSError *error;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
+    NSInteger statusCode = [HTTPResponse statusCode];
+
+    NSLog(@"statusCode>>%d", statusCode);
+    NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
+    
+    NSDictionary *resultJSON;
+    if (responseData != nil) {
+        resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
+    
+        NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
+        NSLog(@"%@", RETURNCODE);
         
-        [alertFailed show];
-    
+        if ([@"00" isEqualToString:RETURNCODE]) {
+            //登入成功
+            
+            //紀錄user data
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:pAccount forKey:@"account"];
+            [userDefaults setObject:pPassword forKey:@"password"];
+            [userDefaults synchronize];
+//            
+            UIViewController *iconViewController = [[IconViewController alloc] init];
+            [self presentModalViewController:iconViewController animated:NO];
+            
+        } else {
+        
+            
+            
+        }
     }
+    
+//    if (true){
+//    
+//        UIViewController *cont = [[FistViewController alloc] init];
+//        self.navigationController.title=@"test";
+//        self.navController=[[UINavigationController alloc]initWithRootViewController:cont];
+//        [self.view addSubview:self.navController.view];
+//    }else{
+//        UIAlertView *alertFailed = [[UIAlertView alloc] initWithTitle:@"登入失敗" message:@"登入失敗" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        
+//        [alertFailed show];
+//    
+//    }
 }
 
 - (IBAction)clearAccount:(id)sender {
@@ -227,5 +289,19 @@
     float alpha = ((baseValue >> 0) & 0xFF)/255.0f;
     
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
+- (NSString *) md5:(NSString *) input
+{
+    const char *cStr = [input UTF8String];
+    unsigned char digest[16];
+    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return  output;
+    
 }
 @end

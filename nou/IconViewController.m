@@ -1,0 +1,150 @@
+//
+//  IconViewController.m
+//  nou
+//
+//  Created by focusardi on 2014/12/8.
+//  Copyright (c) 2014年 Ken. All rights reserved.
+//
+
+
+#import "IconViewController.h"
+@interface IconViewController ()
+
+@end
+
+@implementation IconViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;//screenRect.size.height;
+    NSLog(@"screenWidth>>>%f", screenWidth);
+    NSLog(@"screenHeight>>>%f", screenHeight);
+    
+    CGFloat yWidth = screenWidth / 1200.0;
+    CGFloat yHeight = screenHeight / 1920.0;
+    
+    //背景
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, yWidth*1200, yHeight*1920)];
+    UIImage *backImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
+    [backImageView setImage:backImage];
+    [self.view addSubview:backImageView];
+    
+    //logo
+    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*395, yHeight*1787, yWidth*410, yHeight*90)];
+    UIImage *logoImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
+    [logoImageView setImage:logoImage];
+    [self.view addSubview:logoImageView];
+    
+    //功能title
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174)];
+    UIImage *image = [UIImage imageWithContentsOfFile:
+                      [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
+    [imageView setImage:image];
+    [self.view addSubview:imageView];
+    
+    UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174)];
+    [functionTitleLabel setText:@"國立空中大學"];
+    [functionTitleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*60]];
+    functionTitleLabel.textColor = [UIColor whiteColor];
+    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:functionTitleLabel];
+    
+    //logout
+    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    logoutButton.frame = CGRectMake(yWidth*36, yHeight*37, yWidth*130, yHeight*100);
+    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *logoutImage = [UIImage imageWithContentsOfFile:
+                                  [[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutImage forState:UIControlStateNormal];
+    UIImage *logoutOverImage = [UIImage imageWithContentsOfFile:
+                                      [[NSBundle mainBundle] pathForResource:@"icon_logout_over" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
+    [self.view addSubview:logoutButton];
+    
+    //btn01
+    UIButton *btn01 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn01.frame = CGRectMake(yWidth*140, yHeight*310, yWidth*190, yHeight*190);
+    [btn01 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn01Image = [UIImage imageWithContentsOfFile:
+                            [[NSBundle mainBundle] pathForResource:@"btn_01" ofType:@"png"]];
+    [btn01 setBackgroundImage:btn01Image forState:UIControlStateNormal];
+    [self.view addSubview:btn01];
+    
+    //btn02
+    UIButton *btn02 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn02.frame = CGRectMake(yWidth*505, yHeight*310, yWidth*190, yHeight*190);
+    [btn02 addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn02Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_02" ofType:@"png"]];
+    [btn02 setBackgroundImage:btn02Image forState:UIControlStateNormal];
+    [self.view addSubview:btn02];
+    
+    //btn03
+    UIButton *btn03 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn03.frame = CGRectMake(yWidth*870, yHeight*310, yWidth*190, yHeight*190);
+    [btn03 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn03Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_03" ofType:@"png"]];
+    [btn03 setBackgroundImage:btn03Image forState:UIControlStateNormal];
+    [self.view addSubview:btn03];
+    
+    //btn04
+    UIButton *btn04 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn04.frame = CGRectMake(yWidth*140, yHeight*615, yWidth*190, yHeight*190);
+    [btn04 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn04Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_04" ofType:@"png"]];
+    [btn04 setBackgroundImage:btn04Image forState:UIControlStateNormal];
+    [self.view addSubview:btn04];
+    
+    //btn05
+    UIButton *btn05 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn05.frame = CGRectMake(yWidth*505, yHeight*615, yWidth*190, yHeight*190);
+    [btn05 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn05Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_05" ofType:@"png"]];
+    [btn05 setBackgroundImage:btn05Image forState:UIControlStateNormal];
+    [self.view addSubview:btn05];
+    
+    //btn06
+    UIButton *btn06 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn06.frame = CGRectMake(yWidth*870, yHeight*615, yWidth*190, yHeight*190);
+    [btn06 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn06Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_06" ofType:@"png"]];
+    [btn06 setBackgroundImage:btn06Image forState:UIControlStateNormal];
+    [self.view addSubview:btn06];
+    
+    //btn07
+    UIButton *btn07 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn07.frame = CGRectMake(yWidth*140, yHeight*920, yWidth*190, yHeight*190);
+    [btn07 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn07Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_07" ofType:@"png"]];
+    [btn07 setBackgroundImage:btn07Image forState:UIControlStateNormal];
+    [self.view addSubview:btn07];
+    
+    //btn08
+    UIButton *btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn08.frame = CGRectMake(yWidth*505, yHeight*920, yWidth*190, yHeight*190);
+    [btn08 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *btn08Image = [UIImage imageWithContentsOfFile:
+                           [[NSBundle mainBundle] pathForResource:@"btn_08" ofType:@"png"]];
+    [btn08 setBackgroundImage:btn08Image forState:UIControlStateNormal];
+    [self.view addSubview:btn08];
+}
+
+- (IBAction)logout:(id)sender {
+    NSLog(@"logout!!!!");
+}
+- (IBAction)functionView:(id)sender {
+    NSLog(@"funcitonView~~");
+}
+@end
+
