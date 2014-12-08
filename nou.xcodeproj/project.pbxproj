@@ -36,6 +36,10 @@
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
+		B3E3519E1A353F7300ECFBFC /* icon_account.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3519C1A353F7300ECFBFC /* icon_account.png */; };
+		B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3519D1A353F7300ECFBFC /* icon_password.png */; };
+		B3E351A11A35437500ECFBFC /* icon_clear_over.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E351A01A35437500ECFBFC /* icon_clear_over.png */; };
+		B3E351A31A35451D00ECFBFC /* icon_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E351A21A35451D00ECFBFC /* icon_clear.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +102,10 @@
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
+		B3E3519C1A353F7300ECFBFC /* icon_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_account.png; sourceTree = "<group>"; };
+		B3E3519D1A353F7300ECFBFC /* icon_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_password.png; sourceTree = "<group>"; };
+		B3E351A01A35437500ECFBFC /* icon_clear_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clear_over.png; sourceTree = "<group>"; };
+		B3E351A21A35451D00ECFBFC /* icon_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clear.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +129,10 @@
 		3311D2641A076904004259CA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B3E351A21A35451D00ECFBFC /* icon_clear.png */,
+				B3E351A01A35437500ECFBFC /* icon_clear_over.png */,
+				B3E3519C1A353F7300ECFBFC /* icon_account.png */,
+				B3E3519D1A353F7300ECFBFC /* icon_password.png */,
 				B3AF4CC11A31B5C100788EEB /* icon_logo.png */,
 				B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */,
 				3360419C1A30687500BC2D4E /* alpha_box_bg.png */,
@@ -309,7 +321,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E3519E1A353F7300ECFBFC /* icon_account.png in Resources */,
 				3311D2631A076899004259CA /* LoginViewController.xib in Resources */,
+				B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */,
 				B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */,
 				336041A11A30687500BC2D4E /* alpha_white_bg.png in Resources */,
 				3365C9EE1A0159A6002D1F1E /* SecondViewController.xib in Resources */,
@@ -317,8 +331,10 @@
 				3365C9D51A0152C3002D1F1E /* LaunchScreen.xib in Resources */,
 				336041A01A30687500BC2D4E /* alpha_header_bg.png in Resources */,
 				3360419F1A30687500BC2D4E /* alpha_box_bg.png in Resources */,
+				B3E351A11A35437500ECFBFC /* icon_clear_over.png in Resources */,
 				3365C9D21A0152C3002D1F1E /* Images.xcassets in Resources */,
 				3311D2661A076931004259CA /* images.jpeg in Resources */,
+				B3E351A31A35451D00ECFBFC /* icon_clear.png in Resources */,
 				B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
