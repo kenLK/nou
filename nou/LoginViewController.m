@@ -226,6 +226,7 @@
             [userDefaults setObject:pAccount forKey:@"account"];
             [userDefaults setObject:pPassword forKey:@"password"];
             [userDefaults setObject:pRegId forKey:@"regId"];
+            [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
             [userDefaults synchronize];
 //            
             UIViewController *iconViewController = [[IconViewController alloc] init];
