@@ -273,7 +273,10 @@
             
         }
     }
-    
+    //消除紀錄user data
+    [userDefaults setObject:@"" forKey:@"account"];
+    [userDefaults setObject:@"" forKey:@"password"];
+    [userDefaults synchronize];
     
     
     
