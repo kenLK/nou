@@ -34,6 +34,21 @@
 		3365CA0F1A021694002D1F1E /* RATreeView+UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA041A021694002D1F1E /* RATreeView+UIScrollView.m */; };
 		3365CA101A021694002D1F1E /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA061A021694002D1F1E /* RATreeView.m */; };
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
+		B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD51A36A23600306E26 /* AVFoundation.framework */; };
+		B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD71A36A23C00306E26 /* CoreData.framework */; };
+		B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD91A36A24300306E26 /* CoreLocation.framework */; };
+		B3259ADC1A36A24A00306E26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259ADB1A36A24A00306E26 /* CoreText.framework */; };
+		B3259ADE1A36A25000306E26 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259ADD1A36A25000306E26 /* GLKit.framework */; };
+		B3259AE01A36A25600306E26 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259ADF1A36A25600306E26 /* ImageIO.framework */; };
+		B3259AE21A36A26300306E26 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE11A36A26300306E26 /* libc++.dylib */; };
+		B3259AE41A36A26B00306E26 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE31A36A26B00306E26 /* libicucore.dylib */; };
+		B3259AE61A36A27400306E26 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE51A36A27400306E26 /* libz.dylib */; };
+		B3259AE81A36A27B00306E26 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE71A36A27B00306E26 /* OpenGLES.framework */; };
+		B3259AEA1A36A28100306E26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE91A36A28100306E26 /* QuartzCore.framework */; };
+		B3259AEC1A36A28700306E26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */; };
+		B3259AF21A36A49F00306E26 /* SchoolMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */; };
+		B3259AF61A36A81100306E26 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3259AF51A36A81100306E26 /* GoogleMaps.bundle */; };
+		B3259AF81A36A89000306E26 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AF71A36A89000306E26 /* GoogleMaps.framework */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
 		B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */ = {isa = PBXBuildFile; fileRef = B3BF15091A3577AE0083AE91 /* msjh.ttc */; };
@@ -113,6 +128,22 @@
 		3365CA061A021694002D1F1E /* RATreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RATreeView.m; sourceTree = "<group>"; };
 		3365CA111A0218B9002D1F1E /* RADataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RADataObject.h; sourceTree = "<group>"; };
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
+		B3259AD51A36A23600306E26 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B3259AD71A36A23C00306E26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B3259AD91A36A24300306E26 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B3259ADB1A36A24A00306E26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		B3259ADD1A36A25000306E26 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B3259ADF1A36A25600306E26 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B3259AE11A36A26300306E26 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		B3259AE31A36A26B00306E26 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		B3259AE51A36A27400306E26 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		B3259AE71A36A27B00306E26 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		B3259AE91A36A28100306E26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B3259AF01A36A48900306E26 /* SchoolMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolMapViewController.h; sourceTree = "<group>"; };
+		B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolMapViewController.m; sourceTree = "<group>"; };
+		B3259AF51A36A81100306E26 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
+		B3259AF71A36A89000306E26 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		B3BF15091A3577AE0083AE91 /* msjh.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = msjh.ttc; sourceTree = "<group>"; };
@@ -140,6 +171,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3259AEC1A36A28700306E26 /* SystemConfiguration.framework in Frameworks */,
+				B3259AEA1A36A28100306E26 /* QuartzCore.framework in Frameworks */,
+				B3259AE81A36A27B00306E26 /* OpenGLES.framework in Frameworks */,
+				B3259AE61A36A27400306E26 /* libz.dylib in Frameworks */,
+				B3259AE41A36A26B00306E26 /* libicucore.dylib in Frameworks */,
+				B3259AE21A36A26300306E26 /* libc++.dylib in Frameworks */,
+				B3259AE01A36A25600306E26 /* ImageIO.framework in Frameworks */,
+				B3259ADE1A36A25000306E26 /* GLKit.framework in Frameworks */,
+				B3259ADC1A36A24A00306E26 /* CoreText.framework in Frameworks */,
+				B3259AF81A36A89000306E26 /* GoogleMaps.framework in Frameworks */,
+				B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */,
+				B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */,
+				B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +228,7 @@
 		3365C9B81A0152C3002D1F1E = {
 			isa = PBXGroup;
 			children = (
+				B3259AED1A36A2E400306E26 /* Frameworks */,
 				3365C9F21A021694002D1F1E /* RATreeView */,
 				3365C9C31A0152C3002D1F1E /* nou */,
 				3365C9DD1A0152C4002D1F1E /* nouTests */,
@@ -225,6 +270,8 @@
 				3311D2611A076899004259CA /* LoginViewController.xib */,
 				B3BF150B1A3594400083AE91 /* IconViewController.h */,
 				B3BF150C1A3594790083AE91 /* IconViewController.m */,
+				B3259AF01A36A48900306E26 /* SchoolMapViewController.h */,
+				B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -280,6 +327,27 @@
 				3365CA061A021694002D1F1E /* RATreeView.m */,
 			);
 			path = RATreeView;
+			sourceTree = "<group>";
+		};
+		B3259AED1A36A2E400306E26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3259AF71A36A89000306E26 /* GoogleMaps.framework */,
+				B3259AF51A36A81100306E26 /* GoogleMaps.bundle */,
+				B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */,
+				B3259AE91A36A28100306E26 /* QuartzCore.framework */,
+				B3259AE71A36A27B00306E26 /* OpenGLES.framework */,
+				B3259AE51A36A27400306E26 /* libz.dylib */,
+				B3259AE31A36A26B00306E26 /* libicucore.dylib */,
+				B3259AE11A36A26300306E26 /* libc++.dylib */,
+				B3259ADF1A36A25600306E26 /* ImageIO.framework */,
+				B3259ADD1A36A25000306E26 /* GLKit.framework */,
+				B3259ADB1A36A24A00306E26 /* CoreText.framework */,
+				B3259AD91A36A24300306E26 /* CoreLocation.framework */,
+				B3259AD71A36A23C00306E26 /* CoreData.framework */,
+				B3259AD51A36A23600306E26 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,6 +457,7 @@
 				B3BF151A1A3597D80083AE91 /* btn_05.png in Resources */,
 				B3BF15181A3597D80083AE91 /* btn_03.png in Resources */,
 				B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */,
+				B3259AF61A36A81100306E26 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +491,7 @@
 				3365CA0F1A021694002D1F1E /* RATreeView+UIScrollView.m in Sources */,
 				3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */,
 				B3BF150D1A3594790083AE91 /* IconViewController.m in Sources */,
+				B3259AF21A36A49F00306E26 /* SchoolMapViewController.m in Sources */,
 				3365CA081A021694002D1F1E /* RATreeNodeCollectionController.m in Sources */,
 				3365CA0A1A021694002D1F1E /* RATreeNodeInfo.m in Sources */,
 			);
@@ -502,6 +572,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -536,6 +607,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -545,6 +617,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = nou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +632,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = nou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -9,6 +9,8 @@
 
 #import "IconViewController.h"
 #import "LoginViewController.h"
+#import "SchoolMapViewController.h"
+
 @interface IconViewController ()
 
 @end
@@ -195,7 +197,7 @@
     //btn08
     UIButton *btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn08.frame = CGRectMake(yWidth*505, yHeight*1040, yWidth*190, yHeight*190);
-    [btn08 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
+    [btn08 addTarget:self action:@selector(SchoolMapView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn08Image = [UIImage imageWithContentsOfFile:
                            [[NSBundle mainBundle] pathForResource:@"btn_08" ofType:@"png"]];
     [btn08 setBackgroundImage:btn08Image forState:UIControlStateNormal];
@@ -280,5 +282,11 @@
 - (IBAction)functionView:(id)sender {
     NSLog(@"funcitonView~~");
 }
+- (IBAction)SchoolMapView:(id)sender {
+    NSLog(@"SchoolMapView~~");
+    UIViewController *schoolMapViewController = [[SchoolMapViewController alloc] init];
+    [self presentModalViewController:schoolMapViewController animated:NO];
+}
+
 @end
 
