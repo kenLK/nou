@@ -1,0 +1,22 @@
+//
+//  Utility.h
+//  nou
+//
+//  Created by focusardi on 2014/12/10.
+//  Copyright (c) 2014年 Ken. All rights reserved.
+//
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
+#import "NouRequest.h"
+
+@interface Utility : NSObject
+//@property (strong, nonatomic) NSString *HTTPMethod;
+
+//MD5編碼
++(NSString *)md5:(NSString *) input;
+
+//FFFFFF轉成UIColor
++(UIColor *) colorFromHexString:(NSString *)hexString;
+
+@end

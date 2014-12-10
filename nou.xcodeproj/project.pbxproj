@@ -37,6 +37,7 @@
 		B3171DC21A37E40D00361603 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3171DC11A37E40D00361603 /* GoogleMaps.framework */; };
 		B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3171DC31A37E42400361603 /* GoogleMaps.bundle */; };
 		B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3171DC61A37EF6F00361603 /* NouRequest.m */; };
+		B3171DCA1A37FDC600361603 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = B3171DC91A37FDC600361603 /* Utility.m */; };
 		B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD51A36A23600306E26 /* AVFoundation.framework */; };
 		B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD71A36A23C00306E26 /* CoreData.framework */; };
 		B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD91A36A24300306E26 /* CoreLocation.framework */; };
@@ -133,6 +134,8 @@
 		B3171DC31A37E42400361603 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B3171DC51A37EEED00361603 /* NouRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NouRequest.h; sourceTree = "<group>"; };
 		B3171DC61A37EF6F00361603 /* NouRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NouRequest.m; sourceTree = "<group>"; };
+		B3171DC81A37FD6500361603 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		B3171DC91A37FDC600361603 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		B3259AD51A36A23600306E26 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B3259AD71A36A23C00306E26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B3259AD91A36A24300306E26 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -277,6 +280,8 @@
 				B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */,
 				B3171DC51A37EEED00361603 /* NouRequest.h */,
 				B3171DC61A37EF6F00361603 /* NouRequest.m */,
+				B3171DC81A37FD6500361603 /* Utility.h */,
+				B3171DC91A37FDC600361603 /* Utility.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				3365CA0E1A021694002D1F1E /* RATreeView+TableViewDelegate.m in Sources */,
 				3365CA0B1A021694002D1F1E /* RATreeView+Enums.m in Sources */,
 				3365C9ED1A0159A6002D1F1E /* SecondViewController.m in Sources */,
+				B3171DCA1A37FDC600361603 /* Utility.m in Sources */,
 				3365C9CD1A0152C3002D1F1E /* ViewController.m in Sources */,
 				3365CA101A021694002D1F1E /* RATreeView.m in Sources */,
 				3365C9CA1A0152C3002D1F1E /* AppDelegate.m in Sources */,
