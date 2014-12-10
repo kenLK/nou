@@ -36,6 +36,7 @@
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
 		B3171DC21A37E40D00361603 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3171DC11A37E40D00361603 /* GoogleMaps.framework */; };
 		B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3171DC31A37E42400361603 /* GoogleMaps.bundle */; };
+		B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3171DC61A37EF6F00361603 /* NouRequest.m */; };
 		B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD51A36A23600306E26 /* AVFoundation.framework */; };
 		B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD71A36A23C00306E26 /* CoreData.framework */; };
 		B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD91A36A24300306E26 /* CoreLocation.framework */; };
@@ -130,6 +131,8 @@
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
 		B3171DC11A37E40D00361603 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B3171DC31A37E42400361603 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		B3171DC51A37EEED00361603 /* NouRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NouRequest.h; sourceTree = "<group>"; };
+		B3171DC61A37EF6F00361603 /* NouRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NouRequest.m; sourceTree = "<group>"; };
 		B3259AD51A36A23600306E26 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B3259AD71A36A23C00306E26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B3259AD91A36A24300306E26 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -272,6 +275,8 @@
 				B3BF150C1A3594790083AE91 /* IconViewController.m */,
 				B3259AF01A36A48900306E26 /* SchoolMapViewController.h */,
 				B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */,
+				B3171DC51A37EEED00361603 /* NouRequest.h */,
+				B3171DC61A37EF6F00361603 /* NouRequest.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				B3BF150D1A3594790083AE91 /* IconViewController.m in Sources */,
 				B3259AF21A36A49F00306E26 /* SchoolMapViewController.m in Sources */,
 				3365CA081A021694002D1F1E /* RATreeNodeCollectionController.m in Sources */,
+				B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */,
 				3365CA0A1A021694002D1F1E /* RATreeNodeInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

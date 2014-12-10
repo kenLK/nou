@@ -12,6 +12,7 @@
 #import "FistViewController.h"
 #import "LoginViewController.h"
 #import "IconViewController.h"
+#import "NouRequest.h"
 @interface AppDelegate ()
 
 @end
@@ -54,19 +55,23 @@
     NSString *pPassword = @"";
     NSString *pRegId = @"";
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    NSString *domainURL = [dict objectForKey:@"nou_url"];
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@reg?regId=%@&type=IOS"
-                           , domainURL, pRegId];
     
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-    [urlRequest setHTTPMethod:@"POST"];
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//    NSString *domainURL = [dict objectForKey:@"nou_url"];
+//    
+//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@reg?regId=%@&type=IOS"
+//                           , domainURL, pRegId];
+//    
+//    NSURL *url = [[NSURL alloc] initWithString:urlString];
+//    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+//    [urlRequest setHTTPMethod:@"POST"];
+//    NSURLResponse *response;
+//    NSError *error;
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+//    
+    
     
     
     pAccount = [userDefaults stringForKey:@"account"];
@@ -167,8 +172,16 @@
     
     NSLog(@"devicetoken>>%@",iOSDeviceToken);
     //將Device Token傳給Provider...
+    
+    NSString* urlString = [[NSString alloc] initWithFormat:@"regId=%@&type=IOS", iOSDeviceToken];
+    [NouRequest urlMethod:@"reg" parameterString:urlString];
+    
+    //寫入regId
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:iOSDeviceToken forKey:@"regId"];
+    [userDefaults synchronize];
+    
 }
-
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
     //錯誤處理...
     NSLog(@"err>>%@",err);

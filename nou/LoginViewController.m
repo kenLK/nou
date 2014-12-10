@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "FistViewController.h"
 #import "IconViewController.h"
+#import "NouRequest.h"
 @interface LoginViewController ()
 
 @property (nonatomic, retain) UIAlertView *alert;
@@ -180,6 +181,9 @@
     NSString *pPassword = self.password.text;
     NSString *pRegId = @"";
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    pRegId = [userDefaults stringForKey:@"regId"];
+    
     //MD5
     //NSLog(@"%@", [self md5:pPassword]);
     pPassword = [self md5:self.password.text];
@@ -187,28 +191,13 @@
     //for test
     pAccount = @"100100362";
     pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";
-    pRegId = @"2014144830";
+    //pRegId = @"2014144830";
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSLog(@"domain_url>>>>>%@",domainURL);
+    NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
+                           , pAccount, pPassword, pRegId];
+    NSData *responseData =  [NouRequest urlMethod:@"login" parameterString:urlString];
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@login?account=%@&password=%@&regId=%@&type=IOS"
-                           , domainURL, pAccount, pPassword, pRegId];
-    
-    NSLog(@"urlString>>>>>%@",urlString);
-    
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-    [urlRequest setHTTPMethod:@"POST"];
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
-    NSInteger statusCode = [HTTPResponse statusCode];
-
-    NSLog(@"statusCode>>%d", statusCode);
+//    NSLog(@"statusCode>>%d", statusCode);
     NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
     
     NSDictionary *resultJSON;
@@ -222,10 +211,9 @@
             //登入成功
             
             //紀錄user data
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:pAccount forKey:@"account"];
             [userDefaults setObject:pPassword forKey:@"password"];
-            [userDefaults setObject:pRegId forKey:@"regId"];
+            //[userDefaults setObject:pRegId forKey:@"regId"];
             [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
             [userDefaults synchronize];
 //            
