@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "NouRequest.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface Utility : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;

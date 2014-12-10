@@ -79,7 +79,7 @@
 #pragma mark Initializing a TreeView Object
 
 - (id)init
-{
+{    
   return [self initWithFrame:CGRectMake(0, 0, 100, 100) style:RATreeViewStylePlain];
 }
 

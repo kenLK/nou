@@ -16,8 +16,8 @@
 
 
 @interface SecondViewController ()<RATreeViewDelegate, RATreeViewDataSource>
-
-
+- (NSString*)checkNull:(NSString *)str;
+-(UIColor *) colorWithHexString: (NSString *) stringToConvert;
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) id expanded;
 @property (strong, nonatomic) NSDictionary *resultJSON;
@@ -29,19 +29,72 @@
 @implementation SecondViewController
 @synthesize resultJSON,url;
 
+- (NSString*)checkNull:(NSString *)str{
+    
+    if ([str isKindOfClass:[NSString class]] && [str length] > 0) {
+        return str;
+    }
+    else {
+        return @"";
+    }
+}
+#define DEFAULT_VOID_COLOR [UIColor whiteColor]
+-(UIColor *) colorWithHexString: (NSString *) stringToConvert
+{
+    NSString *cString = [[stringToConvert stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return DEFAULT_VOID_COLOR;
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    if ([cString hasPrefix:@"#"]) cString = [cString substringFromIndex:1];
+    if ([cString length] != 6) return DEFAULT_VOID_COLOR;
+    
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
     NSLog(@"domain_url>>>>>%@",domainURL);
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *stno = [userDefaults stringForKey:@"account"];
+    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+    
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
+    
+//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
     
     if ([self.url isKindOfClass:[NSString class]]) {
-        urlString = [[NSString alloc] initWithFormat:@"%@%@",domainURL,self.url];
+        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
     }
     NSLog(@"urlString>>>>>%@",urlString);
     
@@ -80,7 +133,7 @@
     //    for(NSDictionary *menuDic in menuArray) {
     for (int i=0; i<[menuArray count]; i++) {
         NSDictionary *menuDic = menuArray[i];
-        NSLog(@"%@>>>>>>%zd", [menuDic objectForKey:@"NAME"],(30*i));
+        //        NSLog(@"%@>>>>>>%zd", [menuDic objectForKey:@"NAME"],(30*i));
         
         parnetMENU = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         totalParnetMenuHeigh = (30*i+80);
@@ -93,7 +146,7 @@
         NSArray *detailArray = [menuDic objectForKey:@"DETAIL"];
         if (detailArray.count > 0) {
             UIScrollView *subView = [[UIScrollView alloc] initWithFrame: CGRectMake(50, totalParnetMenuHeigh+totalChildMenuHeigh, 100, 25*[detailArray count])];
-            NSLog(@"high>>>>>>%zd",[detailArray count]);
+            //            NSLog(@"high>>>>>>%zd",[detailArray count]);
             
             for (int j=0; j<[detailArray count]; j++) {
                 
@@ -134,21 +187,37 @@
                 for (int l=0; l<[fourthMENUArray count]; l++) {
                     NSDictionary *fourthDic = fourthMENUArray[l];
                     
-                    fourthMENUName = [RADataObject dataObjectWithName:[fourthDic objectForKey:@"NAME"] children:nil];
-                    
+                    fourthMENUName = [RADataObject dataObjectWithName:[self checkNull:[fourthDic objectForKey:@"NAME"]] children:nil];
+                    fourthMENUName.url = [self checkNull:[fourthDic objectForKey:@"URL"]];
+                    fourthMENUName.backgroundColor = [self checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
+                    fourthMENUName.detailVisible = [self checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
+                    fourthMENUName.textColor = [self checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
                     [fourthMENU addObject:fourthMENUName];
                     
                 }
                 
                 
-                thirdMENUName = [RADataObject dataObjectWithName:[thirdDic objectForKey:@"NAME"] children:[NSArray arrayWithArray:fourthMENU]];
+                thirdMENUName = [RADataObject dataObjectWithName:[self checkNull:[thirdDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:fourthMENU]];
+                thirdMENUName.url = [self checkNull:[thirdDic objectForKey:@"URL"]];
+                thirdMENUName.backgroundColor = [self checkNull:[thirdDic objectForKey:@"BACKGROUND_COLOR"]];
+                thirdMENUName.detailVisible = [self checkNull:[thirdDic objectForKey:@"DETAIL_VISIBLE"]];
+                thirdMENUName.textColor = [self checkNull:[thirdDic objectForKey:@"TEXT_COLOR"]];
                 [thirdMENU addObject:thirdMENUName];
             }
             
             
-            secondMENUName = [RADataObject dataObjectWithName:[secondDic objectForKey:@"NAME"] children:[NSArray arrayWithArray:thirdMENU]];
+            secondMENUName = [RADataObject dataObjectWithName:[self checkNull:[secondDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:thirdMENU]];
+            secondMENUName.url = [self checkNull:[secondDic objectForKey:@"URL"]];
+            secondMENUName.backgroundColor = [self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]];
+            secondMENUName.detailVisible = [self checkNull:[secondDic objectForKey:@"DETAIL_VISIBLE"]];
+            secondMENUName.textColor = [self checkNull:[secondDic objectForKey:@"TEXT_COLOR"]];
             [secondMENU addObject:secondMENUName];
+            NSLog(@"backgroundColor>>>>>>%@",[self colorWithHexString:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]]);
+//            if (i == 0) {
+//                [backgroundColorArray addObject:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]];
+//            }
         }
+        
         RADataObject *mainMENUName = [RADataObject dataObjectWithName:[menuDic objectForKey:@"NAME"] children:[NSArray arrayWithArray:secondMENU]];
         [fistMENU addObject:mainMENUName];
     }
@@ -251,7 +320,7 @@
 {
     NSInteger numberOfChildren = [treeNodeInfo.children count];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
     cell.textLabel.text = ((RADataObject *)item).name;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (treeNodeInfo.treeDepthLevel == 0) {

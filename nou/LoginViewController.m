@@ -220,6 +220,10 @@
             UIViewController *iconViewController = [[IconViewController alloc] init];
             [self presentModalViewController:iconViewController animated:NO];
             
+            NSLog(@"dsadasdsa>>%@",self.navigationController);
+            [self.navigationController pushViewController:iconViewController animated:YES];
+            //[self.navController pushViewController:iconViewController animated:YES];
+            
         } else {
             
             

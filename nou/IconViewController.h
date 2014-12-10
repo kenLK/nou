@@ -11,6 +11,7 @@
 
 @interface IconViewController : UIViewController
 
+@property(nonatomic, retain) UINavigationController *navController;
 
 @end
 

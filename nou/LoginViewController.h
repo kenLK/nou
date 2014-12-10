@@ -11,7 +11,6 @@
 
 @interface LoginViewController : UIViewController<UIAlertViewDelegate>
 
-@property(nonatomic, retain) UINavigationController *navController;
 @property (strong, nonatomic) IBOutlet UITextField *account;
 @property (strong, nonatomic) IBOutlet UITextField *password;
 

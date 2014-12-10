@@ -10,13 +10,13 @@
 #import "IconViewController.h"
 #import "LoginViewController.h"
 #import "SchoolMapViewController.h"
-
+#import "FistViewController.h"
 @interface IconViewController ()
 
 @end
 
 @implementation IconViewController
-
+@synthesize navController;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -210,6 +210,9 @@
     btn08Label.textColor = [UIColor blackColor];
     [btn08Label setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:btn08Label];
+    
+    
+    
 }
 
 - (IBAction)logout:(id)sender {
@@ -284,6 +287,20 @@
 }
 - (IBAction)functionView:(id)sender {
     NSLog(@"funcitonView~~");
+    //LoginViewController *root = [[LoginViewController alloc]init];
+    
+    
+    
+    FistViewController *schoolMapViewController = [[FistViewController alloc] init];
+    //[self presentModalViewController:schoolMapViewController animated:NO];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:schoolMapViewController];
+    //[self.navigationController pushViewController:schoolMapViewController animated:YES];
+    [self.view addSubview:self.navController.view];
+    //self.window.backgroundColor = [UIColor whiteColor];
+    //[self.window makeKeyAndVisible];
+    
+    
 }
 - (IBAction)SchoolMapView:(id)sender {
     NSLog(@"SchoolMapView~~");

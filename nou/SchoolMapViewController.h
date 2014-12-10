@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-
-@interface SchoolMapViewController : UIViewController
+#import "Utility.h"
+@interface SchoolMapViewController : UIViewController<GMSMapViewDelegate>
 
 
 @end

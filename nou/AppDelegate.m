@@ -18,7 +18,7 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize navController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -79,15 +79,15 @@
     pRegId = [userDefaults stringForKey:@"regId"];
     
     NSLog(@"pAccount>>>%@", pAccount);
-        
-        if (![@"" isEqualToString:pAccount]) {
-            UIViewController *iconViewController = [[IconViewController alloc] init];
-            //[self presentModalViewController:iconViewController animated:NO];
-            [self.window setRootViewController:iconViewController];
-            
-            [self.window makeKeyAndVisible];
-            return YES;
-        }
+//        
+//        if (![@"" isEqualToString:pAccount]) {
+//            UIViewController *iconViewController = [[IconViewController alloc] init];
+//            //[self presentModalViewController:iconViewController animated:NO];
+//            [self.window setRootViewController:iconViewController];
+//            
+//            [self.window makeKeyAndVisible];
+//            return YES;
+//        }
     
     
 //    UIApplication *application = [UIApplication sharedApplication];
@@ -109,17 +109,27 @@
     
     
     
-    LoginViewController *loginView = [[LoginViewController alloc] init];
-
-    [self.window setRootViewController:loginView];
+    LoginViewController *root = [[LoginViewController alloc]init];
+    
+//    self.navController = [[UINavigationController alloc] initWithRootViewController:root];
+//    [self.window addSubview:navController.view];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window makeKeyAndVisible];
+//    
+    
+//    LoginViewController *loginView = [[LoginViewController alloc] init];
+    //self.navController = [[UINavigationController alloc] init];
+    [self.window setRootViewController:root];
+    
+    //[self.window addSubview:self.navController.view];
+//
+//    [self.window makeKeyAndVisible];
+    
+//    [self.window setRootViewController:self.navController];
+    
+    //[self.navController pushViewController:loginView animated:YES];
     
     [self.window makeKeyAndVisible];
-    
-    
-    //    [self.window setRootViewController:self.navController];
-    
-    //    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

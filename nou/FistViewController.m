@@ -30,16 +30,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;//screenRect.size.height;
+    
+    CGFloat yWidth = screenWidth / 1200.0;
+    CGFloat yHeight = screenHeight / 1920.0;
+    
     backgroundColorArray = [[NSMutableArray alloc] init];
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
     NSLog(@"domain_url>>>>>%@",domainURL);
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *stno = [userDefaults stringForKey:@"account"];
+    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+    
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
 
     if ([self.url isKindOfClass:[NSString class]]) {
-        urlString = [[NSString alloc] initWithFormat:@"%@%@",domainURL,self.url];
+        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
     }
     NSLog(@"urlString>>>>>%@",urlString);
     NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
@@ -177,7 +189,7 @@
     
 //    self.data = [NSArray arrayWithObjects:mainMENU[0],mainMENU[1], nil];
     self.data =[NSArray arrayWithArray:fistMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:[[UIApplication sharedApplication] keyWindow].frame];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , yHeight*100.0, yWidth*1200, yHeight*1820)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -294,14 +306,14 @@
 }
 //willSelectRowForItem
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
-    NSLog(@"selected");
+    NSLog(@"selected %d", treeNodeInfo.treeDepthLevel);
     SecondViewController *secondView = [[SecondViewController alloc] init];
 
 //    [self presentViewController:secondView animated:YES completion:^{
 //    }];
     
     if (treeNodeInfo.treeDepthLevel == 0) {
-
+        //[self.navigationController pushViewController:secondView animated:YES];
     } else if (treeNodeInfo.treeDepthLevel == 1) {
         RADataObject *dataObj = item;
         secondView.url = dataObj.url;
