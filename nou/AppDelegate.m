@@ -83,7 +83,25 @@
             [self.window makeKeyAndVisible];
             return YES;
         }
-
+    
+    
+//    UIApplication *application = [UIApplication sharedApplication];
+    
+    //iOS8
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+                                                                                             |UIRemoteNotificationTypeSound
+                                                                                             |UIRemoteNotificationTypeAlert)
+                                                                                 categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    } else {
+        //iOS7
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge
+                                                         |UIRemoteNotificationTypeSound
+                                                         |UIRemoteNotificationTypeAlert)];
+    }
+    
     
     
     LoginViewController *loginView = [[LoginViewController alloc] init];
@@ -124,35 +142,35 @@
 
 
 
-//- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-//{
-//    //register to receive notifications
-//    [application registerForRemoteNotifications];
-//}
-//- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
-//{
-//    //handle the actions
-//    if ([identifier isEqualToString:@"declineAction"]){
-//    }
-//    else if ([identifier isEqualToString:@"answerAction"]){
-//    }
-//}
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken: (NSData *)deviceToken
-//{
-//    //將Device Token由NSData轉換為字串
-//    const unsigned *tokenBytes = [deviceToken bytes];
-//    NSString *iOSDeviceToken =
-//    [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
-//     ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
-//     ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
-//     ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
-//    
-//    NSLog(@"devicetoken>>%@",iOSDeviceToken);
-//    //將Device Token傳給Provider...
-//}
-//
-//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
-//    //錯誤處理...
-//    NSLog(@"err>>%@",err);
-//}
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+    }
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken: (NSData *)deviceToken
+{
+    //將Device Token由NSData轉換為字串
+    const unsigned *tokenBytes = [deviceToken bytes];
+    NSString *iOSDeviceToken =
+    [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+     ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+     ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+     ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+    
+    NSLog(@"devicetoken>>%@",iOSDeviceToken);
+    //將Device Token傳給Provider...
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
+    //錯誤處理...
+    NSLog(@"err>>%@",err);
+}
 @end
