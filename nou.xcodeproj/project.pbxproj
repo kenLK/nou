@@ -34,8 +34,8 @@
 		3365CA0F1A021694002D1F1E /* RATreeView+UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA041A021694002D1F1E /* RATreeView+UIScrollView.m */; };
 		3365CA101A021694002D1F1E /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA061A021694002D1F1E /* RATreeView.m */; };
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
-		B3171DBC1A37E07B00361603 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3171DBB1A37E07B00361603 /* GoogleMaps.framework */; };
-		B3171DBE1A37E09200361603 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3171DBD1A37E09200361603 /* GoogleMaps.bundle */; };
+		B3171DC21A37E40D00361603 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3171DC11A37E40D00361603 /* GoogleMaps.framework */; };
+		B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3171DC31A37E42400361603 /* GoogleMaps.bundle */; };
 		B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD51A36A23600306E26 /* AVFoundation.framework */; };
 		B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD71A36A23C00306E26 /* CoreData.framework */; };
 		B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AD91A36A24300306E26 /* CoreLocation.framework */; };
@@ -128,8 +128,8 @@
 		3365CA061A021694002D1F1E /* RATreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RATreeView.m; sourceTree = "<group>"; };
 		3365CA111A0218B9002D1F1E /* RADataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RADataObject.h; sourceTree = "<group>"; };
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
-		B3171DBB1A37E07B00361603 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = SOURCE_ROOT; };
-		B3171DBD1A37E09200361603 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = SOURCE_ROOT; };
+		B3171DC11A37E40D00361603 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		B3171DC31A37E42400361603 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B3259AD51A36A23600306E26 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B3259AD71A36A23C00306E26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B3259AD91A36A24300306E26 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -180,7 +180,7 @@
 				B3259AE01A36A25600306E26 /* ImageIO.framework in Frameworks */,
 				B3259ADE1A36A25000306E26 /* GLKit.framework in Frameworks */,
 				B3259ADC1A36A24A00306E26 /* CoreText.framework in Frameworks */,
-				B3171DBC1A37E07B00361603 /* GoogleMaps.framework in Frameworks */,
+				B3171DC21A37E40D00361603 /* GoogleMaps.framework in Frameworks */,
 				B3259ADA1A36A24300306E26 /* CoreLocation.framework in Frameworks */,
 				B3259AD81A36A23C00306E26 /* CoreData.framework in Frameworks */,
 				B3259AD61A36A23600306E26 /* AVFoundation.framework in Frameworks */,
@@ -332,8 +332,8 @@
 		B3259AED1A36A2E400306E26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B3171DBD1A37E09200361603 /* GoogleMaps.bundle */,
-				B3171DBB1A37E07B00361603 /* GoogleMaps.framework */,
+				B3171DC31A37E42400361603 /* GoogleMaps.bundle */,
+				B3171DC11A37E40D00361603 /* GoogleMaps.framework */,
 				B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */,
 				B3259AE91A36A28100306E26 /* QuartzCore.framework */,
 				B3259AE71A36A27B00306E26 /* OpenGLES.framework */,
@@ -457,7 +457,7 @@
 				B3BF151A1A3597D80083AE91 /* btn_05.png in Resources */,
 				B3BF15181A3597D80083AE91 /* btn_03.png in Resources */,
 				B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */,
-				B3171DBE1A37E09200361603 /* GoogleMaps.bundle in Resources */,
+				B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
