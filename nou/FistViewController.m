@@ -44,11 +44,6 @@
                       [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
     [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
     
-    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
-    [functionTitleLabel setText:@"校務資訊系統"];
-    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
-    self.navigationItem.titleView = functionTitleLabel;
-    
     //logout
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *logoutBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
@@ -73,34 +68,6 @@
     
     backgroundColorArray = [[NSMutableArray alloc] init];
     
-//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-//    NSString *domainURL = [dict objectForKey:@"nou_url"];
-//    NSLog(@"domain_url>>>>>%@",domainURL);
-//    
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *stno = [userDefaults stringForKey:@"account"];
-//    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
-//    
-//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?U=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
-//
-//    if ([self.url isKindOfClass:[NSString class]]) {
-//        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
-//    }
-//    NSLog(@"urlString>>>>>%@",urlString);
-//    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
-//    
-//    [urlrequest setTimeoutInterval:20];
-//    
-//    [urlrequest setURL:[NSURL URLWithString:urlString]];
-//    
-//    NSURLResponse* response = nil;
-//    NSError *error = nil;
-//    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
-//                    
-//                                         returningResponse:&response
-//                    
-//                                                     error:&error];
     
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:@"index" parameterMap:@"" autoValid:YES]];
     
@@ -113,10 +80,14 @@
     UIButton *parnetMENU = nil;
     UIButton *childMENU = nil;
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
-    NSDictionary *headDic = [resultJSON valueForKey:@"HEAD"];
+    NSDictionary *headDic = [resultJSON valueForKey:@"HEADER"];
     NSString *headName = [headDic objectForKey:@"HEADER_NAME"];
     if ([headName isKindOfClass:[NSString class]]) {
 //        self.navigationController.top = headName;
+        UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+        [functionTitleLabel setText:headName];
+        [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+        self.navigationItem.titleView = functionTitleLabel;
     }
     float totalParnetMenuHeigh = 0.0f;
     float totalChildMenuHeigh = 0.0f;

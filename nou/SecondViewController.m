@@ -91,27 +91,27 @@
                           [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
     [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
     
-    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
-    [functionTitleLabel setText:@"校務資訊系統"];
-    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
-    self.navigationItem.titleView = functionTitleLabel;
-    
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
     
     if (data != nil) {
         
         resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     }
-    /*
-     
-     UIButton* buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-     [buyButton setFrame:CGRectMake(10.0, 120.0+100*i,100.0, 20.0)];
-     [buyButton setTitle:[content objectAtIndex:MPItemPrice] forState:UIControlStateNormal];
-     [buyButton.titleLabel setFont:[UIFont systemFontOfSize:10]];
-     */
+    
     UIButton *parnetMENU = nil;
     UIButton *childMENU = nil;
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
+    NSDictionary *headDic = [resultJSON valueForKey:@"HEADER"];
+    NSString *headName = [headDic objectForKey:@"HEADER_NAME"];
+    if ([headName isKindOfClass:[NSString class]]) {
+        //        self.navigationController.top = headName;
+        UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+        [functionTitleLabel setText:headName];
+        [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+        self.navigationItem.titleView = functionTitleLabel;
+    }
+    
+    
     float totalParnetMenuHeigh = 0.0f;
     float totalChildMenuHeigh = 0.0f;
     //    for(NSDictionary *menuDic in menuArray) {
