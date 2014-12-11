@@ -46,4 +46,23 @@
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
++(CGFloat) appWidth {
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    CGFloat appWidth = appRect.size.width;
+    CGFloat yWidth = appWidth / 1200.0;
+    return yWidth;
+}
++(CGFloat) appHeight {
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    CGFloat appHeight = appRect.size.height;
+    CGFloat yHeight = appHeight / 1920.0;
+    return yHeight;
+}
++(CGFloat) appModHeight {
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat modHeight = screenRect.size.height - appRect.size.height;
+    return modHeight;
+}
+
 @end

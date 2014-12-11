@@ -11,6 +11,7 @@
 #import "NouRequest.h"
 #import <GoogleMaps/GoogleMaps.h>
 
+
 @interface Utility : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
 
@@ -20,4 +21,7 @@
 //FFFFFF轉成UIColor
 +(UIColor *) colorFromHexString:(NSString *)hexString;
 
++(CGFloat) appWidth;
++(CGFloat) appHeight;
++(CGFloat) appModHeight;
 @end
