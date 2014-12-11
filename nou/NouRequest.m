@@ -30,5 +30,19 @@
     
     return responseData;
 }
-
++ (NSData *)urlAll:(NSString *)urlAll {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    NSString *domainURL = [dict objectForKey:@"nou_url"];
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@"
+                           , domainURL, urlAll];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSLog(@"NouRequest>>%@", url);
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    NSURLResponse *response;
+    NSError *error;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    return responseData;
+}
 @end

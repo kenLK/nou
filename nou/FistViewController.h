@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Utility.h"
+#import "NouRequest.h"
 @interface FistViewController : UIViewController
 
 @property (strong, nonatomic) NSString *url;
+
 
 @end

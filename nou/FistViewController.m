@@ -10,6 +10,8 @@
 #import "RATreeView.h"
 #import "RADataObject.h"
 #import "SecondViewController.h"
+#import "LoginViewController.h"
+#import "IconViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -26,9 +28,40 @@
 
 @implementation FistViewController
 @synthesize resultJSON,url,backgroundColorArray;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.rightBarButtonItem = backButton;
+    
+    
+    UIImage *backImage = [UIImage imageWithContentsOfFile:
+                      [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
+    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
+    
+    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+    [functionTitleLabel setText:@"校務資訊系統"];
+    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.navigationItem.titleView = functionTitleLabel;
+    
+    //logout
+    UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *logoutBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
+    [logoutBtn setBackgroundImage:logoutBtnImage forState:UIControlStateNormal];
+    [logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    logoutBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithCustomView:logoutBtn] ;
+    self.navigationItem.leftBarButtonItem = logoutButton;
+    
+    
+    //nouNavBar.titleName = @"r1";
+    //[nouNavBar.functionTitleLabel setText:@"rewew"];
+    
     // Do any additional setup after loading the view.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
@@ -39,47 +72,44 @@
     CGFloat yHeight = screenHeight / 1920.0;
     
     backgroundColorArray = [[NSMutableArray alloc] init];
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSLog(@"domain_url>>>>>%@",domainURL);
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *stno = [userDefaults stringForKey:@"account"];
-    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//    NSString *domainURL = [dict objectForKey:@"nou_url"];
+//    NSLog(@"domain_url>>>>>%@",domainURL);
+//    
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString *stno = [userDefaults stringForKey:@"account"];
+//    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+//    
+//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?U=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
+//
+//    if ([self.url isKindOfClass:[NSString class]]) {
+//        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
+//    }
+//    NSLog(@"urlString>>>>>%@",urlString);
+//    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
+//    
+//    [urlrequest setTimeoutInterval:20];
+//    
+//    [urlrequest setURL:[NSURL URLWithString:urlString]];
+//    
+//    NSURLResponse* response = nil;
+//    NSError *error = nil;
+//    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
+//                    
+//                                         returningResponse:&response
+//                    
+//                                                     error:&error];
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
-
-    if ([self.url isKindOfClass:[NSString class]]) {
-        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
-    }
-    NSLog(@"urlString>>>>>%@",urlString);
-    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
+    NSData *data = [NouRequest urlAll: [Utility setUrlWithString:@"index" parameterMap:@"" autoValid:YES]];
     
-    [urlrequest setTimeoutInterval:20];
-    
-    [urlrequest setURL:[NSURL URLWithString:urlString]];
-    
-    
-    
-    NSURLResponse* response = nil;
-    NSError *error = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
-                    
-                                         returningResponse:&response
-                    
-                                                     error:&error];
     if (data != nil) {
         
         resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     }
-    /*
     
-    UIButton* buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [buyButton setFrame:CGRectMake(10.0, 120.0+100*i,100.0, 20.0)];
-    [buyButton setTitle:[content objectAtIndex:MPItemPrice] forState:UIControlStateNormal];
-    [buyButton.titleLabel setFont:[UIFont systemFontOfSize:10]];
-    */
+    
     UIButton *parnetMENU = nil;
     UIButton *childMENU = nil;
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
@@ -189,7 +219,7 @@
     
 //    self.data = [NSArray arrayWithObjects:mainMENU[0],mainMENU[1], nil];
     self.data =[NSArray arrayWithArray:fistMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , yHeight*100.0, yWidth*1200, yHeight*1820)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , 0.0, yWidth*1200, yHeight*1820)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -360,6 +390,81 @@
         return [self.data objectAtIndex:index];
     }
     return [data.children objectAtIndex:index];
+}
+-(void)goHome:(id)sender {
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    UIViewController *iconViewController = [[IconViewController alloc] init];
+    [self presentModalViewController:iconViewController animated:NO];
+}
+- (IBAction)logout:(id)sender {
+    NSLog(@"logout!!!!");
+    //登出
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *pAccount = @"";
+    NSString *pPassword = @"";
+    NSString *pRegId = @"";
+    
+    pAccount = [userDefaults stringForKey:@"account"];
+    pPassword = [userDefaults stringForKey:@"password"];
+    pRegId = [userDefaults stringForKey:@"regId"];
+    NSLog(@"NSUserDefaults>>%@", pAccount);
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    NSString *domainURL = [dict objectForKey:@"nou_url"];
+    NSLog(@"domain_url>>>>>%@",domainURL);
+    
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@logout?account=%@&password=%@&regId=%@&type=IOS"
+                           , domainURL, pAccount, pPassword, pRegId];
+    
+    NSLog(@"urlString>>>>>%@",urlString);
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    NSURLResponse *response;
+    NSError *error;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
+    NSInteger statusCode = [HTTPResponse statusCode];
+    
+    NSLog(@"statusCode>>%d", statusCode);
+    NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
+    
+    NSDictionary *resultJSON;
+    if (responseData != nil) {
+        resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
+        
+        NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
+        NSLog(@"%@", RETURNCODE);
+        
+        if ([@"00" isEqualToString:RETURNCODE]) {
+            //登出成功
+            
+            //消除紀錄user data
+            [userDefaults setObject:@"" forKey:@"account"];
+            [userDefaults setObject:@"" forKey:@"password"];
+            [userDefaults synchronize];
+            
+            //
+            UIViewController *loginViewController = [[LoginViewController alloc] init];
+            [self presentModalViewController:loginViewController animated:NO];
+            
+        } else {
+            
+            
+            
+        }
+    }
+    //消除紀錄user data
+    [userDefaults setObject:@"" forKey:@"account"];
+    [userDefaults setObject:@"" forKey:@"password"];
+    [userDefaults synchronize];
+    
+    
+    
+    
 }
 
 @end

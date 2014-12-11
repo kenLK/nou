@@ -11,4 +11,5 @@
 @interface NouRequest : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
 + (NSData *)urlMethod:(NSString *)urlMethod parameterString:(NSString *)urlPara ;
++ (NSData *)urlAll:(NSString *)urlAll;
 @end

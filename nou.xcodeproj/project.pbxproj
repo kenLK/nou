@@ -34,6 +34,8 @@
 		3365CA0F1A021694002D1F1E /* RATreeView+UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA041A021694002D1F1E /* RATreeView+UIScrollView.m */; };
 		3365CA101A021694002D1F1E /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA061A021694002D1F1E /* RATreeView.m */; };
 		3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3365CA121A0218B9002D1F1E /* RADataObject.m */; };
+		B301AE981A3930800061D986 /* NouNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B301AE971A3930800061D986 /* NouNavBar.m */; };
+		B301AE9A1A393F1C0061D986 /* icon_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B301AE991A393F1C0061D986 /* icon_menu.png */; };
 		B3171DC21A37E40D00361603 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3171DC11A37E40D00361603 /* GoogleMaps.framework */; };
 		B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3171DC31A37E42400361603 /* GoogleMaps.bundle */; };
 		B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3171DC61A37EF6F00361603 /* NouRequest.m */; };
@@ -130,6 +132,9 @@
 		3365CA061A021694002D1F1E /* RATreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RATreeView.m; sourceTree = "<group>"; };
 		3365CA111A0218B9002D1F1E /* RADataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RADataObject.h; sourceTree = "<group>"; };
 		3365CA121A0218B9002D1F1E /* RADataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RADataObject.m; sourceTree = "<group>"; };
+		B301AE961A39306D0061D986 /* NouNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NouNavBar.h; sourceTree = "<group>"; };
+		B301AE971A3930800061D986 /* NouNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NouNavBar.m; sourceTree = "<group>"; };
+		B301AE991A393F1C0061D986 /* icon_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_menu.png; sourceTree = "<group>"; };
 		B3171DC11A37E40D00361603 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		B3171DC31A37E42400361603 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		B3171DC51A37EEED00361603 /* NouRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NouRequest.h; sourceTree = "<group>"; };
@@ -206,6 +211,7 @@
 		3311D2641A076904004259CA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B301AE991A393F1C0061D986 /* icon_menu.png */,
 				B3BF15241A35A0F00083AE91 /* icon_logout_over.png */,
 				B3BF151E1A3598100083AE91 /* btn_over.png */,
 				B3BF15201A3598100083AE91 /* icon_logout.png */,
@@ -282,6 +288,8 @@
 				B3171DC61A37EF6F00361603 /* NouRequest.m */,
 				B3171DC81A37FD6500361603 /* Utility.h */,
 				B3171DC91A37FDC600361603 /* Utility.m */,
+				B301AE961A39306D0061D986 /* NouNavBar.h */,
+				B301AE971A3930800061D986 /* NouNavBar.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -449,6 +457,7 @@
 				B3BF15231A3598100083AE91 /* icon_logout.png in Resources */,
 				B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */,
 				B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */,
+				B301AE9A1A393F1C0061D986 /* icon_menu.png in Resources */,
 				B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */,
 				336041A11A30687500BC2D4E /* alpha_white_bg.png in Resources */,
 				B3BF15171A3597D80083AE91 /* btn_02.png in Resources */,
@@ -485,6 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B301AE981A3930800061D986 /* NouNavBar.m in Sources */,
 				3365CA0D1A021694002D1F1E /* RATreeView+TableViewDataSource.m in Sources */,
 				3365CA0E1A021694002D1F1E /* RATreeView+TableViewDelegate.m in Sources */,
 				3365CA0B1A021694002D1F1E /* RATreeView+Enums.m in Sources */,

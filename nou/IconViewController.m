@@ -287,15 +287,18 @@
 }
 - (IBAction)functionView:(id)sender {
     NSLog(@"funcitonView~~");
-    //LoginViewController *root = [[LoginViewController alloc]init];
     
+    FistViewController *fistViewController = [[FistViewController alloc] init];
+ 
     
+    //NouNavBar * nouNavBar = [[NouNavBar alloc]init];
     
-    FistViewController *schoolMapViewController = [[FistViewController alloc] init];
-    //[self presentModalViewController:schoolMapViewController animated:NO];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:fistViewController];
+
+    //[self.navController setValue:nouNavBar forKeyPath:@"navigationBar"];
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:schoolMapViewController];
-    //[self.navigationController pushViewController:schoolMapViewController animated:YES];
+    //fistViewController.nouNavBar = nouNavBar;
+    
     [self.view addSubview:self.navController.view];
     //self.window.backgroundColor = [UIColor whiteColor];
     //[self.window makeKeyAndVisible];

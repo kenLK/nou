@@ -65,7 +65,7 @@
     return modHeight;
 }
 
-+(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map {
++(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map autoValid:(BOOL) autoValid {
     NSMutableString *para = [[NSMutableString alloc]initWithString:@""];
     NSArray *key = map.allKeys;
     
@@ -75,9 +75,9 @@
         [para appendString:@"="];
         [para appendString:map[key[i]]];
     }
-    return [self setUrlWithString:url parameterMap:para];
+    return [self setUrlWithString:url parameterMap:para autoValid:autoValid];
 }
-+(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para {
++(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para autoValid:(BOOL) autoValid {
     NSMutableString *returnUrl = [[NSMutableString alloc]initWithString:@""];
 
     [returnUrl appendString:url];
@@ -87,6 +87,16 @@
     if (match.location == NSNotFound) {
         NSLog (@"Match ? not found");
         [returnUrl appendString:@"?"];
+    }
+    
+    if (YES == autoValid) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *stno = [userDefaults stringForKey:@"account"];
+        NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+        NSString *ACCOUNT = [userDefaults stringForKey:@"account"];
+        [returnUrl appendFormat:@"&stno=%@", stno];
+        [returnUrl appendFormat:@"&VALID_STR=%@", VALID_STR];
+        [returnUrl appendFormat:@"&ACCOUNT=%@", ACCOUNT];
     }
     
     [returnUrl appendString:para];

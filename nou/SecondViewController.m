@@ -80,40 +80,43 @@
     // Do any additional setup after loading the view.
     
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSLog(@"domain_url>>>>>%@",domainURL);
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//    NSString *domainURL = [dict objectForKey:@"nou_url"];
+//    NSLog(@"domain_url>>>>>%@",domainURL);
+//    
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString *stno = [userDefaults stringForKey:@"account"];
+//    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+//    
+//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
+//    
+////    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
+//    
+//    if ([self.url isKindOfClass:[NSString class]]) {
+//        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
+//    }
+//    NSLog(@"urlString>>>>>%@",urlString);
+//    
+//    
+//    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
+//    
+//    [urlrequest setTimeoutInterval:20];
+//    
+//    [urlrequest setURL:[NSURL URLWithString:urlString]];
+//    
+//    
+//    
+//    NSURLResponse* response = nil;
+//    NSError *error = nil;
+//    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
+//                    
+//                                         returningResponse:&response
+//                    
+//                                                     error:&error];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *stno = [userDefaults stringForKey:@"account"];
-    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
+    NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
     
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
-    
-//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
-    
-    if ([self.url isKindOfClass:[NSString class]]) {
-        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
-    }
-    NSLog(@"urlString>>>>>%@",urlString);
-    
-    
-    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
-    
-    [urlrequest setTimeoutInterval:20];
-    
-    [urlrequest setURL:[NSURL URLWithString:urlString]];
-    
-    
-    
-    NSURLResponse* response = nil;
-    NSError *error = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
-                    
-                                         returningResponse:&response
-                    
-                                                     error:&error];
     if (data != nil) {
         
         resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
@@ -296,7 +299,10 @@
 //willSelectRowForItem
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
     NSLog(@"selected");
-    FistViewController *firstView = [[FistViewController alloc] init];
+    //FistViewController *firstView = [[FistViewController alloc] init];
+    SecondViewController *firstView = [[SecondViewController alloc] init];
+    
+    
 //    firstView.title=
 
 //    [self presentViewController:secondView animated:YES completion:^{        
