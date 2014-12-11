@@ -102,6 +102,7 @@
 
         [parnetMENU setTitle:[menuDic objectForKey:@"NAME"] forState:UIControlStateNormal];
         [parnetMENU.titleLabel setFont:[UIFont systemFontOfSize:10]];
+
 //        [self.view addSubview:parnetMENU];
         
         NSArray *detailArray = [menuDic objectForKey:@"DETAIL"];
@@ -135,7 +136,6 @@
         for (int j = 0; j < [secondMENUArray count]; j++) {
             NSDictionary *secondDic = secondMENUArray[j];
             
-            
             NSMutableArray *thirdMENUArray = [secondDic objectForKey:@"DETAIL"];
             NSMutableArray *thirdMENU = [[NSMutableArray alloc] init];
             RADataObject *thirdMENUName = nil;
@@ -154,9 +154,7 @@
                     fourthMENUName.detailVisible = [self checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
                     fourthMENUName.textColor = [self checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
                     [fourthMENU addObject:fourthMENUName];
-                    
                 }
-                
                 
                 thirdMENUName = [RADataObject dataObjectWithName:[self checkNull:[thirdDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:fourthMENU]];
                 thirdMENUName.url = [self checkNull:[thirdDic objectForKey:@"URL"]];
@@ -165,7 +163,6 @@
                 thirdMENUName.textColor = [self checkNull:[thirdDic objectForKey:@"TEXT_COLOR"]];
                 [thirdMENU addObject:thirdMENUName];
             }
-            
             
             secondMENUName = [RADataObject dataObjectWithName:[self checkNull:[secondDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:thirdMENU]];
             secondMENUName.url = [self checkNull:[secondDic objectForKey:@"URL"]];
@@ -190,7 +187,7 @@
     
 //    self.data = [NSArray arrayWithObjects:mainMENU[0],mainMENU[1], nil];
     self.data =[NSArray arrayWithArray:fistMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , 0.0, yWidth*1200, yHeight*1820)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , 0.0, yWidth*1200, yHeight*1920)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -198,6 +195,13 @@
     
     [treeView reloadData];
     [treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
+    
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
+    UIImage *backgroundImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
+    [backImageView setImage:backgroundImage];
+    
+    [treeView setBackgroundView:backImageView];
     [treeView setBackgroundColor:UIColorFromRGB(0xF7F7F7)];
     
     self.treeView = treeView;
