@@ -65,4 +65,32 @@
     return modHeight;
 }
 
++(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map {
+    NSMutableString *para = [[NSMutableString alloc]initWithString:@""];
+    NSArray *key = map.allKeys;
+    
+    for (int i = 0;i < key.count;i++) {
+        [para appendString:@"&"];
+        [para appendString:key[i]];
+        [para appendString:@"="];
+        [para appendString:map[key[i]]];
+    }
+    return [self setUrlWithString:url parameterMap:para];
+}
++(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para {
+    NSMutableString *returnUrl = [[NSMutableString alloc]initWithString:@""];
+
+    [returnUrl appendString:url];
+    
+    NSRange match = [url rangeOfString:@"?"];
+    
+    if (match.location == NSNotFound) {
+        NSLog (@"Match ? not found");
+        [returnUrl appendString:@"?"];
+    }
+    
+    [returnUrl appendString:para];
+    
+    return returnUrl;
+}
 @end

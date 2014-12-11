@@ -24,4 +24,7 @@
 +(CGFloat) appWidth;
 +(CGFloat) appHeight;
 +(CGFloat) appModHeight;
+
++(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map;
++(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para;
 @end
