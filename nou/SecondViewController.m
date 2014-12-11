@@ -10,7 +10,7 @@
 #import "RATreeView.h"
 #import "RADataObject.h"
 #import "FistViewController.h"
-
+#import "IconViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -78,42 +78,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
+    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
+    backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+    self.navigationItem.rightBarButtonItem = backButton;
     
     
-//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-//    NSString *domainURL = [dict objectForKey:@"nou_url"];
-//    NSLog(@"domain_url>>>>>%@",domainURL);
-//    
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *stno = [userDefaults stringForKey:@"account"];
-//    NSString *VALID_STR = [userDefaults stringForKey:@"VALID_STR"];
-//    
-//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362&stno=%@&VALID_STR=%@",domainURL,stno, VALID_STR];
-//    
-////    NSString* urlString = [[NSString alloc] initWithFormat:@"%@index?ACCOUNT=100100362",domainURL];
-//    
-//    if ([self.url isKindOfClass:[NSString class]]) {
-//        urlString = [[NSString alloc] initWithFormat:@"%@%@?stno=%@&VALID_STR=%@",domainURL,self.url,stno, VALID_STR];
-//    }
-//    NSLog(@"urlString>>>>>%@",urlString);
-//    
-//    
-//    NSMutableURLRequest *urlrequest = [[NSMutableURLRequest alloc] init];
-//    
-//    [urlrequest setTimeoutInterval:20];
-//    
-//    [urlrequest setURL:[NSURL URLWithString:urlString]];
-//    
-//    
-//    
-//    NSURLResponse* response = nil;
-//    NSError *error = nil;
-//    NSData* data = [NSURLConnection sendSynchronousRequest:urlrequest
-//                    
-//                                         returningResponse:&response
-//                    
-//                                                     error:&error];
+    UIImage *backImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
+    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
+    
+    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+    [functionTitleLabel setText:@"校務資訊系統"];
+    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.navigationItem.titleView = functionTitleLabel;
     
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
     
@@ -351,6 +332,12 @@
         return [self.data objectAtIndex:index];
     }
     return [data.children objectAtIndex:index];
+}
+
+-(void)goHome:(id)sender {
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    UIViewController *iconViewController = [[IconViewController alloc] init];
+    [self presentModalViewController:iconViewController animated:NO];
 }
 
 @end

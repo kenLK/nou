@@ -43,7 +43,7 @@
     CGFloat yHeight = appHeight / 1920.0;
 
     //背景
-    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0 + modHeight, yWidth*1200, yHeight*1920)];
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
     UIImage *backImage = [UIImage imageWithContentsOfFile:
                       [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
     [backImageView setImage:backImage];
@@ -57,7 +57,7 @@
     [self.view addSubview:logoImageView];
     
     //功能title
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0 + modHeight, yWidth*1200, yHeight*174)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174 + modHeight)];
     UIImage *image = [UIImage imageWithContentsOfFile:
                       [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
     [imageView setImage:image];
