@@ -170,13 +170,15 @@
             secondMENUName.detailVisible = [self checkNull:[secondDic objectForKey:@"DETAIL_VISIBLE"]];
             secondMENUName.textColor = [self checkNull:[secondDic objectForKey:@"TEXT_COLOR"]];
             [secondMENU addObject:secondMENUName];
-            NSLog(@"backgroundColor>>>>>>%@",[self colorWithHexString:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]]);
+            //NSLog(@"backgroundColor>>>>>>%@",[self colorWithHexString:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]]);
             if (i == 0) {
                 [backgroundColorArray addObject:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]];
             }
         }
         
         RADataObject *mainMENUName = [RADataObject dataObjectWithName:[menuDic objectForKey:@"NAME"] children:[NSArray arrayWithArray:secondMENU]];
+        mainMENUName.backgroundColor = [self checkNull:[menuDic objectForKey:@"BACKGROUND_COLOR"]];
+        mainMENUName.textColor = [self checkNull:[menuDic objectForKey:@"TEXT_COLOR"]];
         [fistMENU addObject:mainMENUName];
     }
     
@@ -302,7 +304,7 @@
     NSString *colorStr = [NSString stringWithFormat:@"%@",dataObj.backgroundColor];
     NSLog(@"%d", [colorStr intValue]);
     if (treeNodeInfo.treeDepthLevel == 0) {
-        cell.backgroundColor = UIColorFromRGB([colorStr intValue]);
+        cell.backgroundColor = [Utility colorFromHexString:colorStr];//UIColorFromRGB([colorStr intValue]);
     } else if (treeNodeInfo.treeDepthLevel == 1) {
 //        cell.backgroundColor = UIColorFromRGB([colorStr intValue]);
     } else if (treeNodeInfo.treeDepthLevel == 2) {
@@ -339,7 +341,7 @@
 {
     NSInteger numberOfChildren = [treeNodeInfo.children count];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
     cell.textLabel.text = ((RADataObject *)item).name;
     cell.textLabel.textColor = [self colorWithHexString:((RADataObject *)item).textColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
