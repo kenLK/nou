@@ -53,6 +53,8 @@
 		B3259AEA1A36A28100306E26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE91A36A28100306E26 /* QuartzCore.framework */; };
 		B3259AEC1A36A28700306E26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */; };
 		B3259AF21A36A49F00306E26 /* SchoolMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */; };
+		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
+		B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E51A3AD7FF00D8721A /* icon_on.png */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
 		B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */ = {isa = PBXBuildFile; fileRef = B3BF15091A3577AE0083AE91 /* msjh.ttc */; };
@@ -155,6 +157,8 @@
 		B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B3259AF01A36A48900306E26 /* SchoolMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolMapViewController.h; sourceTree = "<group>"; };
 		B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolMapViewController.m; sourceTree = "<group>"; };
+		B33EA9E41A3AD7FF00D8721A /* icon_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_off.png; sourceTree = "<group>"; };
+		B33EA9E51A3AD7FF00D8721A /* icon_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_on.png; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		B3BF15091A3577AE0083AE91 /* msjh.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = msjh.ttc; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 		3311D2641A076904004259CA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B33EA9E41A3AD7FF00D8721A /* icon_off.png */,
+				B33EA9E51A3AD7FF00D8721A /* icon_on.png */,
 				B301AE991A393F1C0061D986 /* icon_menu.png */,
 				B3BF15241A35A0F00083AE91 /* icon_logout_over.png */,
 				B3BF151E1A3598100083AE91 /* btn_over.png */,
@@ -449,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3BF151D1A3597D80083AE91 /* btn_08.png in Resources */,
+				B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */,
 				B3BF151C1A3597D80083AE91 /* btn_07.png in Resources */,
 				B3E3519E1A353F7300ECFBFC /* icon_account.png in Resources */,
 				B3BF15251A35A0F00083AE91 /* icon_logout_over.png in Resources */,
@@ -464,6 +471,7 @@
 				B3BF15211A3598100083AE91 /* btn_over.png in Resources */,
 				3365C9EE1A0159A6002D1F1E /* SecondViewController.xib in Resources */,
 				B3BF15191A3597D80083AE91 /* btn_04.png in Resources */,
+				B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */,
 				3365C9D01A0152C3002D1F1E /* Main.storyboard in Resources */,
 				B3BF15161A3597D80083AE91 /* btn_01.png in Resources */,
 				3365C9D51A0152C3002D1F1E /* LaunchScreen.xib in Resources */,

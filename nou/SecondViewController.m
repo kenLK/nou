@@ -318,13 +318,32 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
-    //NSInteger numberOfChildren = [treeNodeInfo.children count];
+//    //NSInteger numberOfChildren = [treeNodeInfo.children count];
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+//    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
+//    cell.textLabel.text = ((RADataObject *)item).name;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    if (treeNodeInfo.treeDepthLevel == 0) {
+//        cell.detailTextLabel.textColor = [UIColor blackColor];
+//    }
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
     cell.textLabel.text = ((RADataObject *)item).name;
+    cell.textLabel.textColor = [self colorWithHexString:((RADataObject *)item).textColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (treeNodeInfo.treeDepthLevel == 0) {
-        cell.detailTextLabel.textColor = [UIColor blackColor];
+        
+    }
+    
+    if ([treeNodeInfo.children count] > 0) {
+        UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_off" ofType:@"png"]];
+        cell.imageView.image = btnImage;
+        
+        CGSize itemSize = CGSizeMake([Utility appWidth]*60, [Utility appHeight]*60);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }
     return cell;
 }
@@ -345,6 +364,12 @@
         return [self.data objectAtIndex:index];
     }
     return [data.children objectAtIndex:index];
+}
+
+#pragma mark TreeView Editing
+-(BOOL)treeView:(RATreeView *)treeView canEditRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
+{
+    return NO;
 }
 
 -(void)goHome:(id)sender {

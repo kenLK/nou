@@ -76,9 +76,7 @@
         resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     }
     
-    
-//    UIButton *parnetMENU = nil;
-//    UIButton *childMENU = nil;
+    //header
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
     NSDictionary *headDic = [resultJSON valueForKey:@"HEADER"];
     NSString *headName = [headDic objectForKey:@"HEADER_NAME"];
@@ -88,43 +86,8 @@
         [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
         self.navigationItem.titleView = functionTitleLabel;
     }
-//    float totalParnetMenuHeigh = 0.0f;
-//    float totalChildMenuHeigh = 0.0f;
-//    for(NSDictionary *menuDic in menuArray) {
-//    for (int i=0; i<[menuArray count]; i++) {
-//        NSDictionary *menuDic = menuArray[i];
-////        NSLog(@"%@>>>>>>%zd", [menuDic objectForKey:@"NAME"],(30*i));
-//
-//        parnetMENU = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//        totalParnetMenuHeigh = (30*i+80);
-//        [parnetMENU setFrame:CGRectMake(10.0, totalParnetMenuHeigh+totalChildMenuHeigh,100.0, 30.0)];
-//
-//        [parnetMENU setTitle:[menuDic objectForKey:@"NAME"] forState:UIControlStateNormal];
-//        [parnetMENU.titleLabel setFont:[UIFont systemFontOfSize:10]];
-//
-////        [self.view addSubview:parnetMENU];
-//        
-//        NSArray *detailArray = [menuDic objectForKey:@"DETAIL"];
-//        if (detailArray.count > 0) {
-//            UIScrollView *subView = [[UIScrollView alloc] initWithFrame: CGRectMake(50, totalParnetMenuHeigh+totalChildMenuHeigh, 100, 25*[detailArray count])];
-////            NSLog(@"high>>>>>>%zd",[detailArray count]);
-//            
-//            for (int j=0; j<[detailArray count]; j++) {
-//
-//                NSDictionary *detailDic = detailArray[j];
-//                childMENU = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//                [childMENU setFrame:CGRectMake(50.0, subView.frame.size.height+25*j,100.0, 20.0)];
-//                [childMENU setTitle:[detailDic objectForKey:@"NAME"] forState:UIControlStateNormal];
-//                [childMENU.titleLabel setFont:[UIFont systemFontOfSize:10]];
-////                [subView addSubview:childMENU];
-////                [self.view addSubview:subView];
-//                totalChildMenuHeigh = totalChildMenuHeigh+(25*j);
-//            }
-//            if (i > 0) {
-//                subView.hidden = YES;
-//            }
-//        }
-//    }
+    
+    //menu
     NSMutableArray *fistMENU = [[NSMutableArray alloc] init];
     for (int i=0; i<[menuArray count]; i++) {
         NSDictionary *menuDic = menuArray[i];
@@ -315,9 +278,6 @@
     NSLog(@"selected %ld", (long)treeNodeInfo.treeDepthLevel);
     SecondViewController *secondView = [[SecondViewController alloc] init];
 
-//    [self presentViewController:secondView animated:YES completion:^{
-//    }];
-    
     if (treeNodeInfo.treeDepthLevel == 0) {
         //[self.navigationController pushViewController:secondView animated:YES];
     } else if (treeNodeInfo.treeDepthLevel == 1) {
@@ -338,15 +298,28 @@
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
-    //NSInteger numberOfChildren = [treeNodeInfo.children count];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    //cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of children %d", numberOfChildren];
     cell.textLabel.text = ((RADataObject *)item).name;
     cell.textLabel.textColor = [self colorWithHexString:((RADataObject *)item).textColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (treeNodeInfo.treeDepthLevel == 0) {
-//        cell.detailTextLabel.textColor = [UIColor blackColor];
+
     }
+    
+    if ([treeNodeInfo.children count] > 0) {
+        UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_off" ofType:@"png"]];
+        cell.imageView.image = btnImage;
+        
+        CGSize itemSize = CGSizeMake([Utility appWidth]*60, [Utility appHeight]*60);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
+    
+    
     return cell;
 }
 
@@ -357,6 +330,11 @@
     }
     RADataObject *data = item;
     return [data.children count];
+}
+#pragma mark TreeView Editing  
+-(BOOL)treeView:(RATreeView *)treeView canEditRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
+{
+    return NO;
 }
 
 - (id)treeView:(RATreeView *)treeView child:(NSInteger)index ofItem:(id)item
