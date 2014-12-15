@@ -296,11 +296,26 @@
     //FistViewController *firstView = [[FistViewController alloc] init];
     SecondViewController *firstView = [[SecondViewController alloc] init];
     
+    if ([treeNodeInfo.children count] > 0) {
+        NSString *pic;
+        if (treeNodeInfo.expanded) {
+            pic = @"icon_off";
+        } else {
+            pic = @"icon_on";
+        }
+        
+        UITableViewCell *cell = (UITableViewCell *)[treeView cellForItem:item];
+        UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:pic ofType:@"png"]];
+        cell.imageView.image = btnImage;
+        
+        CGSize itemSize = CGSizeMake([Utility appWidth]*60, [Utility appHeight]*60);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
     
-//    firstView.title=
-
-//    [self presentViewController:secondView animated:YES completion:^{        
-//    }];
     if (treeNodeInfo.treeDepthLevel == 0) {
             
     } else if (treeNodeInfo.treeDepthLevel == 1) {

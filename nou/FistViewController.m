@@ -277,7 +277,27 @@
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
     NSLog(@"selected %ld", (long)treeNodeInfo.treeDepthLevel);
     SecondViewController *secondView = [[SecondViewController alloc] init];
-
+    
+    if ([treeNodeInfo.children count] > 0) {
+        NSString *pic;
+        if (treeNodeInfo.expanded) {
+            pic = @"icon_off";
+        } else {
+            pic = @"icon_on";
+        }
+        
+        UITableViewCell *cell = (UITableViewCell *)[treeView cellForItem:item];
+        UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:pic ofType:@"png"]];
+        cell.imageView.image = btnImage;
+        
+        CGSize itemSize = CGSizeMake([Utility appWidth]*60, [Utility appHeight]*60);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
     if (treeNodeInfo.treeDepthLevel == 0) {
         //[self.navigationController pushViewController:secondView animated:YES];
     } else if (treeNodeInfo.treeDepthLevel == 1) {
@@ -294,11 +314,12 @@
     }
 }
 
-#pragma mark TreeView Data Source
 
+#pragma mark TreeView Data Source
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    //UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     cell.textLabel.text = ((RADataObject *)item).name;
     cell.textLabel.textColor = [self colorWithHexString:((RADataObject *)item).textColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -317,8 +338,6 @@
         cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
-    
-    
     
     return cell;
 }
