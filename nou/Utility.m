@@ -65,6 +65,21 @@
     return modHeight;
 }
 
++(CGFloat) boundWidth {
+    CGRect appRect = [[UIScreen mainScreen] bounds];
+    CGFloat appWidth = appRect.size.width;
+    CGFloat yWidth = appWidth / 1200.0;
+    return yWidth;
+}
++(CGFloat) boundHeight {
+    CGRect appRect = [[UIScreen mainScreen] bounds];
+    CGFloat appHeight = appRect.size.height;
+    CGFloat yHeight = appHeight / 1920.0;
+    return yHeight;
+}
+
+
+
 +(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map autoValid:(BOOL) autoValid {
     NSMutableString *para = [[NSMutableString alloc]initWithString:@""];
     NSArray *key = map.allKeys;
@@ -102,5 +117,14 @@
     [returnUrl appendString:para];
     
     return returnUrl;
+}
++(NSString*) checkNull:(NSString *)str {
+    
+    if ([str isKindOfClass:[NSString class]] && [str length] > 0) {
+        return str;
+    }
+    else {
+        return @"";
+    }
 }
 @end

@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "SchoolMapViewController.h"
 #import "FistViewController.h"
+#import "MenuViewController.h"
 @interface IconViewController ()
 
 @end
@@ -288,22 +289,14 @@
 - (IBAction)functionView:(id)sender {
     NSLog(@"funcitonView~~");
     
-    FistViewController *fistViewController = [[FistViewController alloc] init];
- 
+//    FistViewController *fistViewController = [[FistViewController alloc] init];
+//    self.navController = [[UINavigationController alloc] initWithRootViewController:fistViewController];
+//    [self.view addSubview:self.navController.view];
     
-    //NouNavBar * nouNavBar = [[NouNavBar alloc]init];
-    
-    self.navController = [[UINavigationController alloc] initWithRootViewController:fistViewController];
-
-    //[self.navController setValue:nouNavBar forKeyPath:@"navigationBar"];
-    
-    //fistViewController.nouNavBar = nouNavBar;
-    
+    MenuViewController *menuViewController = [[MenuViewController alloc] init];
+    menuViewController.url = @"index";
+    self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
     [self.view addSubview:self.navController.view];
-    //self.window.backgroundColor = [UIColor whiteColor];
-    //[self.window makeKeyAndVisible];
-    
-    
 }
 - (IBAction)SchoolMapView:(id)sender {
     NSLog(@"SchoolMapView~~");

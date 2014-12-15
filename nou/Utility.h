@@ -25,6 +25,11 @@
 +(CGFloat) appHeight;
 +(CGFloat) appModHeight;
 
++(CGFloat) boundWidth;
++(CGFloat) boundHeight;
+
+
 +(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map autoValid:(BOOL) autoValid ;
 +(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para autoValid:(BOOL) autoValid ;
++(NSString*) checkNull:(NSString *)str ;
 @end

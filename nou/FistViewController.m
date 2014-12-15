@@ -87,6 +87,15 @@
         self.navigationItem.titleView = functionTitleLabel;
     }
     
+    //Subject
+    NSDictionary *subjectDic = [resultJSON objectForKey:@"SUBJECT"];
+    if (subjectDic != nil) {
+        NSString *inputButton = [headDic objectForKey:@"INPUT_BUTTON"];
+        NSString *dropDownmenu = [headDic objectForKey:@"DROPDOWN_MENU"];
+        
+        
+    }
+    
     //menu
     NSMutableArray *fistMENU = [[NSMutableArray alloc] init];
     for (int i=0; i<[menuArray count]; i++) {

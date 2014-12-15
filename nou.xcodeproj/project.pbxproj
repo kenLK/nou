@@ -55,6 +55,7 @@
 		B3259AF21A36A49F00306E26 /* SchoolMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */; };
 		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
 		B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E51A3AD7FF00D8721A /* icon_on.png */; };
+		B38AF31C1A3ED01400F048D2 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF31B1A3ED01400F048D2 /* MenuViewController.m */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
 		B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */ = {isa = PBXBuildFile; fileRef = B3BF15091A3577AE0083AE91 /* msjh.ttc */; };
@@ -159,6 +160,8 @@
 		B3259AF11A36A49F00306E26 /* SchoolMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolMapViewController.m; sourceTree = "<group>"; };
 		B33EA9E41A3AD7FF00D8721A /* icon_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_off.png; sourceTree = "<group>"; };
 		B33EA9E51A3AD7FF00D8721A /* icon_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_on.png; sourceTree = "<group>"; };
+		B38AF31A1A3ECFF900F048D2 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		B38AF31B1A3ED01400F048D2 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		B3BF15091A3577AE0083AE91 /* msjh.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = msjh.ttc; sourceTree = "<group>"; };
@@ -296,6 +299,8 @@
 				B3171DC91A37FDC600361603 /* Utility.m */,
 				B301AE961A39306D0061D986 /* NouNavBar.h */,
 				B301AE971A3930800061D986 /* NouNavBar.m */,
+				B38AF31A1A3ECFF900F048D2 /* MenuViewController.h */,
+				B38AF31B1A3ED01400F048D2 /* MenuViewController.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				3365CA081A021694002D1F1E /* RATreeNodeCollectionController.m in Sources */,
 				B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */,
 				3365CA0A1A021694002D1F1E /* RATreeNodeInfo.m in Sources */,
+				B38AF31C1A3ED01400F048D2 /* MenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
