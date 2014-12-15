@@ -347,6 +347,11 @@
     }
     return cell;
 }
+#pragma mark TreeView Editing
+-(BOOL)treeView:(RATreeView *)treeView canEditRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
+{
+    return NO;
+}
 
 - (NSInteger)treeView:(RATreeView *)treeView numberOfChildrenOfItem:(id)item
 {
@@ -364,12 +369,6 @@
         return [self.data objectAtIndex:index];
     }
     return [data.children objectAtIndex:index];
-}
-
-#pragma mark TreeView Editing
--(BOOL)treeView:(RATreeView *)treeView canEditRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
-{
-    return NO;
 }
 
 -(void)goHome:(id)sender {
