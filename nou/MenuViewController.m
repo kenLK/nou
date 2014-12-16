@@ -203,6 +203,10 @@
         fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
         
+        if (tempText != nil || tempTextArea != nil) {
+            fourthMENUName.isMultiLine = YES;
+        }
+
         
         [fourthMENU addObject:fourthMENUName];
     }
@@ -213,6 +217,12 @@
 #pragma mark TreeView Delegate methods
 - (CGFloat)treeView:(RATreeView *)treeView heightForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
+    RADataObject *dataObj = (RADataObject *) item;
+    
+    if (dataObj.isMultiLine) {
+        //return 94;        
+    }
+    
     return 47;
 }
 - (NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
@@ -232,18 +242,7 @@
 }
 - (void)treeView:(RATreeView *)treeView willDisplayCell:(UITableViewCell *)cell forItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
-    //RADataObject *dataObj = item;
-    
     cell.backgroundColor = [Utility colorFromHexString:((RADataObject *)item).backgroundColor];
-//    NSString *colorStr = [NSString stringWithFormat:@"%@",dataObj.backgroundColor];
-//    NSLog(@"%d", [colorStr intValue]);
-//    if (treeNodeInfo.treeDepthLevel == 0) {
-//        cell.backgroundColor = [Utility colorFromHexString:colorStr];//UIColorFromRGB([colorStr intValue]);
-//    } else if (treeNodeInfo.treeDepthLevel == 1) {
-//        cell.backgroundColor = [Utility colorFromHexString:colorStr];
-//    } else if (treeNodeInfo.treeDepthLevel == 2) {
-//        cell.backgroundColor = [Utility colorFromHexString:colorStr];
-//    }
 }
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
     NSLog(@"selected %ld", (long)treeNodeInfo.treeDepthLevel);

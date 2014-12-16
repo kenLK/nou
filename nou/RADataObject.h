@@ -32,6 +32,7 @@
 @property (strong, nonatomic) NSArray *columnWidth;
 
 @property BOOL isLogo;
+@property BOOL isMultiLine;
 
 //@property (strong, nonatomic) NSString *BACKGROUND_COLOR;
 @property (strong, nonatomic) NSArray *children;
