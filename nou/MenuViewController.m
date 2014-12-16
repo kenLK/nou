@@ -100,6 +100,7 @@
             //textField
             inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*710, [Utility appHeight]*100)];
             inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
+            inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
             [self.view addSubview:inputText];
             
             //button
@@ -130,6 +131,20 @@
     //parse JSON
     firstMENU = [self addMenuTree:menuArray];
     
+    //加上logo
+//    RADataObject *logoMENUName0 = nil;
+//    logoMENUName0 = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO0"] children:nil];
+//    logoMENUName0.isSelective = NO;
+//    [firstMENU addObject:logoMENUName0];
+//    
+//    RADataObject *logoMENUName = nil;
+//    logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
+//    logoMENUName.isSelective = NO;
+//    logoMENUName.isLogo = YES;
+//    
+//    [firstMENU addObject:logoMENUName];
+    
+    //產TreeView
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
@@ -172,7 +187,15 @@
     for (int l=0; l<[menuArray count]; l++) {
         NSDictionary *fourthDic = menuArray[l];
         
-        fourthMENUName = [RADataObject dataObjectWithName:[Utility checkNull:[fourthDic objectForKey:@"NAME"]] children:[self addMenuTree:[fourthDic objectForKey:@"DETAIL"]]];
+        //NAME - 一般文字
+        //TEXT - 有可能換行的長文字
+        //TEXTAREA - 要換行的長文字
+        NSString *tempText = [fourthDic objectForKey:@"TEXT"];
+        NSString *tempTextArea = [fourthDic objectForKey:@"TEXTAREA"];
+        NSString *tempName = [fourthDic objectForKey:@"NAME"];
+        NSString *tempObject = [Utility checkNull:tempName defaultString:[Utility checkNull:tempText defaultString:tempTextArea]];
+        
+        fourthMENUName = [RADataObject dataObjectWithName:tempObject children:[self addMenuTree:[fourthDic objectForKey:@"DETAIL"]]];
         fourthMENUName.url = [Utility checkNull:[fourthDic objectForKey:@"URL"]];
         fourthMENUName.backgroundColor = [Utility checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
         fourthMENUName.detailVisible = [Utility checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
@@ -209,16 +232,18 @@
 }
 - (void)treeView:(RATreeView *)treeView willDisplayCell:(UITableViewCell *)cell forItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
-    RADataObject *dataObj = item;
-    NSString *colorStr = [NSString stringWithFormat:@"%@",dataObj.backgroundColor];
-    NSLog(@"%d", [colorStr intValue]);
-    if (treeNodeInfo.treeDepthLevel == 0) {
-        cell.backgroundColor = [Utility colorFromHexString:colorStr];//UIColorFromRGB([colorStr intValue]);
-    } else if (treeNodeInfo.treeDepthLevel == 1) {
-        cell.backgroundColor = [Utility colorFromHexString:colorStr];
-    } else if (treeNodeInfo.treeDepthLevel == 2) {
-        cell.backgroundColor = [Utility colorFromHexString:colorStr];
-    }
+    //RADataObject *dataObj = item;
+    
+    cell.backgroundColor = [Utility colorFromHexString:((RADataObject *)item).backgroundColor];
+//    NSString *colorStr = [NSString stringWithFormat:@"%@",dataObj.backgroundColor];
+//    NSLog(@"%d", [colorStr intValue]);
+//    if (treeNodeInfo.treeDepthLevel == 0) {
+//        cell.backgroundColor = [Utility colorFromHexString:colorStr];//UIColorFromRGB([colorStr intValue]);
+//    } else if (treeNodeInfo.treeDepthLevel == 1) {
+//        cell.backgroundColor = [Utility colorFromHexString:colorStr];
+//    } else if (treeNodeInfo.treeDepthLevel == 2) {
+//        cell.backgroundColor = [Utility colorFromHexString:colorStr];
+//    }
 }
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
     NSLog(@"selected %ld", (long)treeNodeInfo.treeDepthLevel);
@@ -245,7 +270,7 @@
     }
     
     if (treeNodeInfo.treeDepthLevel == 0) {
-        //[self.navigationController pushViewController:secondView animated:YES];
+        
     } else if (treeNodeInfo.treeDepthLevel == 1) {
         RADataObject *dataObj = item;
         secondView.url = dataObj.url;
@@ -264,6 +289,18 @@
 {
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    
+    //假如為LOGO
+    if (((RADataObject *)item).isLogo) {
+        
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395, [Utility appHeight]*30, [Utility appWidth]*410, [Utility appHeight]*90)];
+        UIImage *logoImage = [UIImage imageWithContentsOfFile:
+                              [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
+        [logoImageView setImage:logoImage];
+        [cell addSubview:logoImageView];
+        
+    }
+    
     
     //若NAME為Array，則版面為table
     NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
@@ -293,6 +330,7 @@
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
             [titleLabel setTextAlignment:[Utility alignTextToNSTextAlignment:alignArray[i]]];
+            titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [cell addSubview:titleLabel];
 
             widthLocation += labelWidth + 5;
@@ -353,8 +391,8 @@
     //傳值前先encode
     NSString *escapedString = [inputText.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
-    //查詢參數帶q
-    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?q=%@",queryUrl, escapedString];
+    //查詢參數帶p
+    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
     
     NSLog(@"query>>> queryString");
     
