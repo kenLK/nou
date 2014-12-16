@@ -18,14 +18,28 @@
 @property (strong, nonatomic) NSDictionary *resultJSON;
 @property (strong, nonatomic) NSMutableArray *backgroundColorArray;
 @property (weak, nonatomic) RATreeView *treeView;
+@property (strong, nonatomic) IBOutlet UITextField *inputText;
+@property (strong, nonatomic) NSString *queryUrl;
+
+
 
 @end
 
 @implementation MenuViewController
-@synthesize resultJSON,url,backgroundColorArray;
+@synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    //
+    
+    UIImageView *backgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
+    UIImage *backgImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
+    [backgImageView setImage:backgImage];
+    [self.view addSubview:backgImageView];
+    
     
     //Navigator圖示設定
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -56,15 +70,68 @@
         self.navigationItem.titleView = functionTitleLabel;
     }
     
+    CGFloat subjectHeight = [Utility appHeight]*112;
+    //SUBJECT
+    NSDictionary *subjectDic = [resultJSON valueForKey:@"SUBJECT"];
+    if (subjectDic != nil) {
+        NSString *dropdownMenu = [subjectDic objectForKey:@"DROPDOWN_MENU"];
+        NSDictionary *inputButton = [subjectDic objectForKey:@"INPUT_BUTTON"];
+        
+        //set value
+        NSString *BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BACKGROUND_COLOR"] defaultString:@"FFFFFF"];
+        NSString *TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
+        NSString *BORDER_COLOR = [Utility checkNull:[inputButton objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
+        NSString *PLACEHOLDER = [Utility checkNull:[inputButton objectForKey:@"PLACEHOLDER"] defaultString:@"請輸入..."];
+        
+        NSString *BUTTON_TEXT = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT"] defaultString:@"送出"];
+        NSString *BUTTON_BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_BACKGROUND_COLOR"] defaultString:@"F27935"];
+        NSString *BUTTON_TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT_COLOR"] defaultString:@"FFFFFF"];
+        NSString *URL = [Utility checkNull:[inputButton objectForKey:@"URL"] defaultString:url];
+        queryUrl = URL;
+        
+        if (inputButton != nil) {
+            //input background
+            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*1200, [Utility appHeight]*100)];
+            UIImage *passwordBgImage = [UIImage imageWithContentsOfFile:
+                                        [[NSBundle mainBundle] pathForResource:@"alpha_box_bg" ofType:@"png"]];
+            [passwordBgView setImage:passwordBgImage];
+            [self.view addSubview:passwordBgView];
+            
+            //textField
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*710, [Utility appHeight]*100)];
+            inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
+            [self.view addSubview:inputText];
+            
+            //button
+            UIButton *queryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [queryButton addTarget:self
+                            action:@selector(query:)
+                  forControlEvents:UIControlEventTouchUpInside];
+            [queryButton setTitle:BUTTON_TEXT forState:UIControlStateNormal];
+            [queryButton setTitleColor:[Utility colorFromHexString:BUTTON_TEXT_COLOR] forState:UIControlStateNormal];
+            queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
+            queryButton.frame = CGRectMake([Utility appWidth]*748 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*450, [Utility appHeight]*100);
+            [self.view addSubview:queryButton];
+            //[self.view insertSubview:queryButton atIndex:0];
+            
+            subjectHeight = subjectHeight + [Utility appHeight]*100;
+        }
+        
+        
+    }
+    
+    
+    
     //MENU
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
+    
     //NSArray *menuArray2 = [NSArray arrayWithArray:[self addMenuTree:menuArray]];
     NSMutableArray *firstMENU = [[NSMutableArray alloc] init];
     firstMENU = [self addMenuTree:menuArray];
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0 , 0.0, [Utility boundWidth]*1200, [Utility boundHeight]*1920)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility boundHeight]*1920)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -73,17 +140,17 @@
     [treeView reloadData];
     [treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
+    
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, screenRect.size.width, screenRect.size.height)];
     UIImage *backgroundImage = [UIImage imageWithContentsOfFile:
                                 [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
     [backImageView setImage:backgroundImage];
     
     [treeView setBackgroundView:backImageView];
-    //[treeView setBackgroundColor:UIColorFromRGB(0xF7F7F7)];
     
     self.treeView = treeView;
-    [self.view addSubview:treeView];
+    //[self.view addSubview:treeView];
+    [self.view insertSubview:treeView atIndex:1];//background為0
 }
 
 - (void)didReceiveMemoryWarning {
@@ -239,6 +306,23 @@
     //[self.navigationController popToRootViewControllerAnimated:YES];
     UIViewController *iconViewController = [[IconViewController alloc] init];
     [self presentModalViewController:iconViewController animated:NO];
+}
+-(void)query:(id)sender {
+    
+    MenuViewController *secondView = [[MenuViewController alloc] init];
+    
+    //傳值前先encode
+    NSString *escapedString = [inputText.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    
+    //查詢參數帶q
+    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?q=%@",queryUrl, escapedString];
+    
+    NSLog(@"query>>> queryString");
+    
+    secondView.url = queryString;
+    
+    NSLog(@"url>>>>%@",secondView.url);
+    [self.navigationController pushViewController:secondView animated:YES];
 }
 @end
 

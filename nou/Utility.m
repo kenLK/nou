@@ -127,4 +127,14 @@
         return @"";
     }
 }
++(NSString*) checkNull:(NSString *)str defaultString:(NSString *)defaultString {
+    if ([str isKindOfClass:[NSString class]] && [str length] > 0) {
+        return str;
+    }
+    else {
+        return defaultString;
+    }
+}
+
+
 @end

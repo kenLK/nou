@@ -31,5 +31,7 @@
 
 +(NSString *) setUrlWithMap:(NSString *) url parameterMap:(NSMutableDictionary *) map autoValid:(BOOL) autoValid ;
 +(NSString *) setUrlWithString:(NSString *) url parameterMap:(NSString *) para autoValid:(BOOL) autoValid ;
+
 +(NSString*) checkNull:(NSString *)str ;
++(NSString*) checkNull:(NSString *)str defaultString:(NSString *)defaultString;
 @end

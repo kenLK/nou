@@ -20,5 +20,4 @@
 
 @property (strong, nonatomic) NSString *url;
 
-
 @end
