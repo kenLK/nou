@@ -34,4 +34,7 @@
 
 +(NSString*) checkNull:(NSString *)str ;
 +(NSString*) checkNull:(NSString *)str defaultString:(NSString *)defaultString;
+
++(NSArray *) stringToArray:(NSString *) input;
++(NSTextAlignment) alignTextToNSTextAlignment:(NSString *) alignText;
 @end

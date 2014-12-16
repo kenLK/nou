@@ -128,6 +128,7 @@
     }
 }
 +(NSString*) checkNull:(NSString *)str defaultString:(NSString *)defaultString {
+    
     if ([str isKindOfClass:[NSString class]] && [str length] > 0) {
         return str;
     }
@@ -135,6 +136,26 @@
         return defaultString;
     }
 }
++(NSArray *) stringToArray:(NSString *) input {
+    //parse json傳來的string轉array
+    
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"[ \"] "];
+    NSArray *nameArray = [[[input componentsSeparatedByCharactersInSet:charSet]
+                           componentsJoinedByString:@""]
+                          componentsSeparatedByString:@","];
 
+    return nameArray;
+}
 
++(NSTextAlignment) alignTextToNSTextAlignment:(NSString *) alignText {
+    //parse json傳來的align
+    
+    if ([@"RIGHT"isEqualToString:alignText]) {
+        return (NSTextAlignment)NSTextAlignmentRight;
+    } else if ([@"LEFT"isEqualToString:alignText]) {
+        return (NSTextAlignment)NSTextAlignmentLeft;
+    } else {
+        return (NSTextAlignment)NSTextAlignmentCenter;
+    }
+}
 @end

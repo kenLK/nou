@@ -27,6 +27,10 @@
 @property (strong, nonatomic) NSString *backgroundColor;
 @property (strong, nonatomic) NSString *detailVisible;
 @property (strong, nonatomic) NSString *textColor;
+
+@property (strong, nonatomic) NSArray *columnAlign;
+@property (strong, nonatomic) NSArray *columnWidth;
+
 //@property (strong, nonatomic) NSString *BACKGROUND_COLOR;
 @property (strong, nonatomic) NSArray *children;
 

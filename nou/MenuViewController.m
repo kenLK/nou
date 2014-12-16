@@ -125,9 +125,11 @@
     //MENU
     NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
     
-    //NSArray *menuArray2 = [NSArray arrayWithArray:[self addMenuTree:menuArray]];
     NSMutableArray *firstMENU = [[NSMutableArray alloc] init];
+    
+    //parse JSON
     firstMENU = [self addMenuTree:menuArray];
+    
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
@@ -175,6 +177,10 @@
         fourthMENUName.backgroundColor = [Utility checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
         fourthMENUName.detailVisible = [Utility checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
         fourthMENUName.textColor = [Utility checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
+        fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
+        fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
+        
+        
         [fourthMENU addObject:fourthMENUName];
     }
     
@@ -256,12 +262,43 @@
 #pragma mark TreeView Data Source
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    //UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    cell.textLabel.text = ((RADataObject *)item).name;
-    cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (treeNodeInfo.treeDepthLevel == 0) {
+    
+    //若NAME為Array，則版面為table
+    NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
+    
+    if (nameArray.count < 2) {
+        //無Array
+        
+        cell.textLabel.text = ((RADataObject *)item).name;
+        cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    } else {
+        //有Array
+        NSArray *alignArray = ((RADataObject *)item).columnAlign;
+        NSArray *widthArray = ((RADataObject *)item).columnWidth;
+        
+        CGFloat widthLocation = 0.0;
+        CGRect appRect = [[UIScreen mainScreen] bounds];
+        CGFloat appWidth = appRect.size.width;
+        
+        for (int i = 0;i < nameArray.count;i++) {
+            
+            CGFloat labelWidth = appWidth * ([widthArray[i] floatValue] / 100);
+            
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, 47)];
+            [titleLabel setText:nameArray[i]];
+            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
+            titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+            [titleLabel setTextAlignment:[Utility alignTextToNSTextAlignment:alignArray[i]]];
+            [cell addSubview:titleLabel];
+
+            widthLocation += labelWidth + 5;
+        
+        }
+        
         
     }
     
@@ -276,6 +313,8 @@
         cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
+    
+    
     
     return cell;
 }
