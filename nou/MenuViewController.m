@@ -280,6 +280,7 @@
         fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
         fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
+        fourthMENUName.docUrl = [fourthDic objectForKey:@"DOC_URL"];
         
         if (tempText != nil || tempTextArea != nil) {
             fourthMENUName.isMultiLine = YES;
@@ -375,20 +376,24 @@
         UIGraphicsEndImageContext();
     }
     
-    if (treeNodeInfo.treeDepthLevel == 0) {
-        
-    } else if (treeNodeInfo.treeDepthLevel == 1) {
-        RADataObject *dataObj = item;
+    
+    RADataObject *dataObj = item;
+    
+    if (dataObj.docUrl != nil) {
+        //資料來源，開啟safari
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dataObj.docUrl]];
+        return;
+    }
+    
+    
+    //跳下一頁
+    if ([treeNodeInfo.children count] == 0) {
         secondView.url = dataObj.url;
-        NSLog(@"url>>>>%@",secondView.url);
-        [self.navigationController pushViewController:secondView animated:YES];
-    } else if (treeNodeInfo.treeDepthLevel == 2) {
-        RADataObject *dataObj = item;
-        secondView.url = dataObj.url;
-        
         NSLog(@"url>>>>%@",secondView.url);
         [self.navigationController pushViewController:secondView animated:YES];
     }
+    
+    
 }
 #pragma mark TreeView Data Source
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo

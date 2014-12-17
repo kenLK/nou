@@ -31,6 +31,8 @@
 @property (strong, nonatomic) NSArray *columnAlign;
 @property (strong, nonatomic) NSArray *columnWidth;
 
+@property (strong, nonatomic) NSString *docUrl;
+
 @property BOOL isLogo;
 @property BOOL isMultiLine;
 @property BOOL isChildDefaultExpanded;

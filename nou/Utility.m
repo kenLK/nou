@@ -100,7 +100,6 @@
     NSRange match = [url rangeOfString:@"?"];
     
     if (match.location == NSNotFound) {
-        NSLog (@"Match ? not found");
         [returnUrl appendString:@"?"];
     }
     
