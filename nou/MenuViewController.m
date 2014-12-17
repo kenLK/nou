@@ -26,8 +26,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *ddMenuShowButton;
 - (IBAction)ddMenuShow:(UIButton *)sender;
 - (IBAction)ddMenuSelectionMade:(UIButton *)sender;
-@property (nonatomic, strong) NSMutableArray *BUTTON_TEXT;
-@property (nonatomic, strong) NSMutableArray *BUTTON_VALUE;
+@property (nonatomic, strong) NSMutableArray *ddBUTTON_TEXT;
+@property (nonatomic, strong) NSMutableArray *ddBUTTON_VALUE;
 
 
 
@@ -35,7 +35,7 @@
 
 @implementation MenuViewController
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
-@synthesize ddMenu, ddText,BUTTON_TEXT,BUTTON_VALUE;
+@synthesize ddMenu, ddText,ddBUTTON_TEXT,ddBUTTON_VALUE;
 @synthesize ddMenuShowButton;
 
 - (void)viewDidLoad {
@@ -143,14 +143,14 @@
             queryUrl = URL;
             
             //手刻下拉選單
-            BUTTON_TEXT = [[NSMutableArray alloc] init];
-            BUTTON_VALUE = [[NSMutableArray alloc] init];
+            ddBUTTON_TEXT = [[NSMutableArray alloc] init];
+            ddBUTTON_VALUE = [[NSMutableArray alloc] init];
             
             int checkedMenu = 0;
             for (int i = 0;i < ddArray.count;i++) {
                 NSDictionary *ddDic = ddArray[i];
-                [BUTTON_TEXT addObject:[Utility checkNull:[ddDic objectForKey:@"NAME"] defaultString:@""]];
-                [BUTTON_VALUE addObject:[Utility checkNull:[ddDic objectForKey:@"VALUE"] defaultString:@""]];
+                [ddBUTTON_TEXT addObject:[Utility checkNull:[ddDic objectForKey:@"NAME"] defaultString:@""]];
+                [ddBUTTON_VALUE addObject:[Utility checkNull:[ddDic objectForKey:@"VALUE"] defaultString:@""]];
                 
                 if ([@"Y" isEqualToString:[ddDic objectForKey:@"SELECTED"]]) {
                     checkedMenu = i;
@@ -162,7 +162,7 @@
             [ddMenuShowButton addTarget:self
                             action:@selector(ddMenuShow:)
                   forControlEvents:UIControlEventTouchUpInside];
-            NSMutableString *menuTitle = [BUTTON_TEXT objectAtIndex:checkedMenu];
+            NSMutableString *menuTitle = [ddBUTTON_TEXT objectAtIndex:checkedMenu];
             [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
             [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
             ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -179,7 +179,7 @@
                                        action:@selector(ddMenuSelectionMade:)
                            forControlEvents:UIControlEventTouchUpInside];
                 
-                NSMutableString *menuTitle = [BUTTON_TEXT objectAtIndex:i];
+                NSMutableString *menuTitle = [ddBUTTON_TEXT objectAtIndex:i];
                 [ddMenuSelectButton setTag:i];
                 [ddMenuSelectButton setTitle:menuTitle forState:UIControlStateNormal];
                 [ddMenuSelectButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
@@ -503,12 +503,12 @@
 {
     NSLog(@"ddMenuSelectionMade:");
     self.ddText.text = sender.titleLabel.text;
-    [self.ddMenuShowButton setTitle:[BUTTON_TEXT objectAtIndex:sender.tag] forState:UIControlStateNormal];
+    [self.ddMenuShowButton setTitle:[ddBUTTON_TEXT objectAtIndex:sender.tag] forState:UIControlStateNormal];
     self.ddMenuShowButton.tag = 0;
     self.ddMenu.hidden = YES;
     
     //傳值前先encode
-    NSString *escapedString = [[BUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    NSString *escapedString = [[ddBUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
     //查詢參數帶p
     NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
