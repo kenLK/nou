@@ -92,7 +92,7 @@
     
 //    UIApplication *application = [UIApplication sharedApplication];
     
-    //iOS8
+    //iOS8 取得推播token
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
                                                                                              |UIRemoteNotificationTypeSound

@@ -206,7 +206,7 @@
     UIButton *btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn08 setTag:8];
     btn08.frame = CGRectMake(yWidth*505, yHeight*1040 + [Utility appModHeight], yWidth*190, yHeight*190);
-    [btn08 addTarget:self action:@selector(SchoolMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [btn08 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn08Image = [UIImage imageWithContentsOfFile:
                            [[NSBundle mainBundle] pathForResource:@"btn_08" ofType:@"png"]];
     [btn08 setBackgroundImage:btn08Image forState:UIControlStateNormal];
@@ -319,11 +319,7 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
     [self.view addSubview:self.navController.view];
 }
-- (IBAction)SchoolMapView:(id)sender {
-    NSLog(@"SchoolMapView~~");
-    UIViewController *schoolMapViewController = [[SchoolMapViewController alloc] init];
-    [self presentModalViewController:schoolMapViewController animated:NO];
-}
+
 
 @end
 

@@ -33,6 +33,12 @@
 
 @property (strong, nonatomic) NSString *docUrl;
 
+@property (strong, nonatomic) NSString *googleMap;
+@property (strong, nonatomic) NSArray *multiAddr;
+@property (strong, nonatomic) NSArray *multiSnippet;
+@property (strong, nonatomic) NSArray *multiTitle;
+@property (strong, nonatomic) NSString *zoom;
+
 @property BOOL isLogo;
 @property BOOL isMultiLine;
 @property BOOL isChildDefaultExpanded;

@@ -10,7 +10,7 @@
 
 //#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface MenuViewController ()<RATreeViewDelegate, RATreeViewDataSource>//, UIPickerViewDelegate, UIPickerViewDataSource
+@interface MenuViewController ()<RATreeViewDelegate, RATreeViewDataSource, GMSMapViewDelegate>
 
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) id expanded;
@@ -84,8 +84,10 @@
     //SUBJECT
     NSDictionary *subjectDic = [resultJSON valueForKey:@"SUBJECT"];
     if (subjectDic != nil) {
+        //SUBJECT分三種
         NSDictionary *dropdownMenu = [subjectDic objectForKey:@"DROPDOWN_MENU"];
         NSDictionary *inputButton = [subjectDic objectForKey:@"INPUT_BUTTON"];
+        NSString *subjectName = [Utility checkNull:[subjectDic objectForKey:@"NAME"]];
         
         //subject為查詢button
         if (inputButton != nil) {
@@ -196,6 +198,25 @@
             
         }
         
+        
+        //NAME
+        if (![subjectName isEqualToString:@""]) {
+            NSString *BACKGROUND_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BACKGROUND_COLOR"] defaultString:@"FFFFFF"];
+            NSString *TEXT_COLOR = [Utility checkNull:[subjectDic objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
+            NSString *BORDER_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
+            
+            
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*1200, [Utility appHeight]*100)];
+            [titleLabel setText:subjectName];
+            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
+            titleLabel.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
+            titleLabel.textColor = [Utility colorFromHexString:TEXT_COLOR];
+            [titleLabel setTextAlignment:NSTextAlignmentCenter];
+            [self.view addSubview:titleLabel];
+            
+            subjectHeight = subjectHeight + [Utility appHeight]*100;
+        }
+        
     }
     
     
@@ -254,6 +275,8 @@
 
 -(NSMutableArray *) addMenuTree:(NSArray *)menuArray {
     //parse資料遞迴
+    
+    //遞迴終止
     if ([menuArray count] == 0) {
         return nil;
     }
@@ -272,7 +295,10 @@
         NSString *tempName = [fourthDic objectForKey:@"NAME"];
         NSString *tempObject = [Utility checkNull:tempName defaultString:[Utility checkNull:tempText defaultString:tempTextArea]];
         
+        //下一層遞迴
         fourthMENUName = [RADataObject dataObjectWithName:tempObject children:[self addMenuTree:[fourthDic objectForKey:@"DETAIL"]]];
+        
+        //parse並設定資料
         fourthMENUName.url = [Utility checkNull:[fourthDic objectForKey:@"URL"]];
         fourthMENUName.backgroundColor = [Utility checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
         fourthMENUName.detailVisible = [Utility checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
@@ -281,6 +307,12 @@
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
         fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
         fourthMENUName.docUrl = [Utility checkNull:[fourthDic objectForKey:@"DOC_URL"]];
+        
+        fourthMENUName.googleMap = [Utility checkNull:[fourthDic objectForKey:@"GOOGLE_MAP"]];
+        fourthMENUName.multiAddr = [fourthDic objectForKey:@"MULTIADDR"];
+        fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
+        fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
+        fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"]];
         
         if (tempText != nil || tempTextArea != nil) {
             fourthMENUName.isMultiLine = YES;
@@ -397,6 +429,7 @@
 #pragma mark TreeView Data Source
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
+    //項目顯示資料
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     
@@ -415,7 +448,11 @@
     //若NAME為Array，則版面為table
     NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
     
-    if (nameArray.count < 2) {
+    if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
+        //有google map
+        
+        
+    } else if (nameArray.count < 2) {
         //無Array
         
         cell.textLabel.text = ((RADataObject *)item).name;
@@ -450,6 +487,7 @@
         
     }
     
+    //是否有展開icon
     if ([treeNodeInfo.children count] > 0) {
         UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_off" ofType:@"png"]];
         cell.imageView.image = btnImage;

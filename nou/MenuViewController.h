@@ -14,7 +14,7 @@
 #import "RADataObject.h"
 #import "LoginViewController.h"
 #import "IconViewController.h"
-
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface MenuViewController : UIViewController
 
