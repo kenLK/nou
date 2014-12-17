@@ -158,4 +158,12 @@
         return (NSTextAlignment)NSTextAlignmentCenter;
     }
 }
++(BOOL) ynToBool:(NSString *) input {
+    //Y或N to YES或NO
+    if ([@"Y" isEqualToString:input]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 @end

@@ -33,6 +33,7 @@
 
 @property BOOL isLogo;
 @property BOOL isMultiLine;
+@property BOOL isChildDefaultExpanded;
 
 //@property (strong, nonatomic) NSString *BACKGROUND_COLOR;
 @property (strong, nonatomic) NSArray *children;

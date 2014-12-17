@@ -12,7 +12,6 @@
 
 @interface MenuViewController ()<RATreeViewDelegate, RATreeViewDataSource>
 
-
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) id expanded;
 @property (strong, nonatomic) NSDictionary *resultJSON;
@@ -20,8 +19,6 @@
 @property (weak, nonatomic) RATreeView *treeView;
 @property (strong, nonatomic) IBOutlet UITextField *inputText;
 @property (strong, nonatomic) NSString *queryUrl;
-
-
 
 @end
 
@@ -101,6 +98,7 @@
             inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*710, [Utility appHeight]*100)];
             inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
             inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
+            inputText.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
             [self.view addSubview:inputText];
             
             //button
@@ -202,6 +200,7 @@
         fourthMENUName.textColor = [Utility checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
         fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
+        fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
         
         if (tempText != nil || tempTextArea != nil) {
             fourthMENUName.isMultiLine = YES;
@@ -220,7 +219,7 @@
     RADataObject *dataObj = (RADataObject *) item;
     
     if (dataObj.isMultiLine) {
-        //return 94;        
+        //return 94;
     }
     
     return 47;
@@ -238,6 +237,12 @@
     if ([item isEqual:self.expanded]) {
         return YES;
     }
+    
+    //自動展開項目
+    if (((RADataObject *) item).isChildDefaultExpanded == YES) {
+        return YES;
+    }
+    
     return NO;
 }
 - (void)treeView:(RATreeView *)treeView willDisplayCell:(UITableViewCell *)cell forItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo

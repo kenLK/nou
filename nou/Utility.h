@@ -37,4 +37,6 @@
 
 +(NSArray *) stringToArray:(NSString *) input;
 +(NSTextAlignment) alignTextToNSTextAlignment:(NSString *) alignText;
+
++(BOOL) ynToBool:(NSString *) input;
 @end
