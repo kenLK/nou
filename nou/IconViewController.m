@@ -77,6 +77,7 @@
     
     //btn01
     UIButton *btn01 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn01 setTag:1];
     btn01.frame = CGRectMake(yWidth*140, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn01 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn01Image = [UIImage imageWithContentsOfFile:
@@ -94,6 +95,7 @@
     
     //btn02
     UIButton *btn02 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn02 setTag:2];
     btn02.frame = CGRectMake(yWidth*505, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn02 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn02Image = [UIImage imageWithContentsOfFile:
@@ -111,6 +113,7 @@
     
     //btn03
     UIButton *btn03 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn03 setTag:3];
     btn03.frame = CGRectMake(yWidth*870, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn03 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn03Image = [UIImage imageWithContentsOfFile:
@@ -129,6 +132,7 @@
     
     //btn04
     UIButton *btn04 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn04 setTag:4];
     btn04.frame = CGRectMake(yWidth*140, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn04 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn04Image = [UIImage imageWithContentsOfFile:
@@ -146,6 +150,7 @@
     
     //btn05
     UIButton *btn05 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn05 setTag:5];
     btn05.frame = CGRectMake(yWidth*505, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn05 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn05Image = [UIImage imageWithContentsOfFile:
@@ -163,6 +168,7 @@
     
     //btn06
     UIButton *btn06 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn06 setTag:6];
     btn06.frame = CGRectMake(yWidth*870, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn06 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn06Image = [UIImage imageWithContentsOfFile:
@@ -180,6 +186,7 @@
     
     //btn07
     UIButton *btn07 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn07 setTag:7];
     btn07.frame = CGRectMake(yWidth*140, yHeight*1040 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn07 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn07Image = [UIImage imageWithContentsOfFile:
@@ -197,6 +204,7 @@
     
     //btn08
     UIButton *btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn08 setTag:8];
     btn08.frame = CGRectMake(yWidth*505, yHeight*1040 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn08 addTarget:self action:@selector(SchoolMapView:) forControlEvents:UIControlEventTouchUpInside];
     UIImage *btn08Image = [UIImage imageWithContentsOfFile:
@@ -286,15 +294,28 @@
     
     
 }
-- (IBAction)functionView:(id)sender {
+- (IBAction)functionView:(UIButton *)sender {
     NSLog(@"funcitonView~~");
+    
+    NSArray *destUrl = [NSArray arrayWithObjects:
+               @"",
+               @"news_index",
+               @"bulletin_index",
+               @"recruit_index",
+               @"index",
+               @"contact_index",
+               @"calendar_index",
+               @"roadmap_index",
+               @"schoolmap_index",
+               nil];
     
 //    FistViewController *fistViewController = [[FistViewController alloc] init];
 //    self.navController = [[UINavigationController alloc] initWithRootViewController:fistViewController];
 //    [self.view addSubview:self.navController.view];
     
     MenuViewController *menuViewController = [[MenuViewController alloc] init];
-    menuViewController.url = @"index";
+    
+    menuViewController.url = [destUrl objectAtIndex: sender.tag];
     self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
     [self.view addSubview:self.navController.view];
 }
