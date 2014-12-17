@@ -10,7 +10,7 @@
 
 //#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface MenuViewController ()<RATreeViewDelegate, RATreeViewDataSource>
+@interface MenuViewController ()<RATreeViewDelegate, RATreeViewDataSource>//, UIPickerViewDelegate, UIPickerViewDataSource
 
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) id expanded;
@@ -20,10 +20,23 @@
 @property (strong, nonatomic) IBOutlet UITextField *inputText;
 @property (strong, nonatomic) NSString *queryUrl;
 
+//for drop down list
+@property (nonatomic, strong) IBOutlet UILabel *ddText;
+@property (nonatomic, strong) IBOutlet UIScrollView *ddMenu;
+@property (nonatomic, strong) IBOutlet UIButton *ddMenuShowButton;
+- (IBAction)ddMenuShow:(UIButton *)sender;
+- (IBAction)ddMenuSelectionMade:(UIButton *)sender;
+@property (nonatomic, strong) NSMutableArray *BUTTON_TEXT;
+@property (nonatomic, strong) NSMutableArray *BUTTON_VALUE;
+
+
+
 @end
 
 @implementation MenuViewController
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
+@synthesize ddMenu, ddText,BUTTON_TEXT,BUTTON_VALUE;
+@synthesize ddMenuShowButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,22 +84,24 @@
     //SUBJECT
     NSDictionary *subjectDic = [resultJSON valueForKey:@"SUBJECT"];
     if (subjectDic != nil) {
-        NSString *dropdownMenu = [subjectDic objectForKey:@"DROPDOWN_MENU"];
+        NSDictionary *dropdownMenu = [subjectDic objectForKey:@"DROPDOWN_MENU"];
         NSDictionary *inputButton = [subjectDic objectForKey:@"INPUT_BUTTON"];
         
-        //set value
-        NSString *BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BACKGROUND_COLOR"] defaultString:@"FFFFFF"];
-        NSString *TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
-        NSString *BORDER_COLOR = [Utility checkNull:[inputButton objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
-        NSString *PLACEHOLDER = [Utility checkNull:[inputButton objectForKey:@"PLACEHOLDER"] defaultString:@"請輸入..."];
-        
-        NSString *BUTTON_TEXT = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT"] defaultString:@"送出"];
-        NSString *BUTTON_BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_BACKGROUND_COLOR"] defaultString:@"F27935"];
-        NSString *BUTTON_TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT_COLOR"] defaultString:@"FFFFFF"];
-        NSString *URL = [Utility checkNull:[inputButton objectForKey:@"URL"] defaultString:url];
-        queryUrl = URL;
-        
+        //subject為查詢button
         if (inputButton != nil) {
+             //set value
+            NSString *BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BACKGROUND_COLOR"] defaultString:@"FFFFFF"];
+            NSString *TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
+            NSString *BORDER_COLOR = [Utility checkNull:[inputButton objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
+            NSString *PLACEHOLDER = [Utility checkNull:[inputButton objectForKey:@"PLACEHOLDER"] defaultString:@"請輸入..."];
+            
+            NSString *BUTTON_TEXT = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT"] defaultString:@"送出"];
+            NSString *BUTTON_BACKGROUND_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_BACKGROUND_COLOR"] defaultString:@"F27935"];
+            NSString *BUTTON_TEXT_COLOR = [Utility checkNull:[inputButton objectForKey:@"BUTTON_TEXT_COLOR"] defaultString:@"FFFFFF"];
+            NSString *URL = [Utility checkNull:[inputButton objectForKey:@"URL"] defaultString:url];
+            queryUrl = URL;
+            
+            
             //input background
             UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*1200, [Utility appHeight]*100)];
             UIImage *passwordBgImage = [UIImage imageWithContentsOfFile:
@@ -116,6 +131,70 @@
             subjectHeight = subjectHeight + [Utility appHeight]*100;
         }
         
+        //subject為下拉式選單
+        if (dropdownMenu != nil) {
+            //set value
+            NSArray *ddArray = [dropdownMenu objectForKey:@"DETAIL"];
+            
+            NSString *BACKGROUND_COLOR = [Utility checkNull:[dropdownMenu objectForKey:@"BACKGROUND_COLOR"] defaultString:@"FFFFFF"];
+            NSString *BORDER_COLOR = [Utility checkNull:[dropdownMenu objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
+            NSString *TEXT_COLOR = [Utility checkNull:[dropdownMenu objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
+            NSString *URL = [Utility checkNull:[dropdownMenu objectForKey:@"URL"] defaultString:url];
+            queryUrl = URL;
+            
+            //手刻下拉選單
+            BUTTON_TEXT = [[NSMutableArray alloc] init];
+            BUTTON_VALUE = [[NSMutableArray alloc] init];
+            
+            int checkedMenu = 0;
+            for (int i = 0;i < ddArray.count;i++) {
+                NSDictionary *ddDic = ddArray[i];
+                [BUTTON_TEXT addObject:[Utility checkNull:[ddDic objectForKey:@"NAME"] defaultString:@""]];
+                [BUTTON_VALUE addObject:[Utility checkNull:[ddDic objectForKey:@"VALUE"] defaultString:@""]];
+                
+                if ([@"Y" isEqualToString:[ddDic objectForKey:@"SELECTED"]]) {
+                    checkedMenu = i;
+                }
+            }
+            
+            
+            ddMenuShowButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [ddMenuShowButton addTarget:self
+                            action:@selector(ddMenuShow:)
+                  forControlEvents:UIControlEventTouchUpInside];
+            NSMutableString *menuTitle = [BUTTON_TEXT objectAtIndex:checkedMenu];
+            [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
+            [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
+            ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
+            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*154, [Utility appWidth]*1124, [Utility appHeight]*150);
+            [self.view addSubview:ddMenuShowButton];
+            
+            ddMenu = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*1980)];
+            ddMenu.contentSize = CGSizeMake([Utility appWidth]*1124, [Utility appHeight]*150*ddArray.count);
+            
+            for (int i = 0;i < ddArray.count;i++) {
+              
+                UIButton *ddMenuSelectButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [ddMenuSelectButton addTarget:self
+                                       action:@selector(ddMenuSelectionMade:)
+                           forControlEvents:UIControlEventTouchUpInside];
+                
+                NSMutableString *menuTitle = [BUTTON_TEXT objectAtIndex:i];
+                [ddMenuSelectButton setTag:i];
+                [ddMenuSelectButton setTitle:menuTitle forState:UIControlStateNormal];
+                [ddMenuSelectButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
+                ddMenuSelectButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
+                ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*150 * (i+1), [Utility appWidth]*1124, [Utility appHeight]*150);
+                [ddMenu addSubview:ddMenuSelectButton];
+                
+            }
+            [self.view addSubview:ddMenu];
+            
+            self.ddMenu.hidden = YES;
+            
+            subjectHeight = subjectHeight + [Utility appHeight]*100;
+            
+        }
         
     }
     
@@ -406,6 +485,42 @@
     return [data.children objectAtIndex:index];
 }
 
+//手刻下拉選單
+- (IBAction)ddMenuShow:(UIButton *)sender
+{
+    NSLog(@"ddMenuShow:");
+    if (sender.tag == 0) {
+        sender.tag = 1;
+        self.ddMenu.hidden = NO;
+        //[sender setTitle:@"▲" forState:UIControlStateNormal];
+    } else {
+        sender.tag = 0;
+        self.ddMenu.hidden = YES;
+        //[sender setTitle:@"▼" forState:UIControlStateNormal];
+    }
+}
+- (IBAction)ddMenuSelectionMade:(UIButton *)sender
+{
+    NSLog(@"ddMenuSelectionMade:");
+    self.ddText.text = sender.titleLabel.text;
+    [self.ddMenuShowButton setTitle:[BUTTON_TEXT objectAtIndex:sender.tag] forState:UIControlStateNormal];
+    self.ddMenuShowButton.tag = 0;
+    self.ddMenu.hidden = YES;
+    
+    //傳值前先encode
+    NSString *escapedString = [[BUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    
+    //查詢參數帶p
+    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
+    
+    MenuViewController *secondView = [[MenuViewController alloc] init];
+    secondView.url = queryString;
+    
+    [self.navigationController pushViewController:secondView animated:YES];
+}
+
+
+
 -(void)goHome:(id)sender {
     //[self.navigationController popToRootViewControllerAnimated:YES];
     UIViewController *iconViewController = [[IconViewController alloc] init];
@@ -421,11 +536,8 @@
     //查詢參數帶p
     NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
     
-    NSLog(@"query>>> queryString");
-    
     secondView.url = queryString;
     
-    NSLog(@"url>>>>%@",secondView.url);
     [self.navigationController pushViewController:secondView animated:YES];
 }
 @end
