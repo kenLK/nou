@@ -248,9 +248,32 @@
 - (void)treeView:(RATreeView *)treeView willDisplayCell:(UITableViewCell *)cell forItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     cell.backgroundColor = [Utility colorFromHexString:((RADataObject *)item).backgroundColor];
+    
+    //for 預設展開的項目
+    if ([treeNodeInfo.children count] > 0) {
+        NSString *pic;
+        if (!((RADataObject *) item).isChildDefaultExpanded) {
+            pic = @"icon_off";
+        } else {
+            pic = @"icon_on";
+        }
+        
+        UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:pic ofType:@"png"]];
+        cell.imageView.image = btnImage;
+        
+        CGSize itemSize = CGSizeMake([Utility appWidth]*60, [Utility appHeight]*60);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    
 }
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
-    NSLog(@"selected %ld", (long)treeNodeInfo.treeDepthLevel);
+
+    //點選的項目
+    
     MenuViewController *secondView = [[MenuViewController alloc] init];
     
     if ([treeNodeInfo.children count] > 0) {
