@@ -280,7 +280,7 @@
         fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
         fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
-        fourthMENUName.docUrl = [fourthDic objectForKey:@"DOC_URL"];
+        fourthMENUName.docUrl = [Utility checkNull:[fourthDic objectForKey:@"DOC_URL"]];
         
         if (tempText != nil || tempTextArea != nil) {
             fourthMENUName.isMultiLine = YES;
@@ -379,15 +379,14 @@
     
     RADataObject *dataObj = item;
     
-    if (dataObj.docUrl != nil) {
+    if (![dataObj.docUrl isEqualToString:@""]) {
         //資料來源，開啟safari
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dataObj.docUrl]];
         return;
     }
     
-    
     //跳下一頁
-    if ([treeNodeInfo.children count] == 0) {
+    if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""]) {
         secondView.url = dataObj.url;
         NSLog(@"url>>>>%@",secondView.url);
         [self.navigationController pushViewController:secondView animated:YES];
