@@ -29,11 +29,11 @@
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_TEXT;
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_VALUE;
 
-
-
 @end
 
-@implementation MenuViewController
+@implementation MenuViewController {
+    GMSMapView *mapView_;
+}
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddBUTTON_TEXT,ddBUTTON_VALUE;
 @synthesize ddMenuShowButton;
@@ -312,7 +312,7 @@
         fourthMENUName.multiAddr = [fourthDic objectForKey:@"MULTIADDR"];
         fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
         fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
-        fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"]];
+        fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"] defaultString:@"7"];
         
         if (tempText != nil || tempTextArea != nil) {
             fourthMENUName.isMultiLine = YES;
@@ -332,6 +332,11 @@
     
     if (dataObj.isMultiLine) {
         //return 94;
+    }
+    
+    if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
+        //googlemap加大
+        return [Utility appHeight]* 1000;
     }
     
     return 47;
@@ -430,11 +435,12 @@
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     //項目顯示資料
+    RADataObject *dataObj = (RADataObject *)item;
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     
     //假如為LOGO
-    if (((RADataObject *)item).isLogo) {
+    if (dataObj.isLogo) {
         
         UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395, [Utility appHeight]*30, [Utility appWidth]*410, [Utility appHeight]*90)];
         UIImage *logoImage = [UIImage imageWithContentsOfFile:
@@ -448,8 +454,59 @@
     //若NAME為Array，則版面為table
     NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
     
-    if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
+    if ((![dataObj.googleMap isEqualToString:@""])) {
         //有google map
+
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:23.4857501
+                                                                longitude:120.0843006
+                                                                     zoom:[dataObj.zoom intValue]];
+        mapView_ = [GMSMapView mapWithFrame:CGRectMake([Utility appWidth]*0.0, [Utility appHeight]*0.0, [Utility appWidth]*1200, [Utility appHeight]*1000) camera:camera];
+        mapView_.myLocationEnabled = YES;
+        [cell addSubview:mapView_];
+        
+        //marker
+        
+        //是否有多重marker
+        if (dataObj.multiAddr != nil) {
+            for (int i = 0;i < dataObj.multiAddr.count;i++) {
+                
+                
+                CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+                [geocoder geocodeAddressString:[dataObj.multiAddr objectAtIndex:i]
+                             completionHandler:^(NSArray* placemarks, NSError* error){
+                                 for (CLPlacemark* aPlacemark in placemarks)
+                                 {
+                                     //https://developers.google.com/maps/documentation/ios/start
+                                     // Process the placemark.
+                                     GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
+                                     marker.title = [dataObj.multiTitle objectAtIndex:i];
+                                     marker.snippet = [dataObj.multiSnippet objectAtIndex:i];
+                                     marker.map = mapView_;
+                                 }
+                             }];
+            }
+            
+        } else {
+            //單一marker
+        
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder geocodeAddressString:dataObj.googleMap
+                         completionHandler:^(NSArray* placemarks, NSError* error){
+                             for (CLPlacemark* aPlacemark in placemarks)
+                             {
+                                 //https://developers.google.com/maps/documentation/ios/start
+                                 // Process the placemark.
+                                 GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
+                                 marker.title = dataObj.googleMap;
+                                 marker.snippet = dataObj.name;
+                                 marker.map = mapView_;
+                                 mapView_.camera = [GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
+                                                                               longitude:aPlacemark.location.coordinate.longitude
+                                                                                    zoom:[dataObj.zoom intValue]];
+                             }
+                         }];
+        
+        }
         
         
     } else if (nameArray.count < 2) {
