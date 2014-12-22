@@ -19,6 +19,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface RADataObject : NSObject
 
@@ -42,6 +43,9 @@
 @property BOOL isLogo;
 @property BOOL isMultiLine;
 @property BOOL isChildDefaultExpanded;
+
+@property CGFloat multiLineHeight;
+
 
 //@property (strong, nonatomic) NSString *BACKGROUND_COLOR;
 @property (strong, nonatomic) NSArray *children;

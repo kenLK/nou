@@ -254,7 +254,8 @@
     
     [treeView reloadData];
     [treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
-    
+    treeView.contentMode = UIViewContentModeScaleToFill;
+    //treeView.contentMode = UIViewContentModeScaleAspectFill;
     
     UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, screenRect.size.width, screenRect.size.height)];
     UIImage *backgroundImage = [UIImage imageWithContentsOfFile:
@@ -314,10 +315,25 @@
         fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
         fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"] defaultString:@"7"];
         
-        if (tempText != nil || tempTextArea != nil) {
+        //計算欄位高度
+        NSRange searchedRange = NSMakeRange(0, [tempObject length]);;
+        NSError *error;
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"\\n" options:0 error:&error];
+        NSArray* matches = [regex matchesInString:tempObject options:0 range: searchedRange];
+        if (matches.count > 0) {
             fourthMENUName.isMultiLine = YES;
+            //fourthMENUName.multiLineHeight = (matches.count) * [Utility appHeight]*50 + 47;
+            
+            UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 47)];
+            textLabel.text = tempObject;
+            [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+            textLabel.numberOfLines = 0;
+            [textLabel sizeToFit];
+            
+            fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
+            NSLog(@"%f", textLabel.frame.size.height);
         }
-
+        
         
         [fourthMENU addObject:fourthMENUName];
     }
@@ -329,16 +345,16 @@
 - (CGFloat)treeView:(RATreeView *)treeView heightForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     RADataObject *dataObj = (RADataObject *) item;
-    
     if (dataObj.isMultiLine) {
-        //return 94;
+        return dataObj.multiLineHeight;
     }
-    
+
     if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
         //googlemap加大
         return [Utility appHeight]* 1000;
     }
     
+    //return dataObj.multiLineHeight;
     return 47;
 }
 - (NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
@@ -387,6 +403,7 @@
     }
     
 }
+
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
 
     //點選的項目
@@ -480,7 +497,6 @@
         NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: googleMap]];
         UIImage *btn01Image = [UIImage imageWithData: imageData];
         [btn01 setBackgroundImage:btn01Image forState:UIControlStateNormal];
-        //[btn01 setImage:btnOverImage forState:UIControlStateHighlighted];
         [cell addSubview:btn01];
  
         
@@ -489,6 +505,8 @@
         
         cell.textLabel.text = ((RADataObject *)item).name;
         cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+        cell.textLabel.numberOfLines = 0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     } else {
@@ -506,9 +524,10 @@
             
             UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, 47)];
             [titleLabel setText:nameArray[i]];
-            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
+            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
             [titleLabel setTextAlignment:[Utility alignTextToNSTextAlignment:alignArray[i]]];
+            titleLabel.numberOfLines = 0;
             titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [cell addSubview:titleLabel];
 
