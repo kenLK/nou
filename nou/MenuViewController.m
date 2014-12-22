@@ -314,25 +314,28 @@
         fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
         fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
         fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"] defaultString:@"7"];
-        
+        fourthMENUName.multiLineHeight = 0.0;
         //計算欄位高度
-        NSRange searchedRange = NSMakeRange(0, [tempObject length]);;
-        NSError *error;
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"\\n" options:0 error:&error];
-        NSArray* matches = [regex matchesInString:tempObject options:0 range: searchedRange];
-        if (matches.count > 0) {
-            fourthMENUName.isMultiLine = YES;
-            //fourthMENUName.multiLineHeight = (matches.count) * [Utility appHeight]*50 + 47;
-            
-            UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 47)];
-            textLabel.text = tempObject;
-            [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-            textLabel.numberOfLines = 0;
-            [textLabel sizeToFit];
-            
-            fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
-            NSLog(@"%f", textLabel.frame.size.height);
+        if ([@"" isEqualToString:fourthMENUName.googleMap]) {
+            NSRange searchedRange = NSMakeRange(0, [tempObject length]);;
+            NSError *error;
+            NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"\\n" options:0 error:&error];
+            NSArray* matches = [regex matchesInString:tempObject options:0 range: searchedRange];
+            if (matches.count > 0) {
+                fourthMENUName.isMultiLine = YES;
+                //fourthMENUName.multiLineHeight = (matches.count) * [Utility appHeight]*50 + 47;
+                
+                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 47)];
+                textLabel.text = tempObject;
+                [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+                textLabel.numberOfLines = 0;
+                [textLabel sizeToFit];
+                
+                fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
+            }
+        
         }
+        
         
         
         [fourthMENU addObject:fourthMENUName];
@@ -345,16 +348,20 @@
 - (CGFloat)treeView:(RATreeView *)treeView heightForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     RADataObject *dataObj = (RADataObject *) item;
-    if (dataObj.isMultiLine) {
-        return dataObj.multiLineHeight;
-    }
-
+    
     if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
         //googlemap加大
         return [Utility appHeight]* 1000;
     }
     
-    //return dataObj.multiLineHeight;
+    if (dataObj.isMultiLine) {
+        return dataObj.multiLineHeight;
+    }
+    
+    if (dataObj.multiLineHeight > 0.0) {
+        return dataObj.multiLineHeight;
+    }
+
     return 47;
 }
 - (NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
