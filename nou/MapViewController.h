@@ -1,8 +1,8 @@
 //
-//  MenuViewController.h
+//  MapViewController.h
 //  nou
 //
-//  Created by focusardi on 2014/12/15.
+//  Created by focusardi on 2014/12/18.
 //  Copyright (c) 2014年 Ken. All rights reserved.
 //
 
@@ -10,15 +10,13 @@
 #import <UIKit/UIKit.h>
 #import "Utility.h"
 #import "NouRequest.h"
-#import "RATreeView.h"
 #import "RADataObject.h"
 #import "LoginViewController.h"
 #import "IconViewController.h"
-#import "MapViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface MenuViewController : UIViewController
+@interface MapViewController : UIViewController
 
-@property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) RADataObject *dataObj;
 
 @end

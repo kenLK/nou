@@ -56,6 +56,8 @@
 		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
 		B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E51A3AD7FF00D8721A /* icon_on.png */; };
 		B38AF31C1A3ED01400F048D2 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF31B1A3ED01400F048D2 /* MenuViewController.m */; };
+		B3AF2C5D1A427E6000EAB964 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AF2C5C1A427E6000EAB964 /* MapViewController.m */; };
+		B3AF2C601A42856D00EAB964 /* NouMapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AF2C5F1A42856D00EAB964 /* NouMapButton.m */; };
 		B3AF4CC01A31B49B00788EEB /* bg_V.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */; };
 		B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AF4CC11A31B5C100788EEB /* icon_logo.png */; };
 		B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */ = {isa = PBXBuildFile; fileRef = B3BF15091A3577AE0083AE91 /* msjh.ttc */; };
@@ -162,6 +164,10 @@
 		B33EA9E51A3AD7FF00D8721A /* icon_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_on.png; sourceTree = "<group>"; };
 		B38AF31A1A3ECFF900F048D2 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		B38AF31B1A3ED01400F048D2 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		B3AF2C5B1A427E4800EAB964 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		B3AF2C5C1A427E6000EAB964 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		B3AF2C5E1A42853A00EAB964 /* NouMapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NouMapButton.h; sourceTree = "<group>"; };
+		B3AF2C5F1A42856D00EAB964 /* NouMapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NouMapButton.m; sourceTree = "<group>"; };
 		B3AF4CBF1A31B49B00788EEB /* bg_V.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_V.jpg; sourceTree = "<group>"; };
 		B3AF4CC11A31B5C100788EEB /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		B3BF15091A3577AE0083AE91 /* msjh.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = msjh.ttc; sourceTree = "<group>"; };
@@ -301,6 +307,10 @@
 				B301AE971A3930800061D986 /* NouNavBar.m */,
 				B38AF31A1A3ECFF900F048D2 /* MenuViewController.h */,
 				B38AF31B1A3ED01400F048D2 /* MenuViewController.m */,
+				B3AF2C5B1A427E4800EAB964 /* MapViewController.h */,
+				B3AF2C5C1A427E6000EAB964 /* MapViewController.m */,
+				B3AF2C5E1A42853A00EAB964 /* NouMapButton.h */,
+				B3AF2C5F1A42856D00EAB964 /* NouMapButton.m */,
 			);
 			path = nou;
 			sourceTree = "<group>";
@@ -510,9 +520,11 @@
 				B301AE981A3930800061D986 /* NouNavBar.m in Sources */,
 				3365CA0D1A021694002D1F1E /* RATreeView+TableViewDataSource.m in Sources */,
 				3365CA0E1A021694002D1F1E /* RATreeView+TableViewDelegate.m in Sources */,
+				B3AF2C5D1A427E6000EAB964 /* MapViewController.m in Sources */,
 				3365CA0B1A021694002D1F1E /* RATreeView+Enums.m in Sources */,
 				3365C9ED1A0159A6002D1F1E /* SecondViewController.m in Sources */,
 				B3171DCA1A37FDC600361603 /* Utility.m in Sources */,
+				B3AF2C601A42856D00EAB964 /* NouMapButton.m in Sources */,
 				3365C9CD1A0152C3002D1F1E /* ViewController.m in Sources */,
 				3365CA101A021694002D1F1E /* RATreeView.m in Sources */,
 				3365C9CA1A0152C3002D1F1E /* AppDelegate.m in Sources */,

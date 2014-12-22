@@ -10,7 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "NouRequest.h"
 #import <GoogleMaps/GoogleMaps.h>
-
+#import "NouMapButton.h"
 
 @interface Utility : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
@@ -39,4 +39,6 @@
 +(NSTextAlignment) alignTextToNSTextAlignment:(NSString *) alignText;
 
 +(BOOL) ynToBool:(NSString *) input;
+
++(NSString *) stringEncode:(NSString *) input;
 @end

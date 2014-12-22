@@ -165,4 +165,8 @@
         return NO;
     }
 }
++(NSString *) stringEncode:(NSString *) input {
+    NSString *escapedString = [input stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    return escapedString;
+}
 @end

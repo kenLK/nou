@@ -29,14 +29,14 @@
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_TEXT;
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_VALUE;
 
+
 @end
 
 @implementation MenuViewController {
     GMSMapView *mapView_;
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
-@synthesize ddMenu, ddText,ddBUTTON_TEXT,ddBUTTON_VALUE;
-@synthesize ddMenuShowButton;
+@synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -456,58 +456,33 @@
     
     if ((![dataObj.googleMap isEqualToString:@""])) {
         //有google map
+        NouMapButton *btn01 = [NouMapButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn01 setTag:1];
+        btn01.dataObj = dataObj;
+        btn01.frame = CGRectMake([Utility appWidth]*0, [Utility appHeight]*0, [Utility appWidth]*1200, [Utility appHeight]*1200);
+        [btn01 addTarget:self action:@selector(map:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //取得google map image
 
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:23.4857501
-                                                                longitude:120.0843006
-                                                                     zoom:[dataObj.zoom intValue]];
-        mapView_ = [GMSMapView mapWithFrame:CGRectMake([Utility appWidth]*0.0, [Utility appHeight]*0.0, [Utility appWidth]*1200, [Utility appHeight]*1000) camera:camera];
-        mapView_.myLocationEnabled = YES;
-        [cell addSubview:mapView_];
+        NSMutableString *googleMap = [[NSMutableString alloc]initWithString:@""];
         
-        //marker
+        [googleMap appendString:@"http://maps.google.com/maps/api/staticmap?"];
+        [googleMap appendFormat:@"zoom=%@", dataObj.zoom];
+        [googleMap appendString:@"&size=600x600&maptype=mobile&feature:all&element:all"];
+        [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.googleMap]];
+        [googleMap appendString:@"&sensor=true&language=zh-tw"];
         
-        //是否有多重marker
-        if (dataObj.multiAddr != nil) {
-            for (int i = 0;i < dataObj.multiAddr.count;i++) {
-                
-                
-                CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-                [geocoder geocodeAddressString:[dataObj.multiAddr objectAtIndex:i]
-                             completionHandler:^(NSArray* placemarks, NSError* error){
-                                 for (CLPlacemark* aPlacemark in placemarks)
-                                 {
-                                     //https://developers.google.com/maps/documentation/ios/start
-                                     // Process the placemark.
-                                     GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
-                                     marker.title = [dataObj.multiTitle objectAtIndex:i];
-                                     marker.snippet = [dataObj.multiSnippet objectAtIndex:i];
-                                     marker.map = mapView_;
-                                 }
-                             }];
-            }
-            
-        } else {
-            //單一marker
-        
-            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-            [geocoder geocodeAddressString:dataObj.googleMap
-                         completionHandler:^(NSArray* placemarks, NSError* error){
-                             for (CLPlacemark* aPlacemark in placemarks)
-                             {
-                                 //https://developers.google.com/maps/documentation/ios/start
-                                 // Process the placemark.
-                                 GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
-                                 marker.title = dataObj.googleMap;
-                                 marker.snippet = dataObj.name;
-                                 marker.map = mapView_;
-                                 mapView_.camera = [GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
-                                                                               longitude:aPlacemark.location.coordinate.longitude
-                                                                                    zoom:[dataObj.zoom intValue]];
-                             }
-                         }];
-        
+        if (dataObj.multiAddr == nil) {
+            [googleMap appendFormat:@"&center=%@", [Utility stringEncode:dataObj.googleMap]];
         }
+        //NSLog(@"google map>>%@", googleMap);
         
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: googleMap]];
+        UIImage *btn01Image = [UIImage imageWithData: imageData];
+        [btn01 setBackgroundImage:btn01Image forState:UIControlStateNormal];
+        //[btn01 setImage:btnOverImage forState:UIControlStateHighlighted];
+        [cell addSubview:btn01];
+ 
         
     } else if (nameArray.count < 2) {
         //無Array
@@ -607,7 +582,8 @@
     self.ddMenu.hidden = YES;
     
     //傳值前先encode
-    NSString *escapedString = [[ddBUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    //NSString *escapedString = [[ddBUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    NSString *escapedString = [Utility stringEncode:[ddBUTTON_VALUE objectAtIndex:sender.tag]];
     
     //查詢參數帶p
     NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
@@ -638,6 +614,13 @@
     secondView.url = queryString;
     
     [self.navigationController pushViewController:secondView animated:YES];
+}
+-(void)map:(NouMapButton *)sender{
+    MapViewController *nextView = [[MapViewController alloc] init];
+    
+    nextView.dataObj = sender.dataObj;
+    
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 @end
 
