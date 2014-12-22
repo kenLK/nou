@@ -246,7 +246,7 @@
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility boundHeight]*1920)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility boundHeight]*1920 - subjectHeight)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -321,7 +321,7 @@
             NSError *error;
             NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"\\n" options:0 error:&error];
             NSArray* matches = [regex matchesInString:tempObject options:0 range: searchedRange];
-            if (matches.count > 0) {
+            if (matches.count > 0 || tempText != nil || tempTextArea != nil) {
                 fourthMENUName.isMultiLine = YES;
                 //fourthMENUName.multiLineHeight = (matches.count) * [Utility appHeight]*50 + 47;
                 
