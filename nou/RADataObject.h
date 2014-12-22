@@ -26,7 +26,6 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) NSString *backgroundColor;
-@property (strong, nonatomic) NSString *detailVisible;
 @property (strong, nonatomic) NSString *textColor;
 
 @property (strong, nonatomic) NSArray *columnAlign;
@@ -43,6 +42,7 @@
 @property BOOL isLogo;
 @property BOOL isMultiLine;
 @property BOOL isChildDefaultExpanded;
+@property BOOL isNotSelective;
 
 @property CGFloat multiLineHeight;
 

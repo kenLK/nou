@@ -176,7 +176,7 @@
                     fourthMENUName = [RADataObject dataObjectWithName:[self checkNull:[fourthDic objectForKey:@"NAME"]] children:nil];
                     fourthMENUName.url = [self checkNull:[fourthDic objectForKey:@"URL"]];
                     fourthMENUName.backgroundColor = [self checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
-                    fourthMENUName.detailVisible = [self checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
+                    //fourthMENUName.detailVisible = [self checkNull:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
                     fourthMENUName.textColor = [self checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
                     [fourthMENU addObject:fourthMENUName];
                     
@@ -186,7 +186,7 @@
                 thirdMENUName = [RADataObject dataObjectWithName:[self checkNull:[thirdDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:fourthMENU]];
                 thirdMENUName.url = [self checkNull:[thirdDic objectForKey:@"URL"]];
                 thirdMENUName.backgroundColor = [self checkNull:[thirdDic objectForKey:@"BACKGROUND_COLOR"]];
-                thirdMENUName.detailVisible = [self checkNull:[thirdDic objectForKey:@"DETAIL_VISIBLE"]];
+                //thirdMENUName.detailVisible = [self checkNull:[thirdDic objectForKey:@"DETAIL_VISIBLE"]];
                 thirdMENUName.textColor = [self checkNull:[thirdDic objectForKey:@"TEXT_COLOR"]];
                 [thirdMENU addObject:thirdMENUName];
             }
@@ -195,7 +195,7 @@
             secondMENUName = [RADataObject dataObjectWithName:[self checkNull:[secondDic objectForKey:@"NAME"]] children:[NSArray arrayWithArray:thirdMENU]];
             secondMENUName.url = [self checkNull:[secondDic objectForKey:@"URL"]];
             secondMENUName.backgroundColor = [self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]];
-            secondMENUName.detailVisible = [self checkNull:[secondDic objectForKey:@"DETAIL_VISIBLE"]];
+            //secondMENUName.detailVisible = [self checkNull:[secondDic objectForKey:@"DETAIL_VISIBLE"]];
             secondMENUName.textColor = [self checkNull:[secondDic objectForKey:@"TEXT_COLOR"]];
             [secondMENU addObject:secondMENUName];
             //NSLog(@"backgroundColor>>>>>>%@",[self colorWithHexString:[self checkNull:[secondDic objectForKey:@"BACKGROUND_COLOR"]]]);
