@@ -525,21 +525,42 @@
         CGRect appRect = [[UIScreen mainScreen] bounds];
         CGFloat appWidth = appRect.size.width;
         
+        NSMutableArray *imageArray = [[NSMutableArray alloc]init];
+        NSMutableArray *image2Array = [[NSMutableArray alloc]init];
+        
         for (int i = 0;i < nameArray.count;i++) {
             
             CGFloat labelWidth = appWidth * ([widthArray[i] floatValue] / 100);
             
             UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, 47)];
             [titleLabel setText:nameArray[i]];
-            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+            [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];            
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
             [titleLabel setTextAlignment:[Utility alignTextToNSTextAlignment:alignArray[i]]];
             titleLabel.numberOfLines = 0;
-            titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            
             [cell addSubview:titleLabel];
-
+            
+    
             widthLocation += labelWidth + 5;
+            
+            if (i != 0) {
+                NSNumber * aNumber = [NSNumber numberWithFloat:widthLocation - 5 - labelWidth];
+                [imageArray addObject:aNumber];
+                
+                NSNumber * bNumber = [NSNumber numberWithFloat:titleLabel.frame.size.height];
+                [image2Array addObject:bNumber];
+            }
+        }
         
+        for (int j = 0;j < imageArray.count;j++) {
+            CGFloat aWidth = [imageArray[j] floatValue];
+            CGFloat bHeight = [image2Array[j] floatValue];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(aWidth, 0.0, 1, bHeight)];
+            UIImage *image = [UIImage imageWithContentsOfFile:
+                              [[NSBundle mainBundle] pathForResource:@"alpha_box_bg" ofType:@"png"]];
+            [imageView setImage:image];
+            [cell addSubview:imageView];
         }
         
         
