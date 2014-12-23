@@ -339,18 +339,20 @@
             if (matches.count > 0 || tempText != nil || tempTextArea != nil) {
                 fourthMENUName.isMultiLine = YES;
                 
-                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
-                textLabel.text = tempObject;
-                [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-                textLabel.numberOfLines = 0;
-                [textLabel sizeToFit];
+                fourthMENUName.multiLineHeight = [self countHeight:tempObject];
                 
-                fourthMENUName.multiLineHeight = textLabel.frame.size.height;
-                if (fourthMENUName.multiLineHeight < 47) {
-                    fourthMENUName.multiLineHeight = 47;
-                } else {
-                    fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
-                }
+//                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
+//                textLabel.text = tempObject;
+//                [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+//                textLabel.numberOfLines = 0;
+//                [textLabel sizeToFit];
+//                
+//                fourthMENUName.multiLineHeight = textLabel.frame.size.height;
+//                if (fourthMENUName.multiLineHeight < 47) {
+//                    fourthMENUName.multiLineHeight = 47;
+//                } else {
+//                    fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
+//                }
             }
         }
         
@@ -378,7 +380,7 @@
         return dataObj.multiLineHeight;
     }
 
-    return 47;
+    return [self countHeight:dataObj.name];
 }
 - (NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
@@ -446,6 +448,7 @@
             pic = @"icon_on";
         }
         
+        //取得cell
         UITableViewCell *cell = (UITableViewCell *)[treeView cellForItem:item];
         UIImage *btnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:pic ofType:@"png"]];
         cell.imageView.image = btnImage;
@@ -666,7 +669,25 @@
     [self.navigationController pushViewController:secondView animated:YES];
 }
 
-
+-(CGFloat) countHeight:(NSString *) input {
+    //計算欄位高度
+    UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
+    textLabel.text = input;
+    [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+    textLabel.numberOfLines = 0;
+    [textLabel sizeToFit];
+    
+    CGFloat returnCG = 0.0;
+    
+    returnCG = textLabel.sizeOfMultiLineLabel.height + 28;
+    if (returnCG < 47) {
+        returnCG = 47;
+    } else {
+        returnCG = textLabel.frame.size.height + 47;
+    }
+    
+    return returnCG;
+}
 
 -(void)goHome:(id)sender {
     //[self.navigationController popToRootViewControllerAnimated:YES];

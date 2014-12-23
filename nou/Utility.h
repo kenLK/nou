@@ -11,6 +11,7 @@
 #import "NouRequest.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "NouMapButton.h"
+#import "UILabel+UILabelDynamicHeight.h"
 
 @interface Utility : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
