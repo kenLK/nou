@@ -333,13 +333,18 @@
             if (matches.count > 0 || tempText != nil || tempTextArea != nil) {
                 fourthMENUName.isMultiLine = YES;
                 
-                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 47)];
+                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
                 textLabel.text = tempObject;
                 [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
                 textLabel.numberOfLines = 0;
                 [textLabel sizeToFit];
                 
-                fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
+                fourthMENUName.multiLineHeight = textLabel.frame.size.height;
+                if (fourthMENUName.multiLineHeight < 47) {
+                    fourthMENUName.multiLineHeight = 47;
+                } else {
+                    fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
+                }
             }
         }
         
@@ -530,6 +535,8 @@
         [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
         cell.textLabel.numberOfLines = 0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSLog(@"cell text>>%@", cell.textLabel.text);
+        NSLog(@"cell width>>%f", cell.textLabel.frame.size.width);
         
     } else {
         //有Array
