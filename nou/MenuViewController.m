@@ -80,7 +80,10 @@
         self.navigationItem.titleView = functionTitleLabel;
     }
     
-    CGFloat subjectHeight = [Utility appHeight]*112;
+    //CGFloat subjectHeight = [Utility appHeight]*112;
+    
+    CGFloat subjectHeight = self.navigationController.navigationBar.frame.size.height;
+    
     //SUBJECT
     NSDictionary *subjectDic = [resultJSON valueForKey:@"SUBJECT"];
     if (subjectDic != nil) {
@@ -105,14 +108,14 @@
             
             
             //input background
-            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*1200, [Utility appHeight]*100)];
+            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + 20, [Utility appWidth]*1200, [Utility appHeight]*174)];
             UIImage *passwordBgImage = [UIImage imageWithContentsOfFile:
                                         [[NSBundle mainBundle] pathForResource:@"alpha_box_bg" ofType:@"png"]];
             [passwordBgView setImage:passwordBgImage];
             [self.view addSubview:passwordBgView];
             
             //textField
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*710, [Utility appHeight]*100)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + 20, [Utility appWidth]*710, [Utility appHeight]*174)];
             inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
             inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
             inputText.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -126,11 +129,11 @@
             [queryButton setTitle:BUTTON_TEXT forState:UIControlStateNormal];
             [queryButton setTitleColor:[Utility colorFromHexString:BUTTON_TEXT_COLOR] forState:UIControlStateNormal];
             queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
-            queryButton.frame = CGRectMake([Utility appWidth]*748 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*450, [Utility appHeight]*100);
+            queryButton.frame = CGRectMake([Utility appWidth]*748 , subjectHeight + 20, [Utility appWidth]*450, [Utility appHeight]*174);
             [self.view addSubview:queryButton];
             //[self.view insertSubview:queryButton atIndex:0];
             
-            subjectHeight = subjectHeight + [Utility appHeight]*100;
+            subjectHeight = subjectHeight + 13;
         }
         
         //subject為下拉式選單
@@ -206,7 +209,7 @@
             NSString *BORDER_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
             
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + [Utility appHeight]*174, [Utility appWidth]*1200, [Utility appHeight]*100)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + 20, [Utility appWidth]*1200, [Utility appHeight]*174)];
             [titleLabel setText:subjectName];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
             titleLabel.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -214,8 +217,11 @@
             [titleLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:titleLabel];
             
-            subjectHeight = subjectHeight + [Utility appHeight]*100;
+            subjectHeight = subjectHeight + 13;
         }
+    } else {
+        subjectHeight = subjectHeight - 12;
+    
     }
     
     
@@ -529,14 +535,11 @@
         
     } else if (nameArray.count < 2) {
         //無Array
-        
         cell.textLabel.text = ((RADataObject *)item).name;
         cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
         [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
         cell.textLabel.numberOfLines = 0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSLog(@"cell text>>%@", cell.textLabel.text);
-        NSLog(@"cell width>>%f", cell.textLabel.frame.size.width);
         
     } else {
         //有Array
