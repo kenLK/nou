@@ -131,7 +131,6 @@
             queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
             queryButton.frame = CGRectMake([Utility appWidth]*748 , subjectHeight + 20, [Utility appWidth]*450, [Utility appHeight]*174);
             [self.view addSubview:queryButton];
-            //[self.view insertSubview:queryButton atIndex:0];
             
             subjectHeight = subjectHeight + 13;
         }
@@ -171,7 +170,7 @@
             [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
             [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
             ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*154, [Utility appWidth]*1124, [Utility appHeight]*150);
+            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + 20 + 4, [Utility appWidth]*1124, [Utility appHeight]*150);
             [self.view addSubview:ddMenuShowButton];
             
             ddMenu = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*1980)];
@@ -191,13 +190,12 @@
                 ddMenuSelectButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
                 ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*150 * (i+1), [Utility appWidth]*1124, [Utility appHeight]*150);
                 [ddMenu addSubview:ddMenuSelectButton];
-                
             }
             [self.view addSubview:ddMenu];
             
             self.ddMenu.hidden = YES;
             
-            subjectHeight = subjectHeight + [Utility appHeight]*100;
+            subjectHeight = subjectHeight + 13;
             
         }
         
