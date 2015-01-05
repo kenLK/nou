@@ -51,47 +51,6 @@
 //    }
     
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *pAccount = @"";
-    NSString *pPassword = @"";
-    NSString *pRegId = @"";
-    
-    
-    
-//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-//    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-//    NSString *domainURL = [dict objectForKey:@"nou_url"];
-//    
-//    NSString* urlString = [[NSString alloc] initWithFormat:@"%@reg?regId=%@&type=IOS"
-//                           , domainURL, pRegId];
-//    
-//    NSURL *url = [[NSURL alloc] initWithString:urlString];
-//    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-//    [urlRequest setHTTPMethod:@"POST"];
-//    NSURLResponse *response;
-//    NSError *error;
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-//    
-    
-    
-    
-    pAccount = [userDefaults stringForKey:@"account"];
-    pPassword = [userDefaults stringForKey:@"password"];
-    pRegId = [userDefaults stringForKey:@"regId"];
-    
-    NSLog(@"pAccount>>>%@", pAccount);
-//        
-//        if (![@"" isEqualToString:pAccount]) {
-//            UIViewController *iconViewController = [[IconViewController alloc] init];
-//            //[self presentModalViewController:iconViewController animated:NO];
-//            [self.window setRootViewController:iconViewController];
-//            
-//            [self.window makeKeyAndVisible];
-//            return YES;
-//        }
-    
-    
-//    UIApplication *application = [UIApplication sharedApplication];
     
     //iOS8 取得推播token
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
@@ -110,25 +69,48 @@
     
     
     
+    // 先確定是否已有帳號密碼，若是正確的則直接登入
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *pAccount = @"";
+    NSString *pPassword = @"";
+    NSString *pRegId = @"";
+    
+    pAccount = [userDefaults stringForKey:@"account"];
+    pPassword = [userDefaults stringForKey:@"password"];
+    pRegId = [userDefaults stringForKey:@"regId"];
+    
+    if (![@"" isEqualToString:pAccount]) {
+        NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
+                               , pAccount, pPassword, pRegId];
+        NSData *responseData =  [NouRequest urlMethod:@"login" parameterString:urlString];
+        NSDictionary *resultJSON;
+        if (responseData != nil) {
+            resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
+            
+            NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
+            NSLog(@"login code>>%@", RETURNCODE);
+            
+            if ([@"00" isEqualToString:RETURNCODE]) {
+                //登入成功
+                //紀錄user data
+                [userDefaults setObject:pAccount forKey:@"account"];
+                [userDefaults setObject:pPassword forKey:@"password"];
+                [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
+                [userDefaults synchronize];
+                
+                UIViewController *iconViewController = [[IconViewController alloc] init];
+                
+                [self.window setRootViewController:iconViewController];
+                
+                [self.window makeKeyAndVisible];
+                return YES;
+            }
+        }
+    }
+    
     LoginViewController *root = [[LoginViewController alloc]init];
     
-//    self.navController = [[UINavigationController alloc] initWithRootViewController:root];
-//    [self.window addSubview:navController.view];
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
-//    
-    
-//    LoginViewController *loginView = [[LoginViewController alloc] init];
-    //self.navController = [[UINavigationController alloc] init];
     [self.window setRootViewController:root];
-    
-    //[self.window addSubview:self.navController.view];
-//
-//    [self.window makeKeyAndVisible];
-    
-//    [self.window setRootViewController:self.navController];
-    
-    //[self.navController pushViewController:loginView animated:YES];
     
     [self.window makeKeyAndVisible];
     return YES;

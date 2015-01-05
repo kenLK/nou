@@ -12,6 +12,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "NouMapButton.h"
 #import "UILabel+UILabelDynamicHeight.h"
+#import "LoginViewController.h"
 
 @interface Utility : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
@@ -42,4 +43,5 @@
 +(BOOL) ynToBool:(NSString *) input;
 
 +(NSString *) stringEncode:(NSString *) input;
++(void) logout;
 @end

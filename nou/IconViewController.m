@@ -225,75 +225,12 @@
 }
 
 - (IBAction)logout:(id)sender {
-    NSLog(@"logout!!!!");
-    //登出
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSString *pAccount = @"";
-    NSString *pPassword = @"";
-    NSString *pRegId = @"";
-    
-    pAccount = [userDefaults stringForKey:@"account"];
-    pPassword = [userDefaults stringForKey:@"password"];
-    pRegId = [userDefaults stringForKey:@"regId"];
-    NSLog(@"NSUserDefaults>>%@", pAccount);
-    
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-    NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSLog(@"domain_url>>>>>%@",domainURL);
-    
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@logout?account=%@&password=%@&regId=%@&type=IOS"
-                           , domainURL, pAccount, pPassword, pRegId];
-    
-    NSLog(@"urlString>>>>>%@",urlString);
-    
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-    [urlRequest setHTTPMethod:@"POST"];
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
-    NSInteger statusCode = [HTTPResponse statusCode];
-    
-    NSLog(@"statusCode>>%d", statusCode);
-    NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
-    
-    NSDictionary *resultJSON;
-    if (responseData != nil) {
-        resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
-        
-        NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
-        NSLog(@"%@", RETURNCODE);
-        
-        if ([@"00" isEqualToString:RETURNCODE]) {
-            //登出成功
-            
-            //消除紀錄user data
-            [userDefaults setObject:@"" forKey:@"account"];
-            [userDefaults setObject:@"" forKey:@"password"];
-            [userDefaults synchronize];
-            
-            //
-            UIViewController *loginViewController = [[LoginViewController alloc] init];
-            [self presentModalViewController:loginViewController animated:NO];
-            
-        } else {
-            
-            
-            
-        }
-    }
-    //消除紀錄user data
-    [userDefaults setObject:@"" forKey:@"account"];
-    [userDefaults setObject:@"" forKey:@"password"];
-    [userDefaults synchronize];
-    
-    
-    
-    
+    [Utility logout];
+    UIViewController *loginViewController = [[LoginViewController alloc] init];
+    [self presentModalViewController:loginViewController animated:NO];
 }
+
 - (IBAction)functionView:(UIButton *)sender {
     NSLog(@"funcitonView~~");
     
