@@ -12,6 +12,7 @@
 #import "FistViewController.h"
 #import "LoginViewController.h"
 #import "IconViewController.h"
+#import "MenuViewController.h"
 #import "NouRequest.h"
 @interface AppDelegate ()
 
@@ -30,6 +31,16 @@
     // Override point for customization after application launch.
     
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    
+    NSDictionary *remoteNotif = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    
+    //Accept push notification when app is not open
+    if (remoteNotif) {
+        [self handleRemoteNotification:application userInfo:remoteNotif from:@"launch"];
+        return YES;
+    }
+    
     
     
     
@@ -178,5 +189,69 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
     //錯誤處理...
     NSLog(@"err>>%@",err);
+}
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    [self handleRemoteNotification:application userInfo:userInfo from:@"receive"];
+ 
+}
+-(void)handleRemoteNotification:(UIApplication *)application userInfo:(NSDictionary *)userInfo from:(NSString *)from  {
+    //點選推播訊息後
+    
+    NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
+    
+    NSString *TARGET_TP = [userInfo objectForKey:@"TARGET_TP"];
+    NSString *SEQ = [[NSString alloc] initWithFormat:@"&seq=%@", [userInfo objectForKey:@"SEQ"]];
+    
+    NSString *alertMsg = @"";
+    NSInteger badge = 0;
+    
+//    if( [apsInfo objectForKey:@"alert"] != NULL)
+//    {
+//        alertMsg = [apsInfo objectForKey:@"alert"];
+//    }
+//    
+//    
+//    if( [apsInfo objectForKey:@"badge"] != NULL)
+//    {
+//        badge = [[apsInfo objectForKey:@"badge"] integerValue];
+//    }
+//    if(badge>0)
+//    {
+//        // reset badge counter.
+//        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+//        currentBadgeNumber += badge;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
+//    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    NSString *url = @"";
+    
+    if ([@"01" isEqualToString:TARGET_TP]) {
+        url = @"news_detail";
+    } else if ([@"02" isEqualToString:TARGET_TP]) {
+        url = @"bulletin_detail";
+    } else if ([@"03" isEqualToString:TARGET_TP]) {
+        url = @"bulletin_detail";
+    } else if ([@"04" isEqualToString:TARGET_TP]) {
+        url = @"bulletin_detail";
+    } else if ([@"05" isEqualToString:TARGET_TP]) {
+        url = @"bulletin_detail";
+    } else if ([@"06" isEqualToString:TARGET_TP]) {
+        url = @"recruit_detail";
+    } else if ([@"07" isEqualToString:TARGET_TP]) {
+        url = @"calendar_index";
+    } else {
+        return;
+    }
+    MenuViewController *menuViewController = [[MenuViewController alloc] init];
+    
+    menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
+    
+    [self.window setRootViewController:menuViewController];
+    
+    [self.window makeKeyAndVisible];
+    
 }
 @end
