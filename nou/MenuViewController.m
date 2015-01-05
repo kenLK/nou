@@ -322,6 +322,8 @@
         fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
         fourthMENUName.docUrl = [Utility checkNull:[fourthDic objectForKey:@"DOC_URL"]];
         
+        fourthMENUName.borderColor = [Utility checkNull:[fourthDic objectForKey:@"BORDER_COLOR"]];
+        
         fourthMENUName.googleMap = [Utility checkNull:[fourthDic objectForKey:@"GOOGLE_MAP"]];
         fourthMENUName.multiAddr = [fourthDic objectForKey:@"MULTIADDR"];
         fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
@@ -536,8 +538,15 @@
         
     } else if (nameArray.count < 2) {
         //無Array
+        
         cell.textLabel.text = ((RADataObject *)item).name;
         cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        
+//        if (![@"" isEqualToString:dataObj.borderColor]) {
+//            cell.textLabel.layer.borderWidth = 1.0f;
+//            cell.textLabel.layer.borderColor = [Utility colorFromHexString:dataObj.borderColor].CGColor;
+//        }
+        
         [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
         cell.textLabel.numberOfLines = 0;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -604,9 +613,6 @@
         cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
-    
-    
-    
     return cell;
 }
 - (NSInteger)treeView:(RATreeView *)treeView numberOfChildrenOfItem:(id)item
