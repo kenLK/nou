@@ -211,47 +211,58 @@
 //        alertMsg = [apsInfo objectForKey:@"alert"];
 //    }
 //    
-//    
-//    if( [apsInfo objectForKey:@"badge"] != NULL)
-//    {
-//        badge = [[apsInfo objectForKey:@"badge"] integerValue];
-//    }
-//    if(badge>0)
-//    {
-//        // reset badge counter.
-//        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-//        currentBadgeNumber += badge;
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
-//    }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
-    NSString *url = @"";
-    
-    if ([@"01" isEqualToString:TARGET_TP]) {
-        url = @"news_detail";
-    } else if ([@"02" isEqualToString:TARGET_TP]) {
-        url = @"bulletin_detail";
-    } else if ([@"03" isEqualToString:TARGET_TP]) {
-        url = @"bulletin_detail";
-    } else if ([@"04" isEqualToString:TARGET_TP]) {
-        url = @"bulletin_detail";
-    } else if ([@"05" isEqualToString:TARGET_TP]) {
-        url = @"bulletin_detail";
-    } else if ([@"06" isEqualToString:TARGET_TP]) {
-        url = @"recruit_detail";
-    } else if ([@"07" isEqualToString:TARGET_TP]) {
-        url = @"calendar_index";
+//
+    if ( application.applicationState == UIApplicationStateActive ) {
+//        if( [apsInfo objectForKey:@"badge"] != NULL)
+//        {
+//            badge = [[apsInfo objectForKey:@"badge"] integerValue];
+//        }
+//        if(badge>0)
+//        {
+//            // reset badge counter.
+//            int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+//            currentBadgeNumber += badge;
+//            [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
+//        }
+        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+        currentBadgeNumber += 1;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
     } else {
-        return;
+        //點選推播後
+        
+        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+        currentBadgeNumber += -1;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
+        
+        NSString *url = @"";
+        
+        if ([@"01" isEqualToString:TARGET_TP]) {
+            url = @"news_detail";
+        } else if ([@"02" isEqualToString:TARGET_TP]) {
+            url = @"bulletin_detail";
+        } else if ([@"03" isEqualToString:TARGET_TP]) {
+            url = @"bulletin_detail";
+        } else if ([@"04" isEqualToString:TARGET_TP]) {
+            url = @"bulletin_detail";
+        } else if ([@"05" isEqualToString:TARGET_TP]) {
+            url = @"bulletin_detail";
+        } else if ([@"06" isEqualToString:TARGET_TP]) {
+            url = @"recruit_detail";
+        } else if ([@"07" isEqualToString:TARGET_TP]) {
+            url = @"calendar_index";
+        } else {
+            return;
+        }
+        MenuViewController *menuViewController = [[MenuViewController alloc] init];
+        
+        menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
+        self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
+        
+        [self.window setRootViewController:menuViewController];
+        
+        [self.window makeKeyAndVisible];
+
     }
-    MenuViewController *menuViewController = [[MenuViewController alloc] init];
-    
-    menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
-    self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-    
-    [self.window setRootViewController:menuViewController];
-    
-    [self.window makeKeyAndVisible];
     
 }
 @end
