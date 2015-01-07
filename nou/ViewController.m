@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SecondViewController.h"
 #import "AppDelegate.h"
 
 @interface ViewController ()
@@ -80,10 +79,10 @@
 -(IBAction)clickMeAction:(id)sender
 
 {
-    
-    UIViewController *sec=[[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:sec animated:YES];
+//    
+//    UIViewController *sec=[[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
+//    
+//    [self.navigationController pushViewController:sec animated:YES];
     
 }
 

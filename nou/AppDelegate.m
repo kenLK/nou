@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "ViewController.h"
-#import "FistViewController.h"
 #import "LoginViewController.h"
 #import "IconViewController.h"
 #import "MenuViewController.h"
@@ -184,7 +183,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:iOSDeviceToken forKey:@"regId"];
     [userDefaults synchronize];
-    
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
     //錯誤處理...

@@ -9,8 +9,6 @@
 
 #import "IconViewController.h"
 #import "LoginViewController.h"
-#import "SchoolMapViewController.h"
-#import "FistViewController.h"
 #import "MenuViewController.h"
 @interface IconViewController ()
 

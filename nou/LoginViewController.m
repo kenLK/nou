@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "FistViewController.h"
 #import "IconViewController.h"
 #import "Utility.h"
 @interface LoginViewController ()
