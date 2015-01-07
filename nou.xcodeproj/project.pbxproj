@@ -49,6 +49,7 @@
 		B3259AE81A36A27B00306E26 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE71A36A27B00306E26 /* OpenGLES.framework */; };
 		B3259AEA1A36A28100306E26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE91A36A28100306E26 /* QuartzCore.framework */; };
 		B3259AEC1A36A28700306E26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */; };
+		B32F4C7F1A5D0D51007A3FDA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B32F4C7E1A5D0D51007A3FDA /* icon.png */; };
 		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
 		B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E51A3AD7FF00D8721A /* icon_on.png */; };
 		B38AF31C1A3ED01400F048D2 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B38AF31B1A3ED01400F048D2 /* MenuViewController.m */; };
@@ -150,6 +151,7 @@
 		B3259AE71A36A27B00306E26 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B3259AE91A36A28100306E26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B32F4C7E1A5D0D51007A3FDA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		B33EA9E41A3AD7FF00D8721A /* icon_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_off.png; sourceTree = "<group>"; };
 		B33EA9E51A3AD7FF00D8721A /* icon_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_on.png; sourceTree = "<group>"; };
 		B38AF31A1A3ECFF900F048D2 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		3311D2641A076904004259CA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B32F4C7E1A5D0D51007A3FDA /* icon.png */,
 				B33EA9E41A3AD7FF00D8721A /* icon_off.png */,
 				B33EA9E51A3AD7FF00D8721A /* icon_on.png */,
 				B301AE991A393F1C0061D986 /* icon_menu.png */,
@@ -464,6 +467,7 @@
 				3311D2631A076899004259CA /* LoginViewController.xib in Resources */,
 				B3BF151B1A3597D80083AE91 /* btn_06.png in Resources */,
 				B3BF15231A3598100083AE91 /* icon_logout.png in Resources */,
+				B32F4C7F1A5D0D51007A3FDA /* icon.png in Resources */,
 				B3E3519F1A353F7300ECFBFC /* icon_password.png in Resources */,
 				B3BF150A1A3577AE0083AE91 /* msjh.ttc in Resources */,
 				B301AE9A1A393F1C0061D986 /* icon_menu.png in Resources */,
