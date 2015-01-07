@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NouRequest : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;

@@ -703,10 +703,10 @@
     MenuViewController *secondView = [[MenuViewController alloc] init];
     
     //傳值前先encode
-    NSString *escapedString = [inputText.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    //    NSString *escapedString = [inputText.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
     //查詢參數帶p
-    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
+    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, inputText.text];
     
     secondView.url = queryString;
     
