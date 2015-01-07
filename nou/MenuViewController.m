@@ -170,11 +170,21 @@
             [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
             [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
             ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + 20 + 4, [Utility appWidth]*1124, [Utility appHeight]*150);
+            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + 20 + 4, [Utility appWidth]*1160, [Utility appHeight]*150);
+            ddMenuShowButton.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
+            ddMenuShowButton.layer.borderWidth = 1.0;
             [self.view addSubview:ddMenuShowButton];
             
+            UIImageView *buttonView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*1068 , subjectHeight + 20 + 4 +4, [Utility appWidth]*112, [Utility appHeight]*125)];
+            UIImage *buttonImg = [UIImage imageWithContentsOfFile:
+                                  [[NSBundle mainBundle] pathForResource:@"icon_dropmenu" ofType:@"png"]];
+            [buttonView setImage:buttonImg];
+            [self.view insertSubview:buttonView aboveSubview:ddMenuShowButton];
+            
+            
+            
             ddMenu = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*1980)];
-            ddMenu.contentSize = CGSizeMake([Utility appWidth]*1124, [Utility appHeight]*150*ddArray.count);
+            ddMenu.contentSize = CGSizeMake([Utility appWidth]*1124, [Utility appHeight]*150*(ddArray.count+4));
             
             for (int i = 0;i < ddArray.count;i++) {
               
@@ -188,9 +198,12 @@
                 [ddMenuSelectButton setTitle:menuTitle forState:UIControlStateNormal];
                 [ddMenuSelectButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
                 ddMenuSelectButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-                ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*150 * (i+1), [Utility appWidth]*1124, [Utility appHeight]*150);
+                ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*150 * (i+1), [Utility appWidth]*1160, [Utility appHeight]*150);
+                ddMenuSelectButton.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
+                ddMenuSelectButton.layer.borderWidth = 1.0;
                 [ddMenu addSubview:ddMenuSelectButton];
             }
+            
             [self.view addSubview:ddMenu];
             
             self.ddMenu.hidden = YES;
