@@ -224,10 +224,28 @@
 
 - (IBAction)logout:(id)sender {
     
-    [Utility logout];
-    UIViewController *loginViewController = [[LoginViewController alloc] init];
-    [self presentModalViewController:loginViewController animated:NO];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登出"
+                                                    message:@"確定登出?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch(buttonIndex) {
+        case 0: //"No" pressed
+            //cancel logout
+            break;
+        case 1: //"Yes" pressed
+            //process logout
+            [Utility logout];
+            UIViewController *loginViewController = [[LoginViewController alloc] init];
+            [self presentModalViewController:loginViewController animated:NO];
+            break;
+    }
+}
+
 
 - (IBAction)functionView:(UIButton *)sender {
     NSLog(@"funcitonView~~");
