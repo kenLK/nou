@@ -161,7 +161,20 @@
     loginButton.frame = CGRectMake(yWidth*178, yHeight*842 + modHeight, yWidth*844, yHeight*100);
     [self.view addSubview:loginButton];
     
+    //訪客登入按鈕
+    UIButton *loginGuestButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [loginGuestButton addTarget:self
+                    action:@selector(loginGuest:)
+          forControlEvents:UIControlEventTouchUpInside];
     
+    //訪客登入按鈕底線文字
+    NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] initWithString:@"以訪客身份瀏覽"];
+    [commentString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, [commentString length])];
+
+    [loginGuestButton setAttributedTitle:commentString forState:UIControlStateNormal];
+    [loginGuestButton setTitleColor:[self colorFromHexString:@"000000"] forState:UIControlStateNormal];
+    loginGuestButton.frame = CGRectMake(yWidth*78, yHeight*432 + modHeight + yHeight*600 + yHeight*153, yWidth*1044, yHeight*100);
+    [self.view addSubview:loginGuestButton];
     
     
 }
@@ -187,32 +200,101 @@
     
     NSString *pAccount = self.account.text;
     NSString *pPassword = self.password.text;
+    
+    [self goIconView:pAccount password:pPassword];
+    
+//    NSString *pRegId = @"";
+//    
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    pRegId = [userDefaults stringForKey:@"regId"];
+//    
+//    //MD5
+//    //NSLog(@"%@", [self md5:pPassword]);
+//    pPassword = [Utility md5:self.password.text];
+//    
+//    //for test
+//    pAccount = @"100100362";
+//    pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";    
+//    //pAccount = @"wcn";
+//    //pPassword = @"4b51e3c7a41e7dd5b1e7a4df50ae6631";
+//    
+//    NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
+//                           , pAccount, pPassword, pRegId];
+//    NSData *responseData =  [NouRequest urlMethod:@"login" parameterString:urlString];
+//    
+////    NSLog(@"statusCode>>%d", statusCode);
+//    NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
+//    
+//    NSDictionary *resultJSON;
+//    if (responseData != nil) {
+//        resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
+//    
+//        NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
+//        NSLog(@"%@", RETURNCODE);
+//        
+//        if ([@"00" isEqualToString:RETURNCODE]) {
+//            //登入成功
+//            
+//            //紀錄user data
+//            [userDefaults setObject:pAccount forKey:@"account"];
+//            [userDefaults setObject:pPassword forKey:@"password"];
+//            //[userDefaults setObject:pRegId forKey:@"regId"];
+//            [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
+//            [userDefaults synchronize];
+////            
+//            UIViewController *iconViewController = [[IconViewController alloc] init];
+//            [self presentModalViewController:iconViewController animated:NO];
+//            
+//            NSLog(@"dsadasdsa>>%@",self.navigationController);
+//            [self.navigationController pushViewController:iconViewController animated:YES];
+//            //[self.navController pushViewController:iconViewController animated:YES];
+//            
+//        } else {
+//            
+//            
+//            
+//        }
+//    }
+}
+
+- (IBAction)loginGuest:(id)sender {
+    [self goIconView:@"guest" password:@"guest"];
+}
+
+
+- (IBAction)clearAccount:(id)sender {
+    [account setText:@""];
+}
+
+- (IBAction)clearPassword:(id)sender {
+    [password setText:@""];
+}
+
+- (void) goIconView:(NSString *)acccountI password:(NSString *)passwordI {
+    NSLog(@"account>>>>%@<<<<",acccountI);
+    NSLog(@"password>>>>%@<<<<",passwordI);
+    
+    NSString *pAccount = acccountI;
+    NSString *pPassword = passwordI;
     NSString *pRegId = @"";
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     pRegId = [userDefaults stringForKey:@"regId"];
     
     //MD5
-    //NSLog(@"%@", [self md5:pPassword]);
     pPassword = [Utility md5:self.password.text];
-    
-    //for test
-    pAccount = @"100100362";
-    pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";    
-    //pAccount = @"wcn";
-    //pPassword = @"4b51e3c7a41e7dd5b1e7a4df50ae6631";
     
     NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
                            , pAccount, pPassword, pRegId];
     NSData *responseData =  [NouRequest urlMethod:@"login" parameterString:urlString];
     
-//    NSLog(@"statusCode>>%d", statusCode);
+    //    NSLog(@"statusCode>>%d", statusCode);
     NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
     
     NSDictionary *resultJSON;
     if (responseData != nil) {
         resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
-    
+        
         NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
         NSLog(@"%@", RETURNCODE);
         
@@ -225,41 +307,17 @@
             //[userDefaults setObject:pRegId forKey:@"regId"];
             [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
             [userDefaults synchronize];
-//            
+            //
             UIViewController *iconViewController = [[IconViewController alloc] init];
             [self presentModalViewController:iconViewController animated:NO];
             
             NSLog(@"dsadasdsa>>%@",self.navigationController);
             [self.navigationController pushViewController:iconViewController animated:YES];
-            //[self.navController pushViewController:iconViewController animated:YES];
-            
         } else {
-            
-            
             
         }
     }
-    
-//    if (true){
-//    
-//        UIViewController *cont = [[FistViewController alloc] init];
-//        self.navigationController.title=@"test";
-//        self.navController=[[UINavigationController alloc]initWithRootViewController:cont];
-//        [self.view addSubview:self.navController.view];
-//    }else{
-//        UIAlertView *alertFailed = [[UIAlertView alloc] initWithTitle:@"登入失敗" message:@"登入失敗" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        
-//        [alertFailed show];
-//    
-//    }
-}
 
-- (IBAction)clearAccount:(id)sender {
-    [account setText:@""];
-}
-
-- (IBAction)clearPassword:(id)sender {
-    [password setText:@""];
 }
 
 - (void) showAlert: (NSString*) title messsage: (NSString*) message {
