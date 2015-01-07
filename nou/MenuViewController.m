@@ -317,6 +317,7 @@
         fourthMENUName.url = [Utility checkNull:[fourthDic objectForKey:@"URL"]];
         fourthMENUName.backgroundColor = [Utility checkNull:[fourthDic objectForKey:@"BACKGROUND_COLOR"]];
         fourthMENUName.textColor = [Utility checkNull:[fourthDic objectForKey:@"TEXT_COLOR"]];
+        fourthMENUName.marginTop = [Utility checkNull:[fourthDic objectForKey:@"MARGIN_TOP"]];
         fourthMENUName.columnAlign = [fourthDic objectForKey:@"COLUMN_ALIGN"];
         fourthMENUName.columnWidth = [fourthDic objectForKey:@"COLUMN_WIDTH"];
         fourthMENUName.isChildDefaultExpanded = [Utility ynToBool:[fourthDic objectForKey:@"DETAIL_VISIBLE"]];
@@ -407,9 +408,13 @@
 {
     RADataObject *dataObj = (RADataObject *)item;
     
+    //背景固定白色
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    
     //非logo時，要設背景
     if (!dataObj.isLogo) {
-        cell.backgroundColor = [Utility colorFromHexString:dataObj.backgroundColor];
+        //cell.backgroundColor = [Utility colorFromHexString:dataObj.backgroundColor];
     }
     
     //for 預設展開的項目
@@ -497,9 +502,43 @@
         return cell;
     }
     
+    //////////////
+    // 調整版面開始
+    CGFloat nouCellHeight = 0.0;
+    
+    if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
+        //googlemap加大
+        nouCellHeight = [Utility appHeight]* 1000;
+    } else if (dataObj.isMultiLine) {
+        nouCellHeight = dataObj.multiLineHeight;
+    } else if (dataObj.multiLineHeight > 0.0) {
+        nouCellHeight = dataObj.multiLineHeight;
+    } else {
+        nouCellHeight = [self countHeight:dataObj.name];
+    }
+    
+    UILabel * cellBackGround;
+    
+    if ([@"" isEqualToString:dataObj.marginTop]) {
+        cellBackGround = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20, 0, [Utility appWidth]*1160, nouCellHeight)];
+    } else {
+        //有margin
+        CGFloat marginHeight = [dataObj.marginTop floatValue];
+        cellBackGround = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20, [Utility appHeight]*marginHeight, [Utility appWidth]*1160, nouCellHeight - [Utility appHeight]*marginHeight)];
+    }
+
+    cellBackGround.backgroundColor = [Utility colorFromHexString:dataObj.backgroundColor];
+    
+    if (![@"" isEqualToString:dataObj.borderColor]) {
+        cellBackGround.layer.borderColor = [Utility colorFromHexString:dataObj.borderColor].CGColor;
+        cellBackGround.layer.borderWidth = 1.0;
+    }
+
+    [cell insertSubview:cellBackGround atIndex:0];
+    
+    
+    
     if (dataObj.isNotSelective) {
-        
-        
         return cell;
     }
     
@@ -675,7 +714,7 @@
 
 -(CGFloat) countHeight:(NSString *) input {
     //計算欄位高度
-    UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
+    UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1160, 0)];
     textLabel.text = input;
     [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
     textLabel.numberOfLines = 0;
