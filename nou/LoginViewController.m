@@ -197,8 +197,8 @@
     pPassword = [Utility md5:self.password.text];
     
     //for test
-    //pAccount = @"100100362";
-    //pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";    
+    pAccount = @"100100362";
+    pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";    
     //pAccount = @"wcn";
     //pPassword = @"4b51e3c7a41e7dd5b1e7a4df50ae6631";
     

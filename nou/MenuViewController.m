@@ -517,13 +517,14 @@
         nouCellHeight = [self countHeight:dataObj.name];
     }
     
+    //框線
     UILabel * cellBackGround;
-    
+    CGFloat marginHeight = 0;
     if ([@"" isEqualToString:dataObj.marginTop]) {
         cellBackGround = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20, 0, [Utility appWidth]*1160, nouCellHeight)];
     } else {
         //有margin
-        CGFloat marginHeight = [dataObj.marginTop floatValue];
+        marginHeight = [dataObj.marginTop floatValue];
         cellBackGround = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20, [Utility appHeight]*marginHeight, [Utility appWidth]*1160, nouCellHeight - [Utility appHeight]*marginHeight)];
     }
 
@@ -533,7 +534,6 @@
         cellBackGround.layer.borderColor = [Utility colorFromHexString:dataObj.borderColor].CGColor;
         cellBackGround.layer.borderWidth = 1.0;
     }
-
     [cell insertSubview:cellBackGround atIndex:0];
     
     
@@ -578,17 +578,20 @@
     } else if (nameArray.count < 2) {
         //無Array
         
-        cell.textLabel.text = ((RADataObject *)item).name;
-        cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        UILabel * cellText = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*150, [Utility appHeight]*marginHeight, [Utility appWidth]*1010, nouCellHeight - [Utility appHeight]*marginHeight)];
+        cellText.text = dataObj.name;
+        cellText.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        [cellText setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+        cellText.numberOfLines = 0;
+        [cell insertSubview:cellText aboveSubview:cellBackGround];
         
-//        if (![@"" isEqualToString:dataObj.borderColor]) {
-//            cell.textLabel.layer.borderWidth = 1.0f;
-//            cell.textLabel.layer.borderColor = [Utility colorFromHexString:dataObj.borderColor].CGColor;
-//        }
-        
-        [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-        cell.textLabel.numberOfLines = 0;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.textLabel.text = ((RADataObject *)item).name;
+//        cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+//
+//
+//        [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+//        cell.textLabel.numberOfLines = 0;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     } else {
         //有Array
@@ -714,7 +717,7 @@
 
 -(CGFloat) countHeight:(NSString *) input {
     //計算欄位高度
-    UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1160, 0)];
+    UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1010, 0)];
     textLabel.text = input;
     [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
     textLabel.numberOfLines = 0;
