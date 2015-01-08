@@ -115,11 +115,29 @@
             [self.view addSubview:passwordBgView];
             
             //textField
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + 20, [Utility appWidth]*710, [Utility appHeight]*174)];
-            inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*790, [Utility appHeight]*174 - [Utility appHeight]*30)];
+            inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:TEXT_COLOR], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
             inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
             inputText.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
+            inputText.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
+            inputText.layer.borderWidth = 1.0;
+            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
+            inputText.leftView = paddingView;
+            inputText.leftViewMode = UITextFieldViewModeAlways;
+            
             [self.view addSubview:inputText];
+            
+            //cancel text
+            UIButton *clearAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*140);
+            [clearAccountButton addTarget:self action:@selector(clearAccount:) forControlEvents:UIControlEventTouchUpInside];
+            UIImage *clearAccountImage = [UIImage imageWithContentsOfFile:
+                                          [[NSBundle mainBundle] pathForResource:@"icon_clear" ofType:@"png"]];
+            [clearAccountButton setImage:clearAccountImage forState:UIControlStateNormal];
+            UIImage *clearAccountOverImage = [UIImage imageWithContentsOfFile:
+                                              [[NSBundle mainBundle] pathForResource:@"icon_clear_over" ofType:@"png"]];
+            [clearAccountButton setImage:clearAccountOverImage forState:UIControlStateHighlighted];
+            [self.view insertSubview:clearAccountButton aboveSubview:inputText];
             
             //button
             UIButton *queryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -129,7 +147,7 @@
             [queryButton setTitle:BUTTON_TEXT forState:UIControlStateNormal];
             [queryButton setTitleColor:[Utility colorFromHexString:BUTTON_TEXT_COLOR] forState:UIControlStateNormal];
             queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
-            queryButton.frame = CGRectMake([Utility appWidth]*748 , subjectHeight + 20, [Utility appWidth]*450, [Utility appHeight]*174);
+            queryButton.frame = CGRectMake([Utility appWidth]*848 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*320, [Utility appHeight]*174 - [Utility appHeight]*30);
             [self.view addSubview:queryButton];
             
             subjectHeight = subjectHeight + 13;
@@ -263,7 +281,6 @@
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
-//    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility boundHeight]*1920 - subjectHeight)];
     RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility appHeight]*1920 - subjectHeight - [Utility appHeight]*50)];
     
     treeView.delegate = self;
@@ -275,17 +292,9 @@
     [treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
     treeView.contentMode = UIViewContentModeScaleToFill;
     
-//    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, screenRect.size.width, screenRect.size.height)];
-//    UIImage *backgroundImage = [UIImage imageWithContentsOfFile:
-//                                [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
-//    [backImageView setImage:backgroundImage];
-//    
-//    [treeView setBackgroundView:backImageView];
-    
     self.treeView = treeView;
     //[self.view addSubview:treeView];
     [self.view insertSubview:treeView atIndex:1];//background為0
-    
     
     
     UIImageView *footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , [Utility boundHeight]*1920, [Utility appWidth]*1200, 47)];
@@ -767,6 +776,9 @@
     nextView.dataObj = sender.dataObj;
     
     [self.navigationController pushViewController:nextView animated:YES];
+}
+- (IBAction)clearAccount:(id)sender {
+    [inputText setText:@""];
 }
 @end
 
