@@ -262,15 +262,12 @@
                @"schoolmap_index",
                nil];
     
-//    FistViewController *fistViewController = [[FistViewController alloc] init];
-//    self.navController = [[UINavigationController alloc] initWithRootViewController:fistViewController];
-//    [self.view addSubview:self.navController.view];
-    
     MenuViewController *menuViewController = [[MenuViewController alloc] init];
     
     menuViewController.url = [destUrl objectAtIndex: sender.tag];
-    self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-    [self.view addSubview:self.navController.view];
+
+    [self.navigationController pushViewController:menuViewController animated:YES];
+    
 }
 
 

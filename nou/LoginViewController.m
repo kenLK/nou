@@ -257,10 +257,12 @@
             [userDefaults synchronize];
             //
             UIViewController *iconViewController = [[IconViewController alloc] init];
-            [self presentModalViewController:iconViewController animated:NO];
-            
-            NSLog(@"dsadasdsa>>%@",self.navigationController);
-            [self.navigationController pushViewController:iconViewController animated:YES];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:iconViewController];           
+            [self presentModalViewController:nav animated:NO];
+//            [self presentModalViewController:iconViewController animated:NO];
+//            
+//            NSLog(@"dsadasdsa>>%@",self.navigationController);
+//            [self.navigationController pushViewController:iconViewController animated:YES];
         } else {
             UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, [Utility appHeight]*1052, [Utility appWidth]*1200, [Utility appHeight]*174)];
             [functionTitleLabel setText:@"帳號或密碼錯誤"];

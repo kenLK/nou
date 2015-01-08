@@ -109,8 +109,9 @@
                 [userDefaults synchronize];
                 
                 UIViewController *iconViewController = [[IconViewController alloc] init];
-                
-                [self.window setRootViewController:iconViewController];
+
+                self.navController = [[UINavigationController alloc] initWithRootViewController:iconViewController];
+                [self.window setRootViewController:self.navController];
                 
                 [self.window makeKeyAndVisible];
                 return YES;
