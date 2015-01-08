@@ -314,7 +314,12 @@
             NSLog(@"dsadasdsa>>%@",self.navigationController);
             [self.navigationController pushViewController:iconViewController animated:YES];
         } else {
-            
+            UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, [Utility appHeight]*1052, [Utility appWidth]*1200, [Utility appHeight]*174)];
+            [functionTitleLabel setText:@"帳號或密碼錯誤"];
+            [functionTitleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
+            functionTitleLabel.textColor = [UIColor redColor];
+            [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+            [self.view addSubview:functionTitleLabel];
         }
     }
 
