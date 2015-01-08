@@ -42,7 +42,6 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     //Navigator圖示設定
-    
     //移除登出按鈕99, 教務系統按鈕98
     for(UIView* view in self.navigationController.navigationBar.subviews)
     {
@@ -52,6 +51,10 @@
         }
     }
     
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
+                                                         [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
+                                                                       [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     if (isIndex) {
         //是否顯示教務按鈕
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -68,6 +71,8 @@
     self.navigationController.navigationBar.translucent = NO;
     
     
+    self.navigationController.navigationBar.backItem.title = @"";
+    
 //    UIImage *backImage = [UIImage imageWithContentsOfFile:
 //                          [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
 //    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
@@ -77,7 +82,8 @@
     [super viewDidLoad];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    //
+    
+    
     
     UIImageView *backgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
     UIImage *backgImage = [UIImage imageWithContentsOfFile:

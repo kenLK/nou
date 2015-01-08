@@ -41,6 +41,8 @@
     [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
     [logoutButton setTag:99];
     [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
+    
+    
 
 }
 
