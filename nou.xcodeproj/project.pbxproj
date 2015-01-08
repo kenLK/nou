@@ -49,6 +49,7 @@
 		B3259AE81A36A27B00306E26 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE71A36A27B00306E26 /* OpenGLES.framework */; };
 		B3259AEA1A36A28100306E26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AE91A36A28100306E26 /* QuartzCore.framework */; };
 		B3259AEC1A36A28700306E26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */; };
+		B32E6C881A5E1C8800580574 /* white.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B32E6C871A5E1C8800580574 /* white.jpg */; };
 		B32F4C7F1A5D0D51007A3FDA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B32F4C7E1A5D0D51007A3FDA /* icon.png */; };
 		B32F4C861A5D3EF8007A3FDA /* icon_dropmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = B32F4C851A5D3EF8007A3FDA /* icon_dropmenu.png */; };
 		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
@@ -152,6 +153,7 @@
 		B3259AE71A36A27B00306E26 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B3259AE91A36A28100306E26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B3259AEB1A36A28700306E26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B32E6C871A5E1C8800580574 /* white.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = white.jpg; sourceTree = "<group>"; };
 		B32F4C7E1A5D0D51007A3FDA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		B32F4C851A5D3EF8007A3FDA /* icon_dropmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dropmenu.png; sourceTree = "<group>"; };
 		B33EA9E41A3AD7FF00D8721A /* icon_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_off.png; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		3311D2641A076904004259CA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B32E6C871A5E1C8800580574 /* white.jpg */,
 				B32F4C851A5D3EF8007A3FDA /* icon_dropmenu.png */,
 				B32F4C7E1A5D0D51007A3FDA /* icon.png */,
 				B33EA9E41A3AD7FF00D8721A /* icon_off.png */,
@@ -491,6 +494,7 @@
 				3311D2661A076931004259CA /* images.jpeg in Resources */,
 				B3E351A31A35451D00ECFBFC /* icon_clear.png in Resources */,
 				B3BF151A1A3597D80083AE91 /* btn_05.png in Resources */,
+				B32E6C881A5E1C8800580574 /* white.jpg in Resources */,
 				B3BF15181A3597D80083AE91 /* btn_03.png in Resources */,
 				B3AF4CC21A31B5C100788EEB /* icon_logo.png in Resources */,
 				B3171DC41A37E42400361603 /* GoogleMaps.bundle in Resources */,

@@ -46,7 +46,7 @@
     
     UIImageView *backgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
     UIImage *backgImage = [UIImage imageWithContentsOfFile:
-                          [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
+                          [[NSBundle mainBundle] pathForResource:@"white" ofType:@"jpg"]];
     [backgImageView setImage:backgImage];
     [self.view addSubview:backgImageView];
     
@@ -269,7 +269,8 @@
     treeView.delegate = self;
     treeView.dataSource = self;
     treeView.separatorStyle = RATreeViewCellSeparatorStyleSingleLine;
-    
+    treeView.separatorColor = [UIColor whiteColor];
+
     [treeView reloadData];
     [treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
     treeView.contentMode = UIViewContentModeScaleToFill;
@@ -715,12 +716,8 @@
     self.ddMenuShowButton.tag = 0;
     self.ddMenu.hidden = YES;
     
-    //傳值前先encode
-    //NSString *escapedString = [[ddBUTTON_VALUE objectAtIndex:sender.tag] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-    NSString *escapedString = [Utility stringEncode:[ddBUTTON_VALUE objectAtIndex:sender.tag]];
-    
     //查詢參數帶p
-    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, escapedString];
+    NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, [ddBUTTON_VALUE objectAtIndex:sender.tag]];
     
     MenuViewController *secondView = [[MenuViewController alloc] init];
     secondView.url = queryString;
@@ -756,9 +753,6 @@
 -(void)query:(id)sender {
     
     MenuViewController *secondView = [[MenuViewController alloc] init];
-    
-    //傳值前先encode
-    //    NSString *escapedString = [inputText.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     
     //查詢參數帶p
     NSString *queryString = [[NSString alloc] initWithFormat:@"%@?p=%@",queryUrl, inputText.text];
