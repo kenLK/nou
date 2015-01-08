@@ -136,6 +136,7 @@
     //密碼欄位
     password = [[UITextField alloc]initWithFrame:CGRectMake(yWidth*312, yHeight*634 + modHeight, yWidth*710, yHeight*100)];
     password.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"請輸入密碼" attributes:@{NSForegroundColorAttributeName: [self colorFromHexString:@"000000"], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:yHeight*50]}];
+    password.secureTextEntry = YES;
     [self.view addSubview:password];
     
     //帳號清除欄位資訊按鈕
@@ -202,59 +203,6 @@
     NSString *pPassword = self.password.text;
     
     [self goIconView:pAccount password:pPassword];
-    
-//    NSString *pRegId = @"";
-//    
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    pRegId = [userDefaults stringForKey:@"regId"];
-//    
-//    //MD5
-//    //NSLog(@"%@", [self md5:pPassword]);
-//    pPassword = [Utility md5:self.password.text];
-//    
-//    //for test
-//    pAccount = @"100100362";
-//    pPassword = @"5a05254570cc97ac9582ad7c5877f1ad";    
-//    //pAccount = @"wcn";
-//    //pPassword = @"4b51e3c7a41e7dd5b1e7a4df50ae6631";
-//    
-//    NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
-//                           , pAccount, pPassword, pRegId];
-//    NSData *responseData =  [NouRequest urlMethod:@"login" parameterString:urlString];
-//    
-////    NSLog(@"statusCode>>%d", statusCode);
-//    NSLog(@"Response: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] );
-//    
-//    NSDictionary *resultJSON;
-//    if (responseData != nil) {
-//        resultJSON = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
-//    
-//        NSString *RETURNCODE = [resultJSON objectForKey:@"RETURNCODE"];
-//        NSLog(@"%@", RETURNCODE);
-//        
-//        if ([@"00" isEqualToString:RETURNCODE]) {
-//            //登入成功
-//            
-//            //紀錄user data
-//            [userDefaults setObject:pAccount forKey:@"account"];
-//            [userDefaults setObject:pPassword forKey:@"password"];
-//            //[userDefaults setObject:pRegId forKey:@"regId"];
-//            [userDefaults setObject:[resultJSON objectForKey:@"PW"] forKey:@"VALID_STR"];
-//            [userDefaults synchronize];
-////            
-//            UIViewController *iconViewController = [[IconViewController alloc] init];
-//            [self presentModalViewController:iconViewController animated:NO];
-//            
-//            NSLog(@"dsadasdsa>>%@",self.navigationController);
-//            [self.navigationController pushViewController:iconViewController animated:YES];
-//            //[self.navController pushViewController:iconViewController animated:YES];
-//            
-//        } else {
-//            
-//            
-//            
-//        }
-//    }
 }
 
 - (IBAction)loginGuest:(id)sender {
@@ -282,7 +230,7 @@
     pRegId = [userDefaults stringForKey:@"regId"];
     
     //MD5
-    pPassword = [Utility md5:self.password.text];
+    pPassword = [Utility md5:passwordI];
     
     NSString* urlString = [[NSString alloc] initWithFormat:@"account=%@&password=%@&regId=%@&type=IOS"
                            , pAccount, pPassword, pRegId];
