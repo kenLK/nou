@@ -37,6 +37,39 @@
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
+@synthesize isIndex;
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    //Navigator圖示設定
+    
+    //移除登出按鈕99, 教務系統按鈕98
+    for(UIView* view in self.navigationController.navigationBar.subviews)
+    {
+        if(view.tag == 99 || view.tag == 98)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
+    if (isIndex) {
+        //是否顯示教務按鈕
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
+        [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
+        backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+        [backBtn setTag:98];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+        self.navigationItem.rightBarButtonItem = backButton;
+    }
+    
+    
+    
+//    UIImage *backImage = [UIImage imageWithContentsOfFile:
+//                          [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
+//    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,18 +84,6 @@
     [self.view addSubview:backgImageView];
     
     
-    //Navigator圖示設定
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
-    [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
-    backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
-    self.navigationItem.rightBarButtonItem = backButton;
-    
-    UIImage *backImage = [UIImage imageWithContentsOfFile:
-                          [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
-    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
     
     //取得資料
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
@@ -78,6 +99,10 @@
         [functionTitleLabel setText:headName];
         [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
         self.navigationItem.titleView = functionTitleLabel;
+    }
+    
+    if ([@"index" isEqualToString:[headDic objectForKey:@"RIGHT_URL"]]) {
+        self.isIndex = YES;
     }
     
     //CGFloat subjectHeight = [Utility appHeight]*112;
@@ -500,6 +525,7 @@
     //跳下一頁
     if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""]) {
         secondView.url = dataObj.url;
+        //secondView.isIndex = self.isIndex;
         NSLog(@"url>>>>%@",secondView.url);
         [self.navigationController pushViewController:secondView animated:YES];
     }
@@ -755,10 +781,9 @@
 }
 
 -(void)goHome:(id)sender {
-    //[self.navigationController popToRootViewControllerAnimated:YES];
-    UIViewController *iconViewController = [[IconViewController alloc] init];
-    [self presentModalViewController:iconViewController animated:NO];
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
 }
+
 -(void)query:(id)sender {
     
     MenuViewController *secondView = [[MenuViewController alloc] init];

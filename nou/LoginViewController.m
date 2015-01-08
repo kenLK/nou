@@ -257,7 +257,8 @@
             [userDefaults synchronize];
             //
             UIViewController *iconViewController = [[IconViewController alloc] init];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:iconViewController];           
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:iconViewController];
+            [nav.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
             [self presentModalViewController:nav animated:NO];
 //            [self presentModalViewController:iconViewController animated:NO];
 //            

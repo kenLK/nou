@@ -29,5 +29,6 @@
 #define iOS7_0 @"7.0"
 
 @property (strong, nonatomic) NSString *url;
+@property BOOL isIndex;//是否為教務系統
 
 @end
