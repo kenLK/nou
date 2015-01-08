@@ -59,10 +59,11 @@
     return yHeight;
 }
 +(CGFloat) appModHeight {
-    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat modHeight = screenRect.size.height - appRect.size.height;
-    return modHeight;
+//    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+//    CGRect screenRect = [[UIScreen mainScreen] bounds];
+//    CGFloat modHeight = screenRect.size.height - appRect.size.height;
+//    
+    return -40;
 }
 
 +(CGFloat) boundWidth {

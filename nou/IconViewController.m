@@ -54,8 +54,8 @@
     NSLog(@"screenWidth>>>%f", screenWidth);
     NSLog(@"screenHeight>>>%f", screenHeight);
     
-    CGFloat yWidth = screenWidth / 1200.0;
-    CGFloat yHeight = screenHeight / 1920.0;
+    CGFloat yWidth = [Utility appWidth];
+    CGFloat yHeight = [Utility appHeight];
     
     //背景
     UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
@@ -65,7 +65,7 @@
     [self.view addSubview:backImageView];
     
     //logo
-    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*395, yHeight*1787, yWidth*410, yHeight*90)];
+    UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*395, [Utility appHeight]*1600, yWidth*410, yHeight*90)];
     UIImage *logoImage = [UIImage imageWithContentsOfFile:
                           [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
     [logoImageView setImage:logoImage];

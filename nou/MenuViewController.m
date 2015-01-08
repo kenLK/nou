@@ -103,13 +103,14 @@
         self.navigationItem.titleView = functionTitleLabel;
     }
     
-    if ([@"index" isEqualToString:[headDic objectForKey:@"RIGHT_URL"]]) {
+    if (![@"" isEqualToString:[Utility checkNull:[headDic objectForKey:@"RIGHT_URL"] defaultString:@""]]) {
         self.isIndex = YES;
     }
     
     //CGFloat subjectHeight = [Utility appHeight]*112;
     
     CGFloat subjectHeight = self.navigationController.navigationBar.frame.size.height;
+    subjectHeight = 10;
     
     //SUBJECT
     NSDictionary *subjectDic = [resultJSON valueForKey:@"SUBJECT"];
@@ -135,14 +136,14 @@
             
             
             //input background
-            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + 20, [Utility appWidth]*1200, [Utility appHeight]*174)];
+            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight, [Utility appWidth]*1200, [Utility appHeight]*174)];
             UIImage *passwordBgImage = [UIImage imageWithContentsOfFile:
                                         [[NSBundle mainBundle] pathForResource:@"alpha_box_bg" ofType:@"png"]];
             [passwordBgView setImage:passwordBgImage];
             [self.view addSubview:passwordBgView];
             
             //textField
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*790, [Utility appHeight]*174 - [Utility appHeight]*30)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*790, [Utility appHeight]*174 - [Utility appHeight]*30)];
             inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:TEXT_COLOR], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
             inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
             inputText.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -156,7 +157,7 @@
             
             //cancel text
             UIButton *clearAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*140);
+            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*140);
             [clearAccountButton addTarget:self action:@selector(clearAccount:) forControlEvents:UIControlEventTouchUpInside];
             UIImage *clearAccountImage = [UIImage imageWithContentsOfFile:
                                           [[NSBundle mainBundle] pathForResource:@"icon_clear" ofType:@"png"]];
@@ -174,7 +175,7 @@
             [queryButton setTitle:BUTTON_TEXT forState:UIControlStateNormal];
             [queryButton setTitleColor:[Utility colorFromHexString:BUTTON_TEXT_COLOR] forState:UIControlStateNormal];
             queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
-            queryButton.frame = CGRectMake([Utility appWidth]*848 , subjectHeight + 20 + [Utility appHeight]*30, [Utility appWidth]*320, [Utility appHeight]*174 - [Utility appHeight]*30);
+            queryButton.frame = CGRectMake([Utility appWidth]*848 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*320, [Utility appHeight]*174 - [Utility appHeight]*30);
             [self.view addSubview:queryButton];
             
             subjectHeight = subjectHeight + 13;
@@ -215,12 +216,12 @@
             [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
             [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
             ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + 20 + 4, [Utility appWidth]*1160, [Utility appHeight]*150);
+            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + 4, [Utility appWidth]*1160, [Utility appHeight]*150);
             ddMenuShowButton.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
             ddMenuShowButton.layer.borderWidth = 1.0;
             [self.view addSubview:ddMenuShowButton];
             
-            UIImageView *buttonView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*1068 , subjectHeight + 20 + 4 +4, [Utility appWidth]*112, [Utility appHeight]*125)];
+            UIImageView *buttonView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*1068 , subjectHeight + 4 +4, [Utility appWidth]*112, [Utility appHeight]*125)];
             UIImage *buttonImg = [UIImage imageWithContentsOfFile:
                                   [[NSBundle mainBundle] pathForResource:@"icon_dropmenu" ofType:@"png"]];
             [buttonView setImage:buttonImg];
@@ -253,7 +254,7 @@
             
             self.ddMenu.hidden = YES;
             
-            subjectHeight = subjectHeight + 13;
+            subjectHeight = subjectHeight + 20;
             
         }
         
@@ -265,7 +266,7 @@
             NSString *BORDER_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
             
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight + 20, [Utility appWidth]*1200, [Utility appHeight]*174)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight, [Utility appWidth]*1200, [Utility appHeight]*174)];
             [titleLabel setText:subjectName];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
             titleLabel.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -273,7 +274,7 @@
             [titleLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:titleLabel];
             
-            subjectHeight = subjectHeight + 13;
+            subjectHeight = subjectHeight + 20;
         }
     } else {
         subjectHeight = subjectHeight - 12;
@@ -602,7 +603,7 @@
         NouMapButton *btn01 = [NouMapButton buttonWithType:UIButtonTypeRoundedRect];
         [btn01 setTag:1];
         btn01.dataObj = dataObj;
-        btn01.frame = CGRectMake([Utility appWidth]*0, [Utility appHeight]*0, [Utility appWidth]*1200, [Utility appHeight]*1200);
+        btn01.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*0, [Utility appWidth]*1160, [Utility appHeight]*1200);
         [btn01 addTarget:self action:@selector(map:) forControlEvents:UIControlEventTouchUpInside];
         
         //取得google map image
