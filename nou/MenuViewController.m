@@ -64,6 +64,8 @@
         self.navigationItem.rightBarButtonItem = backButton;
     }
     
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
     
     
 //    UIImage *backImage = [UIImage imageWithContentsOfFile:

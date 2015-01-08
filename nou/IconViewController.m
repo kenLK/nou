@@ -26,7 +26,8 @@
     [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
     self.navigationItem.titleView = functionTitleLabel;
     
-    [self.navigationController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
     
     //logout
     UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
