@@ -39,7 +39,7 @@
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
 @synthesize isIndex,navTitle;
 
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
                                                          [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];

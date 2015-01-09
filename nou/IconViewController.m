@@ -17,7 +17,20 @@
 @implementation IconViewController
 @synthesize navController;
 @synthesize btn01,btn02,btn03,btn04,btn05,btn06,btn07,btn08;
-
+- (void)viewWillAppear:(BOOL)animated {
+    //logout
+    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    logoutButton.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*20, [Utility appWidth]*130, [Utility appHeight]*100);
+    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *logoutImage = [UIImage imageWithContentsOfFile:
+                            [[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutImage forState:UIControlStateNormal];
+    UIImage *logoutOverImage = [UIImage imageWithContentsOfFile:
+                                [[NSBundle mainBundle] pathForResource:@"icon_logout_over" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
+    [logoutButton setTag:99];
+    [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
+}
 - (void)viewDidAppear:(BOOL)animated {
 
     //更新畫面數字
@@ -256,18 +269,7 @@
     self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
     self.navigationController.navigationBar.translucent = NO;
     
-    //logout
-    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    logoutButton.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*20, [Utility appWidth]*130, [Utility appHeight]*100);
-    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *logoutImage = [UIImage imageWithContentsOfFile:
-                            [[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
-    [logoutButton setBackgroundImage:logoutImage forState:UIControlStateNormal];
-    UIImage *logoutOverImage = [UIImage imageWithContentsOfFile:
-                                [[NSBundle mainBundle] pathForResource:@"icon_logout_over" ofType:@"png"]];
-    [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
-    [logoutButton setTag:99];
-    [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
+    
 }
 
 - (IBAction)logout:(id)sender {
