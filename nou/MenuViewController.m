@@ -29,7 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_TEXT;
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_VALUE;
 
-
+@property (strong, nonatomic) NSString *navTitle;
 @end
 
 @implementation MenuViewController {
@@ -37,45 +37,15 @@
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
-@synthesize isIndex;
+@synthesize isIndex,navTitle;
 
 -(void)viewDidAppear:(BOOL)animated {
-    
-    //Navigator圖示設定
-    //移除登出按鈕99, 教務系統按鈕98
-    for(UIView* view in self.navigationController.navigationBar.subviews)
-    {
-        if(view.tag == 99 || view.tag == 98)
-        {
-            [view removeFromSuperview];
-        }
-    }
     
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
                                                          [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
                                                                        [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
-    if (isIndex) {
-        //是否顯示教務按鈕
-        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
-        [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
-        [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
-        backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
-        [backBtn setTag:98];
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
-        self.navigationItem.rightBarButtonItem = backButton;
-    }
-    
-    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
-    self.navigationController.navigationBar.translucent = NO;
-    
-    
-    self.navigationController.navigationBar.backItem.title = @"";
-    
-//    UIImage *backImage = [UIImage imageWithContentsOfFile:
-//                          [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
-//    [self.navigationController.navigationBar setBackgroundImage:backImage forBarMetrics:UIBarMetricsDefault];
+//    self.navigationItem.title = navTitle;
 }
 
 - (void)viewDidLoad {
@@ -103,7 +73,12 @@
     NSDictionary *headDic = [resultJSON valueForKey:@"HEADER"];
     NSString *headName = [headDic objectForKey:@"HEADER_NAME"];
     if ([headName isKindOfClass:[NSString class]]) {
-        UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+        UILabel *functionTitleLabel;
+        UIFont* titleFont = [UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60];
+        CGSize requestedTitleSize = [headName sizeWithFont:titleFont];
+        CGFloat titleWidth = MIN([Utility appWidth]*1000, requestedTitleSize.width);
+        
+        functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, titleWidth, [Utility appHeight]*174)];
         [functionTitleLabel setText:headName];
         [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
         self.navigationItem.titleView = functionTitleLabel;
@@ -315,7 +290,7 @@
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight, [Utility boundWidth]*1200, [Utility appHeight]*1920 - subjectHeight - [Utility appHeight]*50)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight + 2, [Utility boundWidth]*1200, [Utility appHeight]*1920 - subjectHeight - [Utility appHeight]*50)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
@@ -338,6 +313,39 @@
     [self.view addSubview:footerImageView];
     
     
+    
+    
+    //Navigator圖示設定
+    //移除登出按鈕99, 教務系統按鈕98
+    for(UIView* view in self.navigationController.navigationBar.subviews)
+    {
+        if(view.tag == 99 || view.tag == 98)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
+                                                         [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
+                                                                       [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+    if (isIndex) {
+        //是否顯示教務按鈕
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_menu" ofType:@"png"]];
+        [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(goHome:) forControlEvents:UIControlEventTouchUpInside];
+        backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+        [backBtn setTag:98];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+        self.navigationItem.rightBarButtonItem = backButton;
+    }
+    
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    
+    self.navigationController.navigationBar.backItem.title = @"";
 }
 
 - (void)didReceiveMemoryWarning {

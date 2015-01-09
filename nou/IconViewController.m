@@ -20,30 +20,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 
-    //Navigator圖示設定
-    //功能title
-    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
-    [functionTitleLabel setText:@"國立空中大學"];
-    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
-    self.navigationItem.titleView = functionTitleLabel;
-    
-    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
-    self.navigationController.navigationBar.translucent = NO;
-    
-    //logout
-    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    logoutButton.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*20, [Utility appWidth]*130, [Utility appHeight]*100);
-    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *logoutImage = [UIImage imageWithContentsOfFile:
-                            [[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
-    [logoutButton setBackgroundImage:logoutImage forState:UIControlStateNormal];
-    UIImage *logoutOverImage = [UIImage imageWithContentsOfFile:
-                                [[NSBundle mainBundle] pathForResource:@"icon_logout_over" ofType:@"png"]];
-    [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
-    [logoutButton setTag:99];
-    [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
-    
-    
     //更新畫面數字
     NSDictionary *resultJSON;
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:@"count" parameterMap:@"" autoValid:YES]];
@@ -65,7 +41,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
     CGFloat screenWidth = screenRect.size.width;
@@ -271,7 +246,28 @@
     [self.view addSubview:btn08Label];
     
     
+    //Navigator圖示設定
+    //功能title
+    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+    [functionTitleLabel setText:@"國立空中大學"];
+    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.navigationItem.titleView = functionTitleLabel;
     
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    //logout
+    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    logoutButton.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*20, [Utility appWidth]*130, [Utility appHeight]*100);
+    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *logoutImage = [UIImage imageWithContentsOfFile:
+                            [[NSBundle mainBundle] pathForResource:@"icon_logout" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutImage forState:UIControlStateNormal];
+    UIImage *logoutOverImage = [UIImage imageWithContentsOfFile:
+                                [[NSBundle mainBundle] pathForResource:@"icon_logout_over" ofType:@"png"]];
+    [logoutButton setBackgroundImage:logoutOverImage forState:UIControlStateHighlighted];
+    [logoutButton setTag:99];
+    [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
 }
 
 - (IBAction)logout:(id)sender {
