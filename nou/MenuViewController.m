@@ -41,6 +41,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
                                                          [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:

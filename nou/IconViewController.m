@@ -18,6 +18,7 @@
 @synthesize navController;
 @synthesize btn01,btn02,btn03,btn04,btn05,btn06,btn07,btn08;
 - (void)viewWillAppear:(BOOL)animated {
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     //logout
     UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     logoutButton.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*20, [Utility appWidth]*130, [Utility appHeight]*100);
