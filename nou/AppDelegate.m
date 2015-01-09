@@ -178,12 +178,15 @@
     //將Device Token傳給Provider...
     
     NSString* urlString = [[NSString alloc] initWithFormat:@"regId=%@&type=IOS", iOSDeviceToken];
-    [NouRequest urlMethod:@"reg" parameterString:urlString];
     
     //寫入regId
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:iOSDeviceToken forKey:@"regId"];
     [userDefaults synchronize];
+    
+    [NouRequest urlMethod:@"reg" parameterString:urlString];
+    
+    
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)err {
     //錯誤處理...

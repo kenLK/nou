@@ -64,11 +64,15 @@
     [self.view addSubview:backgImageView];
     
     
-    
     //取得資料
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
     if (data != nil) {
         resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        //消除重試navi
+        
+    } else {
+        [self errorNetwork];
     }
     
     //HEADER
@@ -826,6 +830,42 @@
 }
 - (IBAction)clearAccount:(id)sender {
     [inputText setText:@""];
+}
+-(void) errorNetwork {
+    
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"網路錯誤"
+                                          message:@"是否重新讀取?"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"取消", @"Cancel action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                       [self.navigationController popViewControllerAnimated:NO];
+                                   }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"重新讀取", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                                   
+                                   MenuViewController *newVC = [[MenuViewController alloc] init];
+                                   newVC.url = self.url;
+                                   
+                                   NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+                                   [viewControllers removeLastObject];
+                                   [viewControllers addObject:newVC];
+                                   [[self navigationController] setViewControllers:viewControllers animated:YES];
+                               }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 @end
 

@@ -10,7 +10,8 @@
 #import "NouRequest.h"
 
 
-@interface NouRequest ()
+@interface NouRequest()
+
 @property(readwrite) BOOL isRetry;
 @end
 
@@ -35,15 +36,10 @@
     NSError *error;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
     
-//    if (error != nil) {
-//        NSLog(@"request error!");
-//        
-//        return [self urlMethod:urlMethod parameterString:urlPara];
-//    }
-    
     return responseData;
 }
 + (NSData *)urlAll:(NSString *)urlAll {
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *regId = [userDefaults stringForKey:@"regId"];
     
@@ -59,20 +55,6 @@
     NSURLResponse *response;
     NSError *error;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-    
-//    if (error != nil) {
-//        NSLog(@"request error!");
-//        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"網路錯誤"
-//                                                        message:@"確定重新讀取?"
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"No"
-//                                              otherButtonTitles:@"Yes", nil];
-//        [alert show];
-//        
-//        
-//        return [self urlAll:urlAll];
-//    }
     
     return responseData;
 }
