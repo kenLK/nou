@@ -19,11 +19,14 @@
 
 + (NSData *)urlMethod:(NSString *)urlMethod parameterString:(NSString *)urlPara {
     NSLog(@"NouRequest urlMethod>>start");
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *regId = [userDefaults stringForKey:@"regId"];
+    
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@?%@"
-                           , domainURL, urlMethod, urlPara];
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@?%@&token=%@"
+                           , domainURL, urlMethod, urlPara, regId];
     NSURL *url = [[NSURL alloc] initWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"NouRequest>>%@", url);
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -41,11 +44,14 @@
     return responseData;
 }
 + (NSData *)urlAll:(NSString *)urlAll {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *regId = [userDefaults stringForKey:@"regId"];
+    
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@"
-                           , domainURL, urlAll];
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@&token=%@"
+                           , domainURL, urlAll, regId];
     NSURL *url = [[NSURL alloc] initWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"NouRequest urlAll>>%@", url);
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
