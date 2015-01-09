@@ -103,9 +103,9 @@
     [btn01 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
 //    UIImage *btn01Image = [UIImage imageWithContentsOfFile:
 //                            [[NSBundle mainBundle] pathForResource:@"btn_01" ofType:@"png"]];
-    [btn01 setBackgroundImage:btnImage forState:UIControlStateNormal];
+    //[btn01 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn01 setImage:btnOverImage forState:UIControlStateHighlighted];
-    [self.view addSubview:btn01];
+    [self.view insertSubview:btn01 aboveSubview:btn01BackView];
     
     UILabel* btn01Label = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*85, yHeight*500 + [Utility appModHeight], yWidth*300, yHeight*60)];
     [btn01Label setText:@"最新消息"];
@@ -127,9 +127,10 @@
     [btn02 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
 //    UIImage *btn02Image = [UIImage imageWithContentsOfFile:
 //                           [[NSBundle mainBundle] pathForResource:@"btn_02" ofType:@"png"]];
-    [btn02 setBackgroundImage:btnImage forState:UIControlStateNormal];
+    //[btn02 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn02 setImage:btnOverImage forState:UIControlStateHighlighted];
-    [self.view addSubview:btn02];
+    [self.view insertSubview:btn02 aboveSubview:btn02BackView];
+    //[self.view addSubview:btn02];
     
     UILabel* btn02Label = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*450, yHeight*500 + [Utility appModHeight], yWidth*300, yHeight*60)];
     [btn02Label setText:@"公佈欄"];
@@ -151,9 +152,10 @@
     [btn03 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
 //    UIImage *btn03Image = [UIImage imageWithContentsOfFile:
 //                           [[NSBundle mainBundle] pathForResource:@"btn_03" ofType:@"png"]];
-    [btn03 setBackgroundImage:btnImage forState:UIControlStateNormal];
+    //[btn03 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn03 setImage:btnOverImage forState:UIControlStateHighlighted];
-    [self.view addSubview:btn03];
+    [self.view insertSubview:btn03 aboveSubview:btn03BackView];
+    //[self.view addSubview:btn03];
     
     UILabel* btn03Label = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*815, yHeight*500 + [Utility appModHeight], yWidth*300, yHeight*60)];
     [btn03Label setText:@"招生資訊"];
@@ -212,9 +214,10 @@
     [btn06 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
 //    UIImage *btn06Image = [UIImage imageWithContentsOfFile:
 //                           [[NSBundle mainBundle] pathForResource:@"btn_06" ofType:@"png"]];
-    [btn06 setBackgroundImage:btnImage forState:UIControlStateNormal];
+    //[btn06 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn06 setImage:btnOverImage forState:UIControlStateHighlighted];
-    [self.view addSubview:btn06];
+    [self.view insertSubview:btn06 aboveSubview:btn06BackView];
+    //[self.view addSubview:btn06];
     
     UILabel* btn06Label = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*815, yHeight*865 + [Utility appModHeight], yWidth*300, yHeight*60)];
     [btn06Label setText:@"行事曆"];
@@ -332,7 +335,7 @@
     
     switch (intNum) {
         case 0:
-            pic = @"alpha_white_bg";
+            pic = @"alpha_wh22ite_bg";
             break;
         case 1:
             pic = @"icon_number_01";
