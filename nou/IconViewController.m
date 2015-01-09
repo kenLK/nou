@@ -143,7 +143,7 @@
     [self.view addSubview:btn02];
     
     UILabel* btn02Label = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*450, yHeight*500 + [Utility appModHeight], yWidth*300, yHeight*60)];
-    [btn02Label setText:@"公布欄"];
+    [btn02Label setText:@"公佈欄"];
     [btn02Label setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*50]];
     btn02Label.textColor = [UIColor blackColor];
     [btn02Label setTextAlignment:NSTextAlignmentCenter];
