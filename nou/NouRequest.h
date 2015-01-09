@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import "GZIP.h"
 @interface NouRequest : NSObject
 //@property (strong, nonatomic) NSString *HTTPMethod;
 + (NSData *)urlMethod:(NSString *)urlMethod parameterString:(NSString *)urlPara ;

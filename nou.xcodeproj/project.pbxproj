@@ -54,6 +54,7 @@
 		B32F4C861A5D3EF8007A3FDA /* icon_dropmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = B32F4C851A5D3EF8007A3FDA /* icon_dropmenu.png */; };
 		B33EA9E61A3AD7FF00D8721A /* icon_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E41A3AD7FF00D8721A /* icon_off.png */; };
 		B33EA9E71A3AD7FF00D8721A /* icon_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B33EA9E51A3AD7FF00D8721A /* icon_on.png */; };
+		B3536B5F1A5FE332003BC320 /* GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = B3536B5E1A5FE332003BC320 /* GZIP.m */; };
 		B379BC001A5F6D97002B0D2A /* btn_02.png in Resources */ = {isa = PBXBuildFile; fileRef = B379BBF51A5F6D97002B0D2A /* btn_02.png */; };
 		B379BC011A5F6D97002B0D2A /* icon_number_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B379BBF61A5F6D97002B0D2A /* icon_number_01.png */; };
 		B379BC021A5F6D97002B0D2A /* icon_number_02.png in Resources */ = {isa = PBXBuildFile; fileRef = B379BBF71A5F6D97002B0D2A /* icon_number_02.png */; };
@@ -169,6 +170,8 @@
 		B32F4C851A5D3EF8007A3FDA /* icon_dropmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dropmenu.png; sourceTree = "<group>"; };
 		B33EA9E41A3AD7FF00D8721A /* icon_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_off.png; sourceTree = "<group>"; };
 		B33EA9E51A3AD7FF00D8721A /* icon_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_on.png; sourceTree = "<group>"; };
+		B3536B5D1A5FE332003BC320 /* GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZIP.h; sourceTree = "<group>"; };
+		B3536B5E1A5FE332003BC320 /* GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZIP.m; sourceTree = "<group>"; };
 		B379BBF51A5F6D97002B0D2A /* btn_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_02.png; sourceTree = "<group>"; };
 		B379BBF61A5F6D97002B0D2A /* icon_number_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_number_01.png; sourceTree = "<group>"; };
 		B379BBF71A5F6D97002B0D2A /* icon_number_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_number_02.png; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 		3365C9B81A0152C3002D1F1E = {
 			isa = PBXGroup;
 			children = (
+				B3536B5C1A5FE332003BC320 /* GZIP */,
 				B3259AED1A36A2E400306E26 /* Frameworks */,
 				3365C9F21A021694002D1F1E /* RATreeView */,
 				3365C9C31A0152C3002D1F1E /* nou */,
@@ -416,6 +420,15 @@
 				B3259AD51A36A23600306E26 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3536B5C1A5FE332003BC320 /* GZIP */ = {
+			isa = PBXGroup;
+			children = (
+				B3536B5D1A5FE332003BC320 /* GZIP.h */,
+				B3536B5E1A5FE332003BC320 /* GZIP.m */,
+			);
+			path = GZIP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,6 +592,7 @@
 				3365CA131A0218B9002D1F1E /* RADataObject.m in Sources */,
 				B3BF150D1A3594790083AE91 /* IconViewController.m in Sources */,
 				3365CA081A021694002D1F1E /* RATreeNodeCollectionController.m in Sources */,
+				B3536B5F1A5FE332003BC320 /* GZIP.m in Sources */,
 				B3171DC71A37EF6F00361603 /* NouRequest.m in Sources */,
 				3365CA0A1A021694002D1F1E /* RATreeNodeInfo.m in Sources */,
 				B3F20D291A491446006D7A47 /* UILabel+UILabelDynamicHeight.m in Sources */,

@@ -26,7 +26,7 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@?%@&token=%@"
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@?%@&token=%@&GZIP=Y"
                            , domainURL, urlMethod, urlPara, regId];
     NSURL *url = [[NSURL alloc] initWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"NouRequest>>%@", url);
@@ -35,6 +35,8 @@
     NSURLResponse *response;
     NSError *error;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    
+    [responseData gunzippedData];
     
     return responseData;
 }
@@ -46,7 +48,7 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     NSString *domainURL = [dict objectForKey:@"nou_url"];
-    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@&token=%@"
+    NSString* urlString = [[NSString alloc] initWithFormat:@"%@%@&token=%@&GZIP=Y"
                            , domainURL, urlAll, regId];
     NSURL *url = [[NSURL alloc] initWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"NouRequest urlAll>>%@", url);
@@ -55,6 +57,8 @@
     NSURLResponse *response;
     NSError *error;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    
+    [responseData gunzippedData];
     
     return responseData;
 }
