@@ -22,8 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //測試Key每日流量1000個request，上架需另行申請Key
-    [GMSServices provideAPIKey:@"AIzaSyA_uiLkxxhoSRfcHN6znkMoyJQyIBIWeLs"];
+    //google map api key
+    [GMSServices provideAPIKey:@"AIzaSyDprzva29xoGaSCaMG5tzrffY8j9zm8eqY"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
      
