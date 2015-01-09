@@ -16,6 +16,7 @@
 
 @implementation IconViewController
 @synthesize navController;
+@synthesize btn01,btn02,btn03,btn04,btn05,btn06,btn07,btn08;
 
 - (void)viewDidAppear:(BOOL)animated {
 
@@ -43,7 +44,23 @@
     [self.navigationController.navigationBar insertSubview:logoutButton atIndex:99];
     
     
-
+    //更新畫面數字
+    NSDictionary *resultJSON;
+    NSData *data = [NouRequest urlAll: [Utility setUrlWithString:@"count" parameterMap:@"" autoValid:YES]];
+    if (data != nil) {
+        resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        
+        NSInteger bulletin = [[resultJSON objectForKey:@"bulletin"] integerValue]; //02
+        NSInteger calendar = [[resultJSON objectForKey:@"calendar"] integerValue]; //06
+        NSInteger news = [[resultJSON objectForKey:@"news"] integerValue]; //01
+        NSInteger recruit = [[resultJSON objectForKey:@"recruit"] integerValue]; //03
+        
+        [btn01 setBackgroundImage:[self numberImage:news] forState:UIControlStateNormal];
+        [btn02 setBackgroundImage:[self numberImage:bulletin] forState:UIControlStateNormal];
+        [btn03 setBackgroundImage:[self numberImage:recruit] forState:UIControlStateNormal];
+        [btn06 setBackgroundImage:[self numberImage:calendar] forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidLoad {
@@ -79,15 +96,25 @@
     
     UIImage *btnOverImage = [UIImage imageWithContentsOfFile:
                              [[NSBundle mainBundle] pathForResource:@"btn_over" ofType:@"png"]];
+    UIImage *btnImage = [UIImage imageWithContentsOfFile:
+                         [[NSBundle mainBundle] pathForResource:@"alpha_white_bg" ofType:@"png"]];
+    
+    
     
     //btn01
-    UIButton *btn01 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIImageView *btn01BackView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*140, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190)];
+    UIImage *btn01BackImage = [UIImage imageWithContentsOfFile:
+                          [[NSBundle mainBundle] pathForResource:@"btn_01" ofType:@"png"]];
+    [btn01BackView setImage:btn01BackImage];
+    [self.view addSubview:btn01BackView];
+    
+    btn01 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn01 setTag:1];
     btn01.frame = CGRectMake(yWidth*140, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn01 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *btn01Image = [UIImage imageWithContentsOfFile:
-                            [[NSBundle mainBundle] pathForResource:@"btn_01" ofType:@"png"]];
-    [btn01 setBackgroundImage:btn01Image forState:UIControlStateNormal];
+//    UIImage *btn01Image = [UIImage imageWithContentsOfFile:
+//                            [[NSBundle mainBundle] pathForResource:@"btn_01" ofType:@"png"]];
+    [btn01 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn01 setImage:btnOverImage forState:UIControlStateHighlighted];
     [self.view addSubview:btn01];
     
@@ -99,13 +126,19 @@
     [self.view addSubview:btn01Label];
     
     //btn02
-    UIButton *btn02 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIImageView *btn02BackView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*505, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190)];
+    UIImage *btn02BackImage = [UIImage imageWithContentsOfFile:
+                               [[NSBundle mainBundle] pathForResource:@"btn_02" ofType:@"png"]];
+    [btn02BackView setImage:btn02BackImage];
+    [self.view addSubview:btn02BackView];
+    
+    btn02 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn02 setTag:2];
     btn02.frame = CGRectMake(yWidth*505, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn02 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *btn02Image = [UIImage imageWithContentsOfFile:
-                           [[NSBundle mainBundle] pathForResource:@"btn_02" ofType:@"png"]];
-    [btn02 setBackgroundImage:btn02Image forState:UIControlStateNormal];
+//    UIImage *btn02Image = [UIImage imageWithContentsOfFile:
+//                           [[NSBundle mainBundle] pathForResource:@"btn_02" ofType:@"png"]];
+    [btn02 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn02 setImage:btnOverImage forState:UIControlStateHighlighted];
     [self.view addSubview:btn02];
     
@@ -117,13 +150,19 @@
     [self.view addSubview:btn02Label];
     
     //btn03
-    UIButton *btn03 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIImageView *btn03BackView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*870, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190)];
+    UIImage *btn03BackImage = [UIImage imageWithContentsOfFile:
+                               [[NSBundle mainBundle] pathForResource:@"btn_03" ofType:@"png"]];
+    [btn03BackView setImage:btn03BackImage];
+    [self.view addSubview:btn03BackView];
+    
+    btn03 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn03 setTag:3];
     btn03.frame = CGRectMake(yWidth*870, yHeight*310 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn03 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *btn03Image = [UIImage imageWithContentsOfFile:
-                           [[NSBundle mainBundle] pathForResource:@"btn_03" ofType:@"png"]];
-    [btn03 setBackgroundImage:btn03Image forState:UIControlStateNormal];
+//    UIImage *btn03Image = [UIImage imageWithContentsOfFile:
+//                           [[NSBundle mainBundle] pathForResource:@"btn_03" ofType:@"png"]];
+    [btn03 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn03 setImage:btnOverImage forState:UIControlStateHighlighted];
     [self.view addSubview:btn03];
     
@@ -136,7 +175,7 @@
 
     
     //btn04
-    UIButton *btn04 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn04 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn04 setTag:4];
     btn04.frame = CGRectMake(yWidth*140, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn04 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
@@ -154,7 +193,7 @@
     [self.view addSubview:btn04Label];
     
     //btn05
-    UIButton *btn05 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn05 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn05 setTag:5];
     btn05.frame = CGRectMake(yWidth*505, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn05 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
@@ -172,13 +211,19 @@
     [self.view addSubview:btn05Label];
     
     //btn06
-    UIButton *btn06 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIImageView *btn06BackView = [[UIImageView alloc] initWithFrame:CGRectMake(yWidth*870, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190)];
+    UIImage *btn06BackImage = [UIImage imageWithContentsOfFile:
+                               [[NSBundle mainBundle] pathForResource:@"btn_06" ofType:@"png"]];
+    [btn06BackView setImage:btn06BackImage];
+    [self.view addSubview:btn06BackView];
+    
+    btn06 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn06 setTag:6];
     btn06.frame = CGRectMake(yWidth*870, yHeight*675 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn06 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *btn06Image = [UIImage imageWithContentsOfFile:
-                           [[NSBundle mainBundle] pathForResource:@"btn_06" ofType:@"png"]];
-    [btn06 setBackgroundImage:btn06Image forState:UIControlStateNormal];
+//    UIImage *btn06Image = [UIImage imageWithContentsOfFile:
+//                           [[NSBundle mainBundle] pathForResource:@"btn_06" ofType:@"png"]];
+    [btn06 setBackgroundImage:btnImage forState:UIControlStateNormal];
     [btn06 setImage:btnOverImage forState:UIControlStateHighlighted];
     [self.view addSubview:btn06];
     
@@ -190,7 +235,7 @@
     [self.view addSubview:btn06Label];
     
     //btn07
-    UIButton *btn07 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn07 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn07 setTag:7];
     btn07.frame = CGRectMake(yWidth*140, yHeight*1040 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn07 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
@@ -208,7 +253,7 @@
     [self.view addSubview:btn07Label];
     
     //btn08
-    UIButton *btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn08 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn08 setTag:8];
     btn08.frame = CGRectMake(yWidth*505, yHeight*1040 + [Utility appModHeight], yWidth*190, yHeight*190);
     [btn08 addTarget:self action:@selector(functionView:) forControlEvents:UIControlEventTouchUpInside];
@@ -280,6 +325,51 @@
     
 }
 
+
+- (UIImage *) numberImage:(NSInteger) input {
+    int intNum = input;
+
+    NSString *pic;
+    
+    switch (intNum) {
+        case 0:
+            pic = @"alpha_white_bg";
+            break;
+        case 1:
+            pic = @"icon_number_01";
+            break;
+        case 2:
+            pic = @"icon_number_02";
+            break;
+        case 3:
+            pic = @"icon_number_03";
+            break;
+        case 4:
+            pic = @"icon_number_04";
+            break;
+        case 5:
+            pic = @"icon_number_05";
+            break;
+        case 6:
+            pic = @"icon_number_06";
+            break;
+        case 7:
+            pic = @"icon_number_07";
+            break;
+        case 8:
+            pic = @"icon_number_08";
+            break;
+        case 9:
+            pic = @"icon_number_09";
+            break;
+        default:
+            pic = @"icon_number_09plus";
+            break;
+    }
+    
+    return [UIImage imageWithContentsOfFile:
+            [[NSBundle mainBundle] pathForResource:pic ofType:@"png"]];
+}
 
 @end
 
