@@ -21,19 +21,7 @@
 @synthesize dataObj;
 -(void)viewDidAppear:(BOOL)animated {
     
-    //Navigator圖示設定
     
-    //移除登出按鈕99, 教務系統按鈕98
-    for(UIView* view in self.navigationController.navigationBar.subviews)
-    {
-        if(view.tag == 99 || view.tag == 98)
-        {
-            [view removeFromSuperview];
-        }
-    }
-    
-    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
-    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)viewDidLoad {
@@ -100,6 +88,20 @@
         }
 
     }
+    
+    //Navigator圖示設定
+    
+    //移除登出按鈕99, 教務系統按鈕98
+    for(UIView* view in self.navigationController.navigationBar.subviews)
+    {
+        if(view.tag == 99 || view.tag == 98)
+        {
+            [view removeFromSuperview];
+        }
+    }
+    
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
     
 }
 
