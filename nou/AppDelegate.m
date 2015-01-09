@@ -212,20 +212,18 @@
 //    
 //
     if ( application.applicationState == UIApplicationStateActive ) {
-//        if( [apsInfo objectForKey:@"badge"] != NULL)
-//        {
-//            badge = [[apsInfo objectForKey:@"badge"] integerValue];
-//        }
-//        if(badge>0)
-//        {
-//            // reset badge counter.
-//            int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-//            currentBadgeNumber += badge;
-//            [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
-//        }
-        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-        currentBadgeNumber += 1;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
+        if( [apsInfo objectForKey:@"badge"] != NULL)
+        {
+            badge = [[apsInfo objectForKey:@"badge"] integerValue];
+        }
+        if(badge>=0)
+        {
+            // reset badge counter.
+            [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+        }
+//        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+//        currentBadgeNumber += 1;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
     } else {
         //點選推播後
         
