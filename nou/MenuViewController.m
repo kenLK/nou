@@ -396,7 +396,7 @@
         fourthMENUName.multiAddr = [fourthDic objectForKey:@"MULTIADDR"];
         fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
         fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
-        fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"] defaultString:@"7"];
+        fourthMENUName.zoom = [Utility checkNull:[fourthDic objectForKey:@"ZOOM"] defaultString:@"15"];
         fourthMENUName.multiLineHeight = 0.0;
         //計算欄位高度
         if ([@"" isEqualToString:fourthMENUName.googleMap]) {

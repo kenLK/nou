@@ -79,9 +79,9 @@
                                  marker.title = dataObj.googleMap;
                                  marker.snippet = dataObj.name;
                                  marker.map = mapView_;
-                                 mapView_.camera = [GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
+                                 [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
                                                                                longitude:aPlacemark.location.coordinate.longitude
-                                                                                    zoom:[dataObj.zoom intValue]];
+                                                                                    zoom:[dataObj.zoom intValue]]];
                              }
                          }];
             
