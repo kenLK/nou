@@ -253,11 +253,13 @@
             NSString *BORDER_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
             
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight, [Utility appWidth]*1200, [Utility appHeight]*174)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20 , subjectHeight, [Utility appWidth]*1160, [Utility appHeight]*174)];
             [titleLabel setText:subjectName];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
             titleLabel.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
             titleLabel.textColor = [Utility colorFromHexString:TEXT_COLOR];
+            titleLabel.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
+            titleLabel.layer.borderWidth = 1.0;
             [titleLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:titleLabel];
             
