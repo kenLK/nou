@@ -42,6 +42,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>nou_url</key>
-	<string>http://210.80.86.180:8081/nouWeb/</string>
+	<string>http://192.192.51.227:80/nouWeb/</string>
 </dict>
 </plist>
