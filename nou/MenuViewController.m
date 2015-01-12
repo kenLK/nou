@@ -296,7 +296,7 @@
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
 
     self.data =[NSArray arrayWithArray:firstMENU];
-    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight + 2, [Utility boundWidth]*1200, [Utility appHeight]*1920 - subjectHeight - [Utility appHeight]*50)];
+    RATreeView *treeView = [[RATreeView alloc] initWithFrame:CGRectMake(0.0, subjectHeight + 2, [Utility boundWidth]*1200, [Utility appHeight]*1920 - subjectHeight - [Utility appHeight]*160)];
     
     treeView.delegate = self;
     treeView.dataSource = self;
