@@ -634,7 +634,7 @@
         NouMapButton *btn01 = [NouMapButton buttonWithType:UIButtonTypeRoundedRect];
         [btn01 setTag:1];
         btn01.dataObj = dataObj;
-        btn01.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*0, [Utility appWidth]*1160, [Utility appHeight]*1200);
+        btn01.frame = CGRectMake([Utility appWidth]*20, [Utility appHeight]*0, [Utility appWidth]*1160, [Utility appHeight]*1000);
         [btn01 addTarget:self action:@selector(map:) forControlEvents:UIControlEventTouchUpInside];
         
         //取得google map image
