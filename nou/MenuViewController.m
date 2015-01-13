@@ -683,7 +683,7 @@
         
         CGFloat widthLocation = 0.0;
         CGRect appRect = [[UIScreen mainScreen] bounds];
-        CGFloat appWidth = appRect.size.width;
+        CGFloat appWidth = appRect.size.width - [Utility appWidth]*40;
         
         NSMutableArray *imageArray = [[NSMutableArray alloc]init];
         NSMutableArray *image2Array = [[NSMutableArray alloc]init];
@@ -692,7 +692,7 @@
             
             CGFloat labelWidth = appWidth * ([widthArray[i] floatValue] / 100);
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, [Utility appHeight]*125)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, nouCellHeight - [Utility appHeight]*marginHeight)];
             [titleLabel setText:nameArray[i]];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];            
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
