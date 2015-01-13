@@ -28,7 +28,6 @@
 - (IBAction)ddMenuSelectionMade:(UIButton *)sender;
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_TEXT;
 @property (nonatomic, strong) NSMutableArray *ddBUTTON_VALUE;
-
 @property (strong, nonatomic) NSString *navTitle;
 @end
 
@@ -86,6 +85,7 @@
         
         functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, titleWidth, [Utility appHeight]*174)];
         [functionTitleLabel setText:headName];
+        functionTitleLabel.textColor = [Utility colorFromHexString:@"FFFFFF"];
         [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
         self.navigationItem.titleView = functionTitleLabel;
     }
@@ -123,14 +123,14 @@
             
             
             //input background
-            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight, [Utility appWidth]*1200, [Utility appHeight]*174)];
+            UIImageView *passwordBgView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*0.0 , subjectHeight, [Utility appWidth]*1200, [Utility appHeight]*125)];
             UIImage *passwordBgImage = [UIImage imageWithContentsOfFile:
                                         [[NSBundle mainBundle] pathForResource:@"alpha_box_bg" ofType:@"png"]];
             [passwordBgView setImage:passwordBgImage];
             [self.view addSubview:passwordBgView];
             
             //textField
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*790, [Utility appHeight]*174 - [Utility appHeight]*30)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake([Utility appWidth]*38 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*790, [Utility appHeight]*125 - [Utility appHeight]*30)];
             inputText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACEHOLDER attributes:@{NSForegroundColorAttributeName: [Utility colorFromHexString:TEXT_COLOR], NSFontAttributeName:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]}];
             inputText.textColor = [Utility colorFromHexString:TEXT_COLOR];
             inputText.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -144,7 +144,7 @@
             
             //cancel text
             UIButton *clearAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*140);
+            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*95);
             [clearAccountButton addTarget:self action:@selector(clearAccount:) forControlEvents:UIControlEventTouchUpInside];
             UIImage *clearAccountImage = [UIImage imageWithContentsOfFile:
                                           [[NSBundle mainBundle] pathForResource:@"icon_clear" ofType:@"png"]];
@@ -162,10 +162,10 @@
             [queryButton setTitle:BUTTON_TEXT forState:UIControlStateNormal];
             [queryButton setTitleColor:[Utility colorFromHexString:BUTTON_TEXT_COLOR] forState:UIControlStateNormal];
             queryButton.backgroundColor = [Utility colorFromHexString:BUTTON_BACKGROUND_COLOR];
-            queryButton.frame = CGRectMake([Utility appWidth]*848 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*320, [Utility appHeight]*174 - [Utility appHeight]*30);
+            queryButton.frame = CGRectMake([Utility appWidth]*848 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*320, [Utility appHeight]*125 - [Utility appHeight]*30);
             [self.view addSubview:queryButton];
             
-            subjectHeight = subjectHeight + 13;
+            subjectHeight = subjectHeight + [Utility appHeight]*30;
         }
         
         //subject為下拉式選單
@@ -203,12 +203,12 @@
             [ddMenuShowButton setTitle:menuTitle forState:UIControlStateNormal];
             [ddMenuShowButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
             ddMenuShowButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + 4, [Utility appWidth]*1160, [Utility appHeight]*150);
+            ddMenuShowButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + 4, [Utility appWidth]*1160, [Utility appHeight]*125);
             ddMenuShowButton.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
             ddMenuShowButton.layer.borderWidth = 1.0;
             [self.view addSubview:ddMenuShowButton];
             
-            UIImageView *buttonView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*1068 , subjectHeight + 4 +4, [Utility appWidth]*112, [Utility appHeight]*125)];
+            UIImageView *buttonView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*1068 , subjectHeight + 4 +4, [Utility appWidth]*112, [Utility appHeight]*100)];
             UIImage *buttonImg = [UIImage imageWithContentsOfFile:
                                   [[NSBundle mainBundle] pathForResource:@"icon_dropmenu" ofType:@"png"]];
             [buttonView setImage:buttonImg];
@@ -217,7 +217,7 @@
             
             
             ddMenu = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*1980)];
-            ddMenu.contentSize = CGSizeMake([Utility appWidth]*1124, [Utility appHeight]*150*(ddArray.count+4));
+            ddMenu.contentSize = CGSizeMake([Utility appWidth]*1124, [Utility appHeight]*125*(ddArray.count+4));
             
             for (int i = 0;i < ddArray.count;i++) {
               
@@ -231,7 +231,7 @@
                 [ddMenuSelectButton setTitle:menuTitle forState:UIControlStateNormal];
                 [ddMenuSelectButton setTitleColor:[Utility colorFromHexString:TEXT_COLOR] forState:UIControlStateNormal];
                 ddMenuSelectButton.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
-                ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*150 * (i+1), [Utility appWidth]*1160, [Utility appHeight]*150);
+                ddMenuSelectButton.frame = CGRectMake([Utility appWidth]*20 , subjectHeight + [Utility appHeight]*174 + [Utility appHeight]*125 * (i+1), [Utility appWidth]*1160, [Utility appHeight]*125);
                 ddMenuSelectButton.layer.borderColor = [Utility colorFromHexString:BORDER_COLOR].CGColor;
                 ddMenuSelectButton.layer.borderWidth = 1.0;
                 [ddMenu addSubview:ddMenuSelectButton];
@@ -252,7 +252,7 @@
             NSString *TEXT_COLOR = [Utility checkNull:[subjectDic objectForKey:@"TEXT_COLOR"] defaultString:@"34ADDC"];
             NSString *BORDER_COLOR = [Utility checkNull:[subjectDic objectForKey:@"BORDER_COLOR"] defaultString:@"34ADDC"];
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20 , subjectHeight, [Utility appWidth]*1160, [Utility appHeight]*144)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*20 , subjectHeight, [Utility appWidth]*1160, [Utility appHeight]*125)];
             [titleLabel setText:subjectName];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*60]];
             titleLabel.backgroundColor = [Utility colorFromHexString:BACKGROUND_COLOR];
@@ -262,7 +262,7 @@
             [titleLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:titleLabel];
             
-            subjectHeight = subjectHeight + 20;
+            subjectHeight = subjectHeight +[Utility appHeight]*50;
         }
     } else {
         subjectHeight = subjectHeight - 12;
@@ -313,7 +313,7 @@
     [self.view insertSubview:treeView atIndex:1];//background為0
     
     
-    UIImageView *footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , [Utility boundHeight]*1920, [Utility appWidth]*1200, 47)];
+    UIImageView *footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , [Utility boundHeight]*1920, [Utility appWidth]*1200, [Utility appHeight]*125)];
     UIImage *footerImage = [UIImage imageWithContentsOfFile:
                            [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
     [footerImageView setImage:footerImage];
@@ -612,7 +612,7 @@
     //cell選擇顏色
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [Utility colorFromHexString:dataObj.backgroundColor];
-    [cell setSelectedBackgroundView:bgColorView];
+    [cell setSelectedBackgroundView:nil];
     
     if (dataObj.isNotSelective) {
         return cell;
@@ -685,7 +685,7 @@
             
             CGFloat labelWidth = appWidth * ([widthArray[i] floatValue] / 100);
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, 47)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, [Utility appHeight]*125)];
             [titleLabel setText:nameArray[i]];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];            
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
@@ -797,11 +797,12 @@
     
     CGFloat returnCG = 0.0;
     
-    returnCG = textLabel.sizeOfMultiLineLabel.height + 28;
-    if (returnCG < 47) {
-        returnCG = 47;
+    //returnCG = textLabel.sizeOfMultiLineLabel.height + 28;
+    returnCG = textLabel.sizeOfMultiLineLabel.height;
+    if (returnCG < [Utility appHeight]*125) {
+        returnCG = [Utility appHeight]*125;
     } else {
-        returnCG = textLabel.frame.size.height + 47;
+        returnCG = textLabel.frame.size.height + [Utility appHeight]*125;
     }
     
     return returnCG;

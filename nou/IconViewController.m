@@ -267,6 +267,7 @@
     //功能title
     UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
     [functionTitleLabel setText:@"國立空中大學"];
+    functionTitleLabel.textColor = [Utility colorFromHexString:@"FFFFFF"];
     [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
     self.navigationItem.titleView = functionTitleLabel;
     
