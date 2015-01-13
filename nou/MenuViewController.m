@@ -453,7 +453,12 @@
         return dataObj.multiLineHeight;
     }
 
-    return [self countHeight:dataObj.name];
+    CGFloat marginHeight = 0;
+    if (![@"" isEqualToString:dataObj.marginTop]) {
+        marginHeight = [dataObj.marginTop floatValue];
+    }
+    
+    return [self countHeight:dataObj.name] + [Utility appHeight]*marginHeight;
 }
 - (NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
@@ -587,7 +592,11 @@
     } else if (dataObj.multiLineHeight > 0.0) {
         nouCellHeight = dataObj.multiLineHeight;
     } else {
-        nouCellHeight = [self countHeight:dataObj.name];
+        CGFloat marginHeight1 = 0;
+        if (![@"" isEqualToString:dataObj.marginTop]) {
+            marginHeight1 = [dataObj.marginTop floatValue];
+        }
+        nouCellHeight = [self countHeight:dataObj.name]+ [Utility appHeight]*marginHeight1;
     }
     
     //框線
