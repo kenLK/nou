@@ -618,10 +618,8 @@
     }
     [cell insertSubview:cellBackGround atIndex:0];
     
-    //cell選擇顏色
-    UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [Utility colorFromHexString:dataObj.backgroundColor];
-    [cell setSelectedBackgroundView:nil];
+    //cell拿掉選擇顏色
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (dataObj.isNotSelective) {
         return cell;
