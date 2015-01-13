@@ -144,7 +144,7 @@
             
             //cancel text
             UIButton *clearAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            clearAccountButton.frame = CGRectMake([Utility appWidth]*680 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*140, [Utility appHeight]*95);
+            clearAccountButton.frame = CGRectMake([Utility appWidth]*720 , subjectHeight + [Utility appHeight]*30, [Utility appWidth]*95, [Utility appHeight]*95);
             [clearAccountButton addTarget:self action:@selector(clearAccount:) forControlEvents:UIControlEventTouchUpInside];
             UIImage *clearAccountImage = [UIImage imageWithContentsOfFile:
                                           [[NSBundle mainBundle] pathForResource:@"icon_clear" ofType:@"png"]];
