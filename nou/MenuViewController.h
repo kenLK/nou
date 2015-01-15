@@ -30,5 +30,5 @@
 
 @property (strong, nonatomic) NSString *url;
 @property BOOL isIndex;//是否為教務系統
-
+@property BOOL isClicked;//已經按了?
 @end

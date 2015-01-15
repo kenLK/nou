@@ -23,7 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *btn06;
 @property (strong, nonatomic) IBOutlet UIButton *btn07;
 @property (strong, nonatomic) IBOutlet UIButton *btn08;
-
+@property BOOL isClicked;//已經按了?
 
 @end
 

@@ -16,8 +16,9 @@
 
 @implementation IconViewController
 @synthesize navController;
-@synthesize btn01,btn02,btn03,btn04,btn05,btn06,btn07,btn08;
+@synthesize btn01,btn02,btn03,btn04,btn05,btn06,btn07,btn08,isClicked;
 - (void)viewWillAppear:(BOOL)animated {
+    isClicked = NO;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     //logout
     UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -304,27 +305,31 @@
 
 - (IBAction)functionView:(UIButton *)sender {
     NSLog(@"funcitonView~~");
+    if (!isClicked) {
+        isClicked = YES;//避免連點
+        NSArray *destUrl = [NSArray arrayWithObjects:
+                            @"",
+                            @"news_index",
+                            @"bulletin_index",
+                            @"recruit_index",
+                            @"index",
+                            @"contact_index",
+                            @"calendar_index",
+                            @"roadmap_index",
+                            @"schoolmap_index",
+                            nil];
+        
+        MenuViewController *menuViewController = [[MenuViewController alloc] init];
+        
+        menuViewController.url = [destUrl objectAtIndex: sender.tag];
+        //    if (sender.tag == 4) {
+        //        menuViewController.isIndex = YES;
+        //    }
+        
+        //self.navigationController.navigationBar.clipsToBounds = NO;
+        [self.navigationController pushViewController:menuViewController animated:YES];
+    }
     
-    NSArray *destUrl = [NSArray arrayWithObjects:
-               @"",
-               @"news_index",
-               @"bulletin_index",
-               @"recruit_index",
-               @"index",
-               @"contact_index",
-               @"calendar_index",
-               @"roadmap_index",
-               @"schoolmap_index",
-               nil];
-    
-    MenuViewController *menuViewController = [[MenuViewController alloc] init];
-    
-    menuViewController.url = [destUrl objectAtIndex: sender.tag];
-//    if (sender.tag == 4) {
-//        menuViewController.isIndex = YES;
-//    }
-
-    [self.navigationController pushViewController:menuViewController animated:YES];
     
 }
 

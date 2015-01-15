@@ -36,7 +36,7 @@
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
-@synthesize isIndex,navTitle;
+@synthesize isIndex,navTitle,isClicked;
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -47,6 +47,7 @@
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
                                                                        [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
 //    self.navigationItem.title = navTitle;
+    isClicked = NO;
 }
 
 - (void)viewDidLoad {
@@ -552,7 +553,8 @@
     }
     
     //跳下一頁
-    if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""]) {
+    if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""] && !isClicked) {
+        isClicked = YES;//避免連點
         secondView.url = dataObj.url;
         //secondView.isIndex = self.isIndex;
         NSLog(@"url>>>>%@",secondView.url);
