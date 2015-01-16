@@ -212,10 +212,12 @@
 
 - (IBAction)clearAccount:(id)sender {
     [account setText:@""];
+    [account resignFirstResponder];
 }
 
 - (IBAction)clearPassword:(id)sender {
     [password setText:@""];
+    [password resignFirstResponder];
 }
 
 - (void) goIconView:(NSString *)acccountI password:(NSString *)passwordI {
