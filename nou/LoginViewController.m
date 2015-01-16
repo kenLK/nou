@@ -272,6 +272,9 @@
             [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:functionTitleLabel];
         }
+    } else {
+    
+        [self errorNetwork];
     }
 
 }
@@ -288,5 +291,29 @@
 
 -(UIColor *) colorFromHexString:(NSString *)hexString {
     return [Utility colorFromHexString:hexString];
+}
+
+-(void) errorNetwork {
+    
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"網路錯誤"
+                                          message:@"網路連線錯誤"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"確定", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                                   
+                                   //LoginViewController *newVC = [[LoginViewController alloc] init];
+                                   
+                                   //[self presentViewController:newVC animated:YES completion:nil];
+                               }];
+    
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 @end
