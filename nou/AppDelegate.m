@@ -257,8 +257,9 @@
         
         menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
         self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-        
-        [self.window setRootViewController:menuViewController];
+        [self.navController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
+        [self.window setRootViewController:navController];
+        //[self.window setRootViewController:menuViewController];
         
         [self.window makeKeyAndVisible];
 
