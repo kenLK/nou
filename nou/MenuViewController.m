@@ -36,16 +36,34 @@
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
-@synthesize isIndex,navTitle,isClicked;
+@synthesize isIndex,navTitle,isClicked,isNotification;
 
 -(void)viewWillAppear:(BOOL)animated {
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     
-    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
-                                                         [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
-                                                                       [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+    if (isNotification) {
+        
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *backBtnImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]];
+        [backBtn setBackgroundImage:backBtnImage forState:UIControlStateNormal];
+        [backBtn addTarget:self action:@selector(terminate:) forControlEvents:UIControlEventTouchUpInside];
+        backBtn.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+        [backBtn setTag:97];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn] ;
+        self.navigationItem.leftBarButtonItem = backButton;
+        
+        
+    } else {
+    
+        [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
+                                                             [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
+                                                                           [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+    }
+    
+    
+    
 //    self.navigationItem.title = navTitle;
     isClicked = NO;
 }
@@ -820,7 +838,9 @@
 -(void)goHome:(id)sender {
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
 }
-
+-(void)terminate:(id)sender {
+    exit(0);    
+}
 -(void)query:(id)sender {
     
     MenuViewController *secondView = [[MenuViewController alloc] init];

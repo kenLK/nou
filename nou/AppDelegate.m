@@ -256,6 +256,7 @@
         MenuViewController *menuViewController = [[MenuViewController alloc] init];
         
         menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
+        [menuViewController setIsNotification:YES];
         self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
         [self.navController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
         [self.window setRootViewController:navController];
