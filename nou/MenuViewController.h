@@ -34,4 +34,5 @@
 @property BOOL isIndex;//是否為教務系統
 @property BOOL isClicked;//已經按了?
 @property BOOL isNotification;//是否由推播進入?
+@property BOOL isNoNeedReload;
 @end

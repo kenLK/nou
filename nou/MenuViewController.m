@@ -36,11 +36,13 @@
 }
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
-@synthesize isIndex,navTitle,isClicked,isNotification;
+@synthesize isIndex,navTitle,isClicked,isNotification,isNoNeedReload;
 @synthesize footerImageView;
 @synthesize subjectHeight;
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    isClicked = NO;//重複按
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     
@@ -64,17 +66,45 @@
                                                                            [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     }
     
+    //reload treedata
+    //取得資料
+    if (isNoNeedReload) {
+        NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
+        if (data != nil) {
+            resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            //MENU
+            NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
+            
+            NSMutableArray *firstMENU = [[NSMutableArray alloc] init];
+            
+            //parse JSON
+            firstMENU = [self addMenuTree:menuArray];
+            
+            //加上logo
+            RADataObject *logoMENUName = nil;
+            logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
+            logoMENUName.multiLineHeight = [Utility appHeight]*203;
+            logoMENUName.isMultiLine = YES;
+            logoMENUName.isNotSelective = YES;
+            logoMENUName.isLogo = YES;
+            
+            [firstMENU addObject:logoMENUName];
+            RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
+            self.data =[NSArray arrayWithArray:firstMENU];
+            [self.treeView reloadData];
+            [self.treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
+            self.treeView.contentMode = UIViewContentModeScaleToFill;
+        }
+    }
+    isNoNeedReload = YES;
     
-    
-//    self.navigationItem.title = navTitle;
-    isClicked = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    
+    isNoNeedReload = NO;
     
     
     UIImageView *backgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
