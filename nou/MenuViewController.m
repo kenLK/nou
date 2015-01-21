@@ -336,7 +336,7 @@
     logoMENUName.isMultiLine = YES;
     logoMENUName.isNotSelective = YES;
     logoMENUName.isLogo = YES;
-    
+    logoMENUName.googleMap = @"";
     [firstMENU addObject:logoMENUName];
     
     //產TreeView
@@ -465,6 +465,10 @@
 - (CGFloat)treeView:(RATreeView *)treeView heightForRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
     RADataObject *dataObj = (RADataObject *) item;
+    
+    if (dataObj.isLogo) {
+        NSLog(@"");
+    }
     
     if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
         //googlemap加大
