@@ -29,6 +29,8 @@
 #define iOS7_0 @"7.0"
 
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) UIImageView *footerImageView;
+@property CGFloat subjectHeight;
 @property BOOL isIndex;//是否為教務系統
 @property BOOL isClicked;//已經按了?
 @property BOOL isNotification;//是否由推播進入?

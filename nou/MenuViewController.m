@@ -37,6 +37,8 @@
 @synthesize resultJSON,url,backgroundColorArray,inputText,queryUrl;
 @synthesize ddMenu, ddText,ddMenuShowButton,ddBUTTON_TEXT,ddBUTTON_VALUE;
 @synthesize isIndex,navTitle,isClicked,isNotification;
+@synthesize footerImageView;
+@synthesize subjectHeight;
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -115,7 +117,7 @@
     
     //CGFloat subjectHeight = [Utility appHeight]*112;
     
-    CGFloat subjectHeight = self.navigationController.navigationBar.frame.size.height;
+    //subjectHeight = self.navigationController.navigationBar.frame.size.height;
     subjectHeight = 10;
     
     //SUBJECT
@@ -332,11 +334,11 @@
     [self.view insertSubview:treeView atIndex:1];//background為0
     
     
-    UIImageView *footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , [Utility boundHeight]*1920, [Utility appWidth]*1200, [Utility appHeight]*125)];
-    UIImage *footerImage = [UIImage imageWithContentsOfFile:
-                           [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
-    [footerImageView setImage:footerImage];
-    [self.view addSubview:footerImageView];
+//    footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + treeView.contentSize.height , [Utility appWidth]*410, [Utility appHeight]*90)];
+//    UIImage *footerImage = [UIImage imageWithContentsOfFile:
+//                           [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
+//    [footerImageView setImage:footerImage];
+//    [self.view addSubview:footerImageView];
     
     
     
@@ -378,6 +380,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 -(NSMutableArray *) addMenuTree:(NSArray *)menuArray {
     //parse資料遞迴
@@ -538,8 +541,10 @@
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
 
     //點選的項目
-    
-    MenuViewController *secondView = [[MenuViewController alloc] init];
+    //調整logo位置
+//    footerImageView.frame = CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + self.treeView.contentSize.height + 10, [Utility appWidth]*410, [Utility appHeight]*90);
+//    footerImageView.frame = CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + self.treeView.contentSize.height + 10, [Utility appWidth]*410, [Utility appHeight]*90);
+//    [self.view setNeedsUpdateConstraints];
     
     if ([treeNodeInfo.children count] > 0) {
         NSString *pic;
@@ -572,9 +577,11 @@
     
     //跳下一頁
     if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""] && !isClicked) {
+        MenuViewController *secondView = [[MenuViewController alloc] init];
+        
         isClicked = YES;//避免連點
         secondView.url = dataObj.url;
-        //secondView.isIndex = self.isIndex;
+        
         NSLog(@"url>>>>%@",secondView.url);
         [self.navigationController pushViewController:secondView animated:YES];
     }
@@ -678,25 +685,7 @@
         [cell addSubview:btn01];
  
         
-    } else if (nameArray.count < 2) {
-        //無Array
-        
-        UILabel * cellText = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*150, [Utility appHeight]*marginHeight, [Utility appWidth]*1010, nouCellHeight - [Utility appHeight]*marginHeight)];
-        cellText.text = dataObj.name;
-        cellText.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
-        [cellText setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-        cellText.numberOfLines = 0;
-        [cell insertSubview:cellText aboveSubview:cellBackGround];
-        
-//        cell.textLabel.text = ((RADataObject *)item).name;
-//        cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
-//
-//
-//        [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-//        cell.textLabel.numberOfLines = 0;
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-    } else {
+    } else if (dataObj.columnWidth > 0) {
         //有Array
         NSArray *alignArray = ((RADataObject *)item).columnAlign;
         NSArray *widthArray = ((RADataObject *)item).columnWidth;
@@ -743,6 +732,23 @@
             [cell addSubview:imageView];
         }
         
+    }  else {
+        //無Array
+        
+        UILabel * cellText = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*150, [Utility appHeight]*marginHeight, [Utility appWidth]*1010, nouCellHeight - [Utility appHeight]*marginHeight)];
+        cellText.text = dataObj.name;
+        cellText.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        [cellText setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+        cellText.numberOfLines = 0;
+        [cell insertSubview:cellText aboveSubview:cellBackGround];
+        
+        //        cell.textLabel.text = ((RADataObject *)item).name;
+        //        cell.textLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
+        //
+        //
+        //        [cell.textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+        //        cell.textLabel.numberOfLines = 0;
+        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     
