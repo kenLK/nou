@@ -258,12 +258,17 @@
         
         menuViewController.url = [Utility setUrlWithString:url parameterMap:SEQ autoValid:YES];
         [menuViewController setIsNotification:YES];
-        self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-        [self.navController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
-        [self.window setRootViewController:navController];
-        //[self.window setRootViewController:menuViewController];
         
-        [self.window makeKeyAndVisible];
+        if (self.navController == nil) {
+            self.navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
+            [self.navController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
+            [self.window setRootViewController:navController];
+            [self.window makeKeyAndVisible];
+        } else {
+            [self.navController.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
+            [self.navController setViewControllers:[NSArray arrayWithObject:menuViewController] animated:YES];
+            [self.window makeKeyAndVisible];
+        }        
 
     }
     
