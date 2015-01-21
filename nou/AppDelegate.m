@@ -120,10 +120,11 @@
     }
     
     LoginViewController *root = [[LoginViewController alloc]init];
-    
-    [self.window setRootViewController:root];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:root];
+    [self.window setRootViewController:self.navController];
     
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

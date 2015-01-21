@@ -34,7 +34,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
     
-    CGFloat modHeight = screenRect.size.height - appRect.size.height;
+
     
     CGFloat appWidth = appRect.size.width;
     CGFloat appHeight = appRect.size.height;//screenRect.size.height;
@@ -43,6 +43,7 @@
     
     CGFloat yWidth = appWidth / 1200.0;
     CGFloat yHeight = appHeight / 1920.0;
+    CGFloat modHeight = yHeight * 174 * -1;
 
     //背景
     UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0 , 0.0, screenRect.size.width, screenRect.size.height)];
@@ -59,18 +60,18 @@
     [self.view addSubview:logoImageView];
     
     //功能title
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174 + modHeight)];
-    UIImage *image = [UIImage imageWithContentsOfFile:
-                      [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
-    [imageView setImage:image];
-    [self.view addSubview:imageView];
-    
-    UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0 + modHeight, yWidth*1200, yHeight*174)];
-    [functionTitleLabel setText:@"國立空中大學"];
-    [functionTitleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*60]];
-    functionTitleLabel.textColor = [UIColor whiteColor];
-    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:functionTitleLabel];
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, yWidth*1200, yHeight*174 + modHeight)];
+//    UIImage *image = [UIImage imageWithContentsOfFile:
+//                      [[NSBundle mainBundle] pathForResource:@"alpha_header_bg" ofType:@"png"]];
+//    [imageView setImage:image];
+//    [self.view addSubview:imageView];
+//    
+//    UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0 + modHeight, yWidth*1200, yHeight*174)];
+//    [functionTitleLabel setText:@"國立空中大學"];
+//    [functionTitleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*60]];
+//    functionTitleLabel.textColor = [UIColor whiteColor];
+//    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+//    [self.view addSubview:functionTitleLabel];
     
     //標題
     UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*78, yHeight*290 + modHeight, yWidth*1044, yHeight*142)];
@@ -177,7 +178,26 @@
     loginGuestButton.frame = CGRectMake(yWidth*78, yHeight*432 + modHeight + yHeight*600 + yHeight*153, yWidth*1044, yHeight*100);
     [self.view addSubview:loginGuestButton];
     
+    //Navigator圖示設定
+    //移除登出按鈕99, 教務系統按鈕98
+    for(UIView* view in self.navigationController.navigationBar.subviews)
+    {
+        if(view.tag == 99 || view.tag == 98)
+        {
+            [view removeFromSuperview];
+        }
+    }
     
+    //Navigator圖示設定
+    //功能title
+    UILabel *functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, [Utility appHeight]*174)];
+    [functionTitleLabel setText:@"國立空中大學"];
+    functionTitleLabel.textColor = [Utility colorFromHexString:@"FFFFFF"];
+    [functionTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.navigationItem.titleView = functionTitleLabel;
+    
+    self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
+    self.navigationController.navigationBar.translucent = NO;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -259,13 +279,8 @@
             [userDefaults synchronize];
             //
             UIViewController *iconViewController = [[IconViewController alloc] init];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:iconViewController];
-            [nav.navigationBar setBackgroundColor:[Utility colorFromHexString:@"34ADDC"]];
-            [self presentModalViewController:nav animated:NO];
-//            [self presentModalViewController:iconViewController animated:NO];
-//            
-//            NSLog(@"dsadasdsa>>%@",self.navigationController);
-//            [self.navigationController pushViewController:iconViewController animated:YES];
+            [self.navigationController setViewControllers:[NSArray arrayWithObject:iconViewController] animated:YES];
+ 
         } else {
             UILabel* functionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, [Utility appHeight]*1052, [Utility appWidth]*1200, [Utility appHeight]*174)];
             [functionTitleLabel setText:@"帳號或密碼錯誤"];

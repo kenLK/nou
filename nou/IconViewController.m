@@ -297,7 +297,9 @@
             //process logout
             [Utility logout];
             UIViewController *loginViewController = [[LoginViewController alloc] init];
-            [self presentModalViewController:loginViewController animated:NO];
+            
+            [self.navigationController setViewControllers:[NSArray arrayWithObject:loginViewController] animated:YES];
+            //[self presentModalViewController:loginViewController animated:NO];
             break;
     }
 }
