@@ -299,20 +299,15 @@
     //parse JSON
     firstMENU = [self addMenuTree:menuArray];
     
-//    //加上logo
-//    RADataObject *logoMENUName0 = nil;
-//    logoMENUName0 = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO0"] children:nil];
-//    logoMENUName0.multiLineHeight = 47;
-//    logoMENUName0.isNotSelective = YES;
-//    [firstMENU addObject:logoMENUName0];
-//    
-//    RADataObject *logoMENUName = nil;
-//    logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
-//    logoMENUName.multiLineHeight = 47;
-//    logoMENUName.isNotSelective = YES;
-//    logoMENUName.isLogo = YES;
-//    
-//    [firstMENU addObject:logoMENUName];
+    //加上logo
+    RADataObject *logoMENUName = nil;
+    logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
+    logoMENUName.multiLineHeight = [Utility appHeight]*203;
+    logoMENUName.isMultiLine = YES;
+    logoMENUName.isNotSelective = YES;
+    logoMENUName.isLogo = YES;
+    
+    [firstMENU addObject:logoMENUName];
     
     //產TreeView
     RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
@@ -332,16 +327,7 @@
     self.treeView = treeView;
     //[self.view addSubview:treeView];
     [self.view insertSubview:treeView atIndex:1];//background為0
-    
-    
-//    footerImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + treeView.contentSize.height , [Utility appWidth]*410, [Utility appHeight]*90)];
-//    UIImage *footerImage = [UIImage imageWithContentsOfFile:
-//                           [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
-//    [footerImageView setImage:footerImage];
-//    [self.view addSubview:footerImageView];
-    
-    
-    
+
     
     //Navigator圖示設定
     //移除登出按鈕99, 教務系統按鈕98
@@ -435,19 +421,7 @@
                 fourthMENUName.isMultiLine = YES;
                 
                 fourthMENUName.multiLineHeight = [self countHeight:tempObject];
-                
-//                UILabel* textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, [Utility appWidth]*1200, 0)];
-//                textLabel.text = tempObject;
-//                [textLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
-//                textLabel.numberOfLines = 0;
-//                [textLabel sizeToFit];
-//                
-//                fourthMENUName.multiLineHeight = textLabel.frame.size.height;
-//                if (fourthMENUName.multiLineHeight < 47) {
-//                    fourthMENUName.multiLineHeight = 47;
-//                } else {
-//                    fourthMENUName.multiLineHeight = textLabel.frame.size.height + 47;
-//                }
+
             }
         }
         
@@ -488,6 +462,11 @@
 }
 - (BOOL)treeView:(RATreeView *)treeView shouldExpandItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo
 {
+    RADataObject *dataObj = (RADataObject *)item;
+    if (dataObj.isNotSelective) {
+        return NO;
+    }
+    
     return YES;
 }
 - (BOOL)treeView:(RATreeView *)treeView shouldItemBeExpandedAfterDataReload:(id)item treeDepthLevel:(NSInteger)treeDepthLevel
@@ -541,10 +520,6 @@
 - (void)treeView:(RATreeView *)treeView  didSelectRowForItem:(id)item treeNodeInfo:(RATreeNodeInfo *)treeNodeInfo{
 
     //點選的項目
-    //調整logo位置
-//    footerImageView.frame = CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + self.treeView.contentSize.height + 10, [Utility appWidth]*410, [Utility appHeight]*90);
-//    footerImageView.frame = CGRectMake([Utility appWidth]*395 ,subjectHeight + 2 + self.treeView.contentSize.height + 10, [Utility appWidth]*410, [Utility appHeight]*90);
-//    [self.view setNeedsUpdateConstraints];
     
     if ([treeNodeInfo.children count] > 0) {
         NSString *pic;
@@ -599,11 +574,12 @@
     //假如為LOGO
     if (dataObj.isLogo) {
         
-        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395, [Utility appHeight]*30, [Utility appWidth]*410, [Utility appHeight]*90)];
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake([Utility appWidth]*395, [Utility appHeight]*70, [Utility appWidth]*410, [Utility appHeight]*90)];
         UIImage *logoImage = [UIImage imageWithContentsOfFile:
                               [[NSBundle mainBundle] pathForResource:@"icon_logo" ofType:@"png"]];
         [logoImageView setImage:logoImage];
         [cell addSubview:logoImageView];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     
@@ -647,11 +623,6 @@
     
     //cell拿掉選擇顏色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if (dataObj.isNotSelective) {
-        return cell;
-    }
-    
     
     //若NAME為Array，則版面為table
     NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
