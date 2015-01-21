@@ -839,7 +839,9 @@
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
 }
 -(void)terminate:(id)sender {
-    exit(0);    
+    //推播來的回上一頁
+    IconViewController *iconViewController = [[IconViewController alloc] init];
+    [self.navigationController setViewControllers:[NSArray arrayWithObject:iconViewController] animated:YES];
 }
 -(void)query:(id)sender {
     
