@@ -60,10 +60,6 @@
         
     } else {
     
-        [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
-                                                             [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
-        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
-                                                                           [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     }
     
     //reload treedata
@@ -369,10 +365,6 @@
         }
     }
     
-    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
-                                                         [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
-                                                                       [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     if (isIndex) {
         //是否顯示教務按鈕
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];

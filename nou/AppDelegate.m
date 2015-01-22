@@ -77,7 +77,10 @@
                                                          |UIRemoteNotificationTypeAlert)];
     }
     
-    
+//    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageWithContentsOfFile:
+//                                                         [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
+//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageWithContentsOfFile:
+//                                                                       [[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]]];
     
     // 先確定是否已有帳號密碼，若是正確的則直接登入
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -111,13 +114,16 @@
                 UIViewController *iconViewController = [[IconViewController alloc] init];
 
                 self.navController = [[UINavigationController alloc] initWithRootViewController:iconViewController];
+                
                 [self.window setRootViewController:self.navController];
+                
                 
                 [self.window makeKeyAndVisible];
                 return YES;
             }
         }
     }
+
     
     LoginViewController *root = [[LoginViewController alloc]init];
     self.navController = [[UINavigationController alloc] initWithRootViewController:root];
