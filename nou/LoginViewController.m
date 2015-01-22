@@ -198,6 +198,16 @@
     
     self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
     self.navigationController.navigationBar.translucent = NO;
+    
+    
+    //寫入regId    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults stringForKey:@"regId"] != nil) {
+        NSString *iOSDeviceToken = [[NSString alloc] initWithString:[userDefaults stringForKey:@"regId"]];
+        NSString* urlString = [[NSString alloc] initWithFormat:@"regId=%@&type=IOS", iOSDeviceToken];
+        [NouRequest urlMethod:@"reg" parameterString:urlString];
+    }
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
