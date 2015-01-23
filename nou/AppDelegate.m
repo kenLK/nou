@@ -275,15 +275,8 @@
     NSString *TARGET_TP = [userInfo objectForKey:@"TARGET_TP"];
     NSString *SEQ = [[NSString alloc] initWithFormat:@"&seq=%@", [userInfo objectForKey:@"SEQ"]];
     
-    NSString *alertMsg = @"";
     NSInteger badge = 0;
-    
-//    if( [apsInfo objectForKey:@"alert"] != NULL)
-//    {
-//        alertMsg = [apsInfo objectForKey:@"alert"];
-//    }
-//    
-//
+  
     if ( application.applicationState == UIApplicationStateActive ) {
         if( [apsInfo objectForKey:@"badge"] != NULL)
         {
@@ -294,15 +287,9 @@
             // reset badge counter.
             [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
         }
-//        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-//        currentBadgeNumber += 1;
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
     } else {
         //點選推播後
         
-        int currentBadgeNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-        currentBadgeNumber += -1;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = currentBadgeNumber;
         
         NSString *url = @"";
         
