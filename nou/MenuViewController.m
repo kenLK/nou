@@ -825,7 +825,10 @@
     MenuViewController *secondView = [[MenuViewController alloc] init];
     secondView.url = queryString;
     
-    [self.navigationController pushViewController:secondView animated:YES];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    [viewControllers removeLastObject];
+    [viewControllers addObject:secondView];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];
 }
 
 -(CGFloat) countHeight:(NSString *) input {
@@ -866,7 +869,11 @@
     
     secondView.url = queryString;
     
-    [self.navigationController pushViewController:secondView animated:YES];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    [viewControllers removeLastObject];
+    [viewControllers addObject:secondView];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];
+    
 }
 -(void)map:(NouMapButton *)sender{
     MapViewController *nextView = [[MapViewController alloc] init];
