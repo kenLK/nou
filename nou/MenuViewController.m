@@ -65,39 +65,50 @@
     //reload treedata
     //取得資料
     if (isNoNeedReload) {
-        NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
-        if (data != nil) {
-            resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            //MENU
-            NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
-            
-            NSMutableArray *firstMENU = [[NSMutableArray alloc] init];
-            
-            //parse JSON
-            firstMENU = [self addMenuTree:menuArray];
-            
-            //加上logo
-            RADataObject *logoMENUName = nil;
-            logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
-            logoMENUName.multiLineHeight = [Utility appHeight]*203;
-            logoMENUName.isMultiLine = YES;
-            logoMENUName.isNotSelective = YES;
-            logoMENUName.isLogo = YES;
-            
-            [firstMENU addObject:logoMENUName];
-            RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
-            self.data =[NSArray arrayWithArray:firstMENU];
-            [self.treeView reloadData];
-            [self.treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
-            self.treeView.contentMode = UIViewContentModeScaleToFill;
-        }
+        [self enteredForeground];
     }
     isNoNeedReload = YES;
     
 }
 
+-(void)enteredForeground {
+    NSData *data = [NouRequest urlAll: [Utility setUrlWithString:self.url parameterMap:@"" autoValid:YES]];
+    if (data != nil) {
+        resultJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        //MENU
+        NSArray *menuArray = [resultJSON valueForKey:@"MENU"];
+        
+        NSMutableArray *firstMENU = [[NSMutableArray alloc] init];
+        
+        //parse JSON
+        firstMENU = [self addMenuTree:menuArray];
+        
+        //加上logo
+        RADataObject *logoMENUName = nil;
+        logoMENUName = [RADataObject dataObjectWithName:[Utility checkNull:@"LOGO"] children:nil];
+        logoMENUName.multiLineHeight = [Utility appHeight]*203;
+        logoMENUName.isMultiLine = YES;
+        logoMENUName.isNotSelective = YES;
+        logoMENUName.isLogo = YES;
+        
+        [firstMENU addObject:logoMENUName];
+        RADataObject *menu = [RADataObject dataObjectWithName:@"MENU" children:[NSArray arrayWithArray:firstMENU]];
+        self.data =[NSArray arrayWithArray:firstMENU];
+        [self.treeView reloadData];
+        [self.treeView expandRowForItem:menu withRowAnimation:RATreeViewRowAnimationLeft]; //expands Row
+        self.treeView.contentMode = UIViewContentModeScaleToFill;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //註冊回前景時重新讀取的內容
+    if(&UIApplicationWillEnterForegroundNotification) { //needed to run on older devices, otherwise you'll get EXC_BAD_ACCESS
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(enteredForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
     isNoNeedReload = NO;

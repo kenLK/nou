@@ -34,8 +34,13 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
     self.navigationItem.leftBarButtonItem = leftItem;
 }
+
 - (void)viewDidAppear:(BOOL)animated {
 
+    [self enteredForeground];
+}
+
+-(void)enteredForeground {
     //更新畫面數字
     NSDictionary *resultJSON;
     NSData *data = [NouRequest urlAll: [Utility setUrlWithString:@"count" parameterMap:@"" autoValid:YES]];
@@ -53,10 +58,20 @@
         [btn03 setBackgroundImage:[self numberImage:recruit] forState:UIControlStateNormal];
         [btn06 setBackgroundImage:[self numberImage:calendar] forState:UIControlStateNormal];
     }
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //註冊回前景時重新讀取的內容
+    if(&UIApplicationWillEnterForegroundNotification) { //needed to run on older devices, otherwise you'll get EXC_BAD_ACCESS
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(enteredForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+
+    
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
     CGFloat screenWidth = screenRect.size.width;
