@@ -44,4 +44,6 @@
 
 +(NSString *) stringEncode:(NSString *) input;
 +(void) logout;
+
++(NSString *) versionString;
 @end
