@@ -391,8 +391,17 @@
     self.navigationController.navigationBar.barTintColor = [Utility colorFromHexString:@"34ADDC"];
     self.navigationController.navigationBar.translucent = NO;
     
-    
-    self.navigationController.navigationBar.backItem.title = @"";
+    //顯示客制回上一頁按紐
+    self.navigationItem.hidesBackButton = YES;
+    UIButton *backBtn0 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backBtnImage0 = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_back" ofType:@"png"]];
+    [backBtn0 setBackgroundImage:backBtnImage0 forState:UIControlStateNormal];
+    [backBtn0 addTarget:self action:@selector(toLastPage) forControlEvents:UIControlEventTouchUpInside];
+    backBtn0.frame = CGRectMake(0, 0, [Utility appWidth]*130, [Utility appHeight]*100);
+    //[backBtn0 setTag:98];
+    UIBarButtonItem *backButton0 = [[UIBarButtonItem alloc] initWithCustomView:backBtn0] ;
+    self.navigationItem.leftBarButtonItem = backButton0;
+    //self.navigationController.navigationBar.backItem.title = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -920,6 +929,10 @@
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void) toLastPage {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 @end
 
