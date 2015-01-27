@@ -707,7 +707,7 @@
         NSArray *alignArray = ((RADataObject *)item).columnAlign;
         NSArray *widthArray = ((RADataObject *)item).columnWidth;
         
-        CGFloat widthLocation = 0.0;
+        CGFloat widthLocation = [Utility appWidth]*20;
         CGRect appRect = [[UIScreen mainScreen] bounds];
         CGFloat appWidth = appRect.size.width - [Utility appWidth]*40;
         
