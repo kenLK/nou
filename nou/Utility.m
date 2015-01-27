@@ -230,8 +230,9 @@
 
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"]; // example: 1.0.0
-    //NSNumber *buildNumber = [infoDict objectForKey:@"CFBundleVersion"]; // example: 42
-    return appVersion;
+    NSNumber *buildNumber = [infoDict objectForKey:@"CFBundleVersion"]; // example: 42
+    
+    return [[NSString alloc] initWithFormat:@"%@%@", appVersion, buildNumber];
     
 }
 @end
