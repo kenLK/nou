@@ -718,7 +718,7 @@
             
             CGFloat labelWidth = appWidth * ([widthArray[i] floatValue] / 100);
             
-            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation, 0.0, labelWidth, nouCellHeight - [Utility appHeight]*marginHeight)];
+            UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthLocation + [Utility appWidth]*10, 0.0, labelWidth - [Utility appWidth]*10, nouCellHeight - [Utility appHeight]*marginHeight)];
             [titleLabel setText:nameArray[i]];
             [titleLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];            
             titleLabel.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
