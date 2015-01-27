@@ -729,7 +729,7 @@
 				INFOPLIST_FILE = nou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "653ecff5-1831-4436-b029-ee71dbd84d21";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -747,7 +747,7 @@
 				INFOPLIST_FILE = nou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "653ecff5-1831-4436-b029-ee71dbd84d21";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
