@@ -97,7 +97,7 @@
     [self.view addSubview:logoImageView];
     
     //version number
-    UILabel* versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*1000, [Utility appHeight]*1600, yWidth*200, yHeight*90)];
+    UILabel* versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(yWidth*1000, [Utility appHeight]*1660, yWidth*200, yHeight*30)];
     [versionLabel setText:[Utility versionString]];
     [versionLabel setFont:[UIFont fontWithName:@"微軟正黑體" size:yHeight*30]];
     versionLabel.textColor = [UIColor blackColor];
