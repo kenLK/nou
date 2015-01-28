@@ -69,8 +69,8 @@
                         CLLocationCoordinate2D position = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
                         
                         GMSMarker *marker = [GMSMarker markerWithPosition:position];
-                        marker.title = dataObj.googleMap;
-                        marker.snippet = dataObj.name;
+                        marker.title = [dataObj.multiTitle objectAtIndex:i];
+                        marker.snippet = [dataObj.multiSnippet objectAtIndex:i];
                         marker.map = mapView_;
 //                        [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:[latitude doubleValue]
 //                                                                        longitude:[longitude doubleValue]
@@ -86,7 +86,7 @@
                         
                         NSLog(@"e>%f", sumLat);
                     } else {
-                        [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i]];
+                        [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i] title:[dataObj.multiTitle objectAtIndex:i] snippet:[dataObj.multiSnippet objectAtIndex:i]];
                     }
                 }
                 
@@ -94,7 +94,7 @@
             } else {
                 for (int i = 0;i < dataObj.multiAddr.count;i++) {
                     
-                    [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i]];
+                    [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i] title:[dataObj.multiTitle objectAtIndex:i] snippet:[dataObj.multiSnippet objectAtIndex:i]];
 
                 }
             }
@@ -119,13 +119,12 @@
                                                                     longitude:[longitude doubleValue]
                                                                          zoom:[dataObj.zoom intValue]]];
                 } else {
-                    [self setMarkerByAddr:dataObj.googleMap];
+                    [self setMarkerByAddr:dataObj.googleMap title:dataObj.googleMap snippet:dataObj.name];
                 }
                 
                 
             } else {
-                [self setMarkerByAddr:dataObj.googleMap];
-
+                [self setMarkerByAddr:dataObj.googleMap title:dataObj.googleMap snippet:dataObj.name];
             }
             
         }
@@ -162,7 +161,7 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-- (void) setMarkerByAddr:(NSString *)addr {
+- (void) setMarkerByAddr:(NSString *)addr title:(NSString *)title snippet:(NSString *)snippet {
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressString:addr
                  completionHandler:^(NSArray* placemarks, NSError* error){
@@ -171,8 +170,9 @@
                          //https://developers.google.com/maps/documentation/ios/start
                          // Process the placemark.
                          GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
-                         marker.title = dataObj.googleMap;
-                         marker.snippet = dataObj.name;
+                         
+                         marker.title = title;
+                         marker.snippet = snippet;
                          marker.map = mapView_;
                          sumLat += aPlacemark.location.coordinate.latitude;
                          sumLong += aPlacemark.location.coordinate.longitude;
