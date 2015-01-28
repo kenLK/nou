@@ -699,7 +699,7 @@
         [googleMap appendString:@"&sensor=true&language=zh-tw"];
         
         if (dataObj.multiAddr == nil) {
-            [googleMap appendFormat:@"&center=%@", [Utility stringEncode:dataObj.googleMap]];
+            //[googleMap appendFormat:@"&center=%@", [Utility stringEncode:dataObj.googleMap]];
         }
         NSLog(@"google map>>%@", googleMap);
         
