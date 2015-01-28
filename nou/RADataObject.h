@@ -36,6 +36,8 @@
 @property (strong, nonatomic) NSString *docUrl;
 
 @property (strong, nonatomic) NSString *googleMap;
+@property (strong, nonatomic) NSString *location;
+@property (strong, nonatomic) NSArray *multiLocation;
 @property (strong, nonatomic) NSArray *multiAddr;
 @property (strong, nonatomic) NSArray *multiSnippet;
 @property (strong, nonatomic) NSArray *multiTitle;

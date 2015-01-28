@@ -448,6 +448,8 @@
         fourthMENUName.borderColor = [Utility checkNull:[fourthDic objectForKey:@"BORDER_COLOR"]];
         
         fourthMENUName.googleMap = [Utility checkNull:[fourthDic objectForKey:@"GOOGLE_MAP"]];
+        fourthMENUName.location = [Utility checkNull:[fourthDic objectForKey:@"LOCATION"]];
+        fourthMENUName.multiLocation = [fourthDic objectForKey:@"MULTILOCATION"];
         fourthMENUName.multiAddr = [fourthDic objectForKey:@"MULTIADDR"];
         fourthMENUName.multiSnippet = [fourthDic objectForKey:@"MULTISNIPPET"];
         fourthMENUName.multiTitle = [fourthDic objectForKey:@"MULTITITLE"];
@@ -688,13 +690,18 @@
         [googleMap appendString:@"http://maps.google.com/maps/api/staticmap?"];
         [googleMap appendFormat:@"zoom=%@", dataObj.zoom];
         [googleMap appendString:@"&size=600x600&maptype=mobile&feature:all&element:all"];
-        [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.googleMap]];
+        if ([@"" isEqualToString:dataObj.location]) {
+            [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.googleMap]];
+        } else {
+            [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.location]];
+        }
+        
         [googleMap appendString:@"&sensor=true&language=zh-tw"];
         
         if (dataObj.multiAddr == nil) {
             [googleMap appendFormat:@"&center=%@", [Utility stringEncode:dataObj.googleMap]];
         }
-        //NSLog(@"google map>>%@", googleMap);
+        NSLog(@"google map>>%@", googleMap);
         
         NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: googleMap]];
         UIImage *btn01Image = [UIImage imageWithData: imageData];

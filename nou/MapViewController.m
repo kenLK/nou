@@ -49,41 +49,71 @@
         
         //是否有多重marker
         if (dataObj.multiAddr != nil) {
-            for (int i = 0;i < dataObj.multiAddr.count;i++) {
-                CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-                [geocoder geocodeAddressString:[dataObj.multiAddr objectAtIndex:i]
-                             completionHandler:^(NSArray* placemarks, NSError* error){
-                                 for (CLPlacemark* aPlacemark in placemarks)
-                                 {
-                                     //https://developers.google.com/maps/documentation/ios/start
-                                     // Process the placemark.
-                                     GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
-                                     marker.title = [dataObj.multiTitle objectAtIndex:i];
-                                     marker.snippet = [dataObj.multiSnippet objectAtIndex:i];
-                                     marker.map = mapView_;
-                                 }
-                             }];
+            
+            //有無經緯度
+            if (dataObj.multiLocation.count > 0) {
+                for (int i = 0;i < dataObj.multiLocation.count;i++) {
+                    NSString *location = [dataObj.multiLocation objectAtIndex:i];
+                    NSArray *positions = [location componentsSeparatedByString:@","];
+                    
+                    if (positions.count == 2) {
+                        NSString *latitude = [positions objectAtIndex:0];
+                        NSString *longitude = [positions objectAtIndex:1];
+                        
+                        CLLocationCoordinate2D position = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
+                        
+                        GMSMarker *marker = [GMSMarker markerWithPosition:position];
+                        marker.title = dataObj.googleMap;
+                        marker.snippet = dataObj.name;
+                        marker.map = mapView_;
+                        [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:[latitude doubleValue]
+                                                                        longitude:[longitude doubleValue]
+                                                                             zoom:[dataObj.zoom intValue]]];
+                    } else {
+                        [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i]];
+                    }
+                }
+                
+                
+            } else {
+                for (int i = 0;i < dataObj.multiAddr.count;i++) {
+                    
+                    [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i]];
+
+                }
             }
+            
+            
+            
             
         } else {
             //單一marker
-            
-            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-            [geocoder geocodeAddressString:dataObj.googleMap
-                         completionHandler:^(NSArray* placemarks, NSError* error){
-                             for (CLPlacemark* aPlacemark in placemarks)
-                             {
-                                 //https://developers.google.com/maps/documentation/ios/start
-                                 // Process the placemark.
-                                 GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
-                                 marker.title = dataObj.googleMap;
-                                 marker.snippet = dataObj.name;
-                                 marker.map = mapView_;
-                                 [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
-                                                                               longitude:aPlacemark.location.coordinate.longitude
-                                                                                    zoom:[dataObj.zoom intValue]]];
-                             }
-                         }];
+            //有無經緯度
+            if (![@"" isEqualToString:dataObj.location]) {
+                NSArray *positions = [dataObj.location componentsSeparatedByString:@","];
+                
+                if (positions.count == 2) {
+                    NSString *latitude = [positions objectAtIndex:0];
+                    NSString *longitude = [positions objectAtIndex:1];
+                    
+                    CLLocationCoordinate2D position = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
+                    
+                    GMSMarker *marker = [GMSMarker markerWithPosition:position];
+                    marker.title = dataObj.googleMap;
+                    marker.snippet = dataObj.name;
+                    marker.map = mapView_;
+                    [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:[latitude doubleValue]
+                                                                    longitude:[longitude doubleValue]
+                                                                         zoom:[dataObj.zoom intValue]]];
+                } else {
+                    [self setMarkerByAddr:dataObj.googleMap];
+                }
+                
+                
+            } else {
+                [self setMarkerByAddr:dataObj.googleMap];
+
+            }
             
         }
 
@@ -115,13 +145,26 @@
     
 }
 
--(void)goHome:(id)sender {
-    //[self.navigationController popToRootViewControllerAnimated:YES];
-    UIViewController *iconViewController = [[IconViewController alloc] init];
-    [self presentModalViewController:iconViewController animated:NO];
-}
-
 - (void) toLastPage {
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void) setMarkerByAddr:(NSString *)addr {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:addr
+                 completionHandler:^(NSArray* placemarks, NSError* error){
+                     for (CLPlacemark* aPlacemark in placemarks)
+                     {
+                         //https://developers.google.com/maps/documentation/ios/start
+                         // Process the placemark.
+                         GMSMarker *marker = [GMSMarker markerWithPosition:(aPlacemark.location.coordinate)];
+                         marker.title = dataObj.googleMap;
+                         marker.snippet = dataObj.name;
+                         marker.map = mapView_;
+                         [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
+                                                                         longitude:aPlacemark.location.coordinate.longitude
+                                                                              zoom:[dataObj.zoom intValue]]];
+                     }
+                 }];
 }
 @end
