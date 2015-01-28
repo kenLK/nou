@@ -690,11 +690,27 @@
         [googleMap appendString:@"http://maps.google.com/maps/api/staticmap?"];
         [googleMap appendFormat:@"zoom=%@", dataObj.zoom];
         [googleMap appendString:@"&size=600x600&maptype=mobile&feature:all&element:all"];
-        if ([@"" isEqualToString:dataObj.location]) {
-            [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.googleMap]];
-        } else {
-            [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:dataObj.location]];
+        
+        
+        //location與googlemap的比對處理
+        NSArray *locationArray = [dataObj.location componentsSeparatedByString:@"|"];
+        NSArray *googleMapArray = [dataObj.googleMap componentsSeparatedByString:@"|"];
+        
+        NSMutableString *arrayString = [[NSMutableString alloc]initWithString:@""];
+        for (int i = 0;i < googleMapArray.count;i++) {
+            
+            if ([@"" isEqualToString:[locationArray objectAtIndex:i]]) {
+                [arrayString appendString:[googleMapArray objectAtIndex:i]];
+            } else {
+                [arrayString appendString:[locationArray objectAtIndex:i]];
+            }
+            
+            if (i != (googleMapArray.count - 1)) {
+                [arrayString appendString:@"|"];
+            }
         }
+        
+        [googleMap appendFormat:@"&markers=%@", [Utility stringEncode:arrayString]];
         
         [googleMap appendString:@"&sensor=true&language=zh-tw"];
         

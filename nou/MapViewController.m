@@ -19,6 +19,7 @@
 }
 
 @synthesize dataObj;
+@synthesize sumLat, sumLong,sumMarkers;
 -(void)viewDidAppear:(BOOL)animated {
     
     
@@ -33,6 +34,10 @@
                            [[NSBundle mainBundle] pathForResource:@"bg_V" ofType:@"jpg"]];
     [backgImageView setImage:backgImage];
     [self.view addSubview:backgImageView];
+    
+    sumMarkers = 0;
+    sumLat = 0;
+    sumLong = 0;
     
     if ((![dataObj.googleMap isEqualToString:@""])) {
         //有google map
@@ -49,7 +54,8 @@
         
         //是否有多重marker
         if (dataObj.multiAddr != nil) {
-            
+            sumLat = 0;
+            sumLong = 0;
             //有無經緯度
             if (dataObj.multiLocation.count > 0) {
                 for (int i = 0;i < dataObj.multiLocation.count;i++) {
@@ -66,9 +72,19 @@
                         marker.title = dataObj.googleMap;
                         marker.snippet = dataObj.name;
                         marker.map = mapView_;
-                        [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:[latitude doubleValue]
-                                                                        longitude:[longitude doubleValue]
+//                        [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:[latitude doubleValue]
+//                                                                        longitude:[longitude doubleValue]
+//                                                                             zoom:[dataObj.zoom intValue]]];
+                        NSLog(@"b>%f", sumLat);
+                        sumLat += [latitude doubleValue];
+                        sumLong += [longitude doubleValue];
+                        sumMarkers += 1;
+                        
+                        [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:sumLat/sumMarkers
+                                                                        longitude:sumLong/sumMarkers
                                                                              zoom:[dataObj.zoom intValue]]];
+                        
+                        NSLog(@"e>%f", sumLat);
                     } else {
                         [self setMarkerByAddr:[dataObj.multiAddr objectAtIndex:i]];
                     }
@@ -82,9 +98,6 @@
 
                 }
             }
-            
-            
-            
             
         } else {
             //單一marker
@@ -161,9 +174,13 @@
                          marker.title = dataObj.googleMap;
                          marker.snippet = dataObj.name;
                          marker.map = mapView_;
-                         [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:aPlacemark.location.coordinate.latitude
-                                                                         longitude:aPlacemark.location.coordinate.longitude
+                         sumLat += aPlacemark.location.coordinate.latitude;
+                         sumLong += aPlacemark.location.coordinate.longitude;
+                         sumMarkers += 1;
+                         
+                         [mapView_ setCamera:[GMSCameraPosition cameraWithLatitude:sumLat/sumMarkers                                                                         longitude:sumLong/sumMarkers
                                                                               zoom:[dataObj.zoom intValue]]];
+                         
                      }
                  }];
 }

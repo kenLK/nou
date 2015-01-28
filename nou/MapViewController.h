@@ -18,5 +18,7 @@
 @interface MapViewController : UIViewController
 
 @property (strong, nonatomic) RADataObject *dataObj;
-
+@property float sumLong;
+@property float sumLat;
+@property int sumMarkers;
 @end
