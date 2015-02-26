@@ -262,8 +262,8 @@
     pRegId = [userDefaults stringForKey:@"regId"];
     
     //假如取不到推播token(使用者尚未開啟推播開啟，則輸入一個假的token)
-    if ([@"" isEqualToString:pRegId] || pRegId == nil) {
-        pRegId = @"testToken";
+    if ([@"" isEqualToString:pRegId] || pRegId == nil || [pRegId length] < 20) {
+        pRegId = pAccount;
         
         //將Device Token傳給Provider...
         
