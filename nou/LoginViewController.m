@@ -261,6 +261,19 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     pRegId = [userDefaults stringForKey:@"regId"];
     
+    //假如取不到推播token(使用者尚未開啟推播開啟，則輸入一個假的token)
+    if ([@"" isEqualToString:pRegId] || pRegId == nil) {
+        pRegId = @"testToken";
+        
+        //將Device Token傳給Provider...
+        
+        NSString* urlString = [[NSString alloc] initWithFormat:@"regId=%@&type=IOS", pRegId];
+        [NouRequest urlMethod:@"reg" parameterString:urlString];
+        
+        [userDefaults setObject:pRegId forKey:@"regId"];
+        [userDefaults synchronize];
+    }
+    
     //MD5
     pPassword = [Utility md5:passwordI];
     
