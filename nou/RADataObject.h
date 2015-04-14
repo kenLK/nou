@@ -47,6 +47,7 @@
 @property BOOL isMultiLine;
 @property BOOL isChildDefaultExpanded;
 @property BOOL isNotSelective;
+@property BOOL callMapApp;
 
 @property CGFloat multiLineHeight;
 

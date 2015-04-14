@@ -447,6 +447,11 @@
         
         fourthMENUName.borderColor = [Utility checkNull:[fourthDic objectForKey:@"BORDER_COLOR"]];
         
+        fourthMENUName.isGoogleMapTextMode =[Utility ynToBool:[fourthDic objectForKey:@"TEXT_MODE"]];
+        
+        fourthMENUName.callMapApp =[Utility ynToBool:[fourthDic objectForKey:@"NAVIGATOR"]];
+        
+        
         fourthMENUName.googleMap = [Utility checkNull:[fourthDic objectForKey:@"GOOGLE_MAP"]];
         fourthMENUName.location = [Utility checkNull:[fourthDic objectForKey:@"LOCATION"]];
         fourthMENUName.multiLocation = [fourthDic objectForKey:@"MULTILOCATION"];
@@ -484,7 +489,7 @@
         NSLog(@"");
     }
     
-    if ((![((RADataObject *)item).googleMap isEqualToString:@""])) {
+    if (![((RADataObject *)item).googleMap isEqualToString:@""] && !dataObj.callMapApp) {
         //googlemap加大
         return [Utility appHeight]* 1000;
     }
@@ -598,6 +603,35 @@
         return;
     }
     
+    if (dataObj.callMapApp) {
+        NSString *mapsUrl = @"http://maps.apple.com/?";
+        
+        if (![@"" isEqualToString:dataObj.location]) {
+            NSArray *positions = [dataObj.location componentsSeparatedByString:@","];
+            if (positions.count == 2) {
+                NSString *latitude = [positions objectAtIndex:0];
+                NSString *longitude = [positions objectAtIndex:1];
+                
+                mapsUrl = [mapsUrl stringByAppendingString:@"q="];
+                mapsUrl = [mapsUrl stringByAppendingString:latitude];
+                mapsUrl = [mapsUrl stringByAppendingString:@","];
+                mapsUrl = [mapsUrl stringByAppendingString:longitude];
+
+                
+            } else {
+                mapsUrl = [mapsUrl stringByAppendingString:@"q="];
+                mapsUrl = [mapsUrl stringByAppendingString:dataObj.name];
+            }
+        } else {
+            mapsUrl = [mapsUrl stringByAppendingString:@"q="];
+            mapsUrl = [mapsUrl stringByAppendingString:dataObj.name];
+        }
+        
+        mapsUrl = [mapsUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapsUrl]];
+        return;
+    }
+    
     //跳下一頁
     if ([treeNodeInfo.children count] == 0 && ![dataObj.url isEqualToString:@""] && !isClicked) {
         MenuViewController *secondView = [[MenuViewController alloc] init];
@@ -675,7 +709,7 @@
     //若NAME為Array，則版面為table
     NSArray *nameArray = [Utility stringToArray:((RADataObject *)item).name];
     
-    if ((![dataObj.googleMap isEqualToString:@""])) {
+    if (![dataObj.googleMap isEqualToString:@""] && !dataObj.callMapApp) {
         //有google map
         NouMapButton *btn01 = [NouMapButton buttonWithType:UIButtonTypeRoundedRect];
         [btn01 setTag:1];
@@ -772,7 +806,7 @@
             [cell addSubview:imageView];
         }
         
-    }  else {
+    } else {
         //無Array
         
         UILabel * cellText = [[UILabel alloc] initWithFrame:CGRectMake([Utility appWidth]*150, [Utility appHeight]*marginHeight, [Utility appWidth]*1010, nouCellHeight - [Utility appHeight]*marginHeight)];

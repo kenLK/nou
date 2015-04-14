@@ -160,6 +160,10 @@
 }
 +(BOOL) ynToBool:(NSString *) input {
     //Y或N to YES或NO
+    if (input == nil) {
+        return NO;
+    }
+    
     if ([@"Y" isEqualToString:input]) {
         return YES;
     } else {
