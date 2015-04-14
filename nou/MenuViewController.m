@@ -447,8 +447,6 @@
         
         fourthMENUName.borderColor = [Utility checkNull:[fourthDic objectForKey:@"BORDER_COLOR"]];
         
-        fourthMENUName.isGoogleMapTextMode =[Utility ynToBool:[fourthDic objectForKey:@"TEXT_MODE"]];
-        
         fourthMENUName.callMapApp =[Utility ynToBool:[fourthDic objectForKey:@"NAVIGATOR"]];
         
         
