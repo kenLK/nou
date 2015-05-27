@@ -811,6 +811,7 @@
         cellText.text = dataObj.name;
         cellText.textColor = [Utility colorFromHexString:((RADataObject *)item).textColor];
         [cellText setFont:[UIFont fontWithName:@"微軟正黑體" size:[Utility appHeight]*50]];
+        cellText.lineBreakMode= NSLineBreakByWordWrapping;
         cellText.numberOfLines = 0;
         [cell insertSubview:cellText aboveSubview:cellBackGround];
         
